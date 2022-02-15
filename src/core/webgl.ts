@@ -23,14 +23,15 @@ class WebGL {
 
     const success = this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS);
     if (!success) {
-      this.gl.deleteShader(shader);
+      console.log(source);
+
       throw Error(this.gl.getShaderInfoLog(shader) as string);
     }
 
     return shader;
   }
 
-  public createProgram(vertexShader: string, fragmentShader: string) {
+  public createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
     const program = this.gl.createProgram();
     if (!program) {
       throw Error("Error on creating program!");
@@ -42,7 +43,6 @@ class WebGL {
 
     const success = this.gl.getProgramParameter(program, this.gl.LINK_STATUS);
     if (!success) {
-      this.gl.deleteProgram(program);
       throw Error(this.gl.getProgramInfoLog(program) as string);
     }
 

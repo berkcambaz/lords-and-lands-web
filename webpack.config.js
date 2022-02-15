@@ -13,7 +13,7 @@ module.exports = {
     port: 8080
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json', 'glsl']
+    extensions: ['.ts', '.js', '.json']
   },
   module: {
     rules: [
@@ -30,6 +30,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.glsl/,
+        type: "asset/source"
+      },
+      {
         test: /\.html$/,
         use: [
           {
@@ -39,7 +43,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif|glsl)$/,
+        test: /\.(png|svg|jpg|gif)$/,
         use: ["file-loader"]
       },
       {
