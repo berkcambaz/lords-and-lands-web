@@ -52,7 +52,9 @@ export class Game {
   }
 
   private render() {
+    this.ctx.clearRect(0, 0, this.camera.w, this.camera.h);
 
+    this.tilemap.render();
   }
 
   private addEventListeners() {

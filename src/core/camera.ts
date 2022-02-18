@@ -1,5 +1,4 @@
 import { game } from "..";
-import { Game } from "../game/game";
 
 export class Camera {
   public x: number;
