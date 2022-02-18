@@ -30,10 +30,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.glsl/,
-        type: "asset/source"
-      },
-      {
         test: /\.html$/,
         use: [
           {
