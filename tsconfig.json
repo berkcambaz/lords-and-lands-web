@@ -9,7 +9,6 @@
     "declarationDir": "",
   },
   "include": [
-    "src/**/*",
-    ".d.ts"
+    "src/**/*"
   ]
 }
