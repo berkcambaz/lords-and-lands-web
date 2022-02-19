@@ -1,4 +1,5 @@
 import { Camera } from "../core/camera";
+import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
 import { Tilemap } from "../core/tilemap";
 
@@ -7,6 +8,7 @@ interface GameSignals {
 }
 
 export class Game {
+  public resources!: Resources;
   public camera!: Camera;
   public tilemap!: Tilemap;
 
@@ -32,9 +34,13 @@ export class Game {
 
   public run() {
     // Initialize game core
+    this.resources = new Resources();
     this.camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
     this.tilemap = new Tilemap();
 
+    this.resources.loadSprites();
+
+    // Call resize event before starting the game
     this.signals.onResize.dispatch(window.innerWidth, window.innerHeight);
 
     // Start the game loop

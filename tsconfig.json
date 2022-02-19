@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
+    "module": "CommonJS",
     "target": "ES2015",
     "moduleResolution": "Node",
     "strict": true,
     "declaration": true,
     "rootDir": "src",
-    "declarationDir": "",
+    "declarationDir": ""
   },
   "include": [
     "src/**/*"
