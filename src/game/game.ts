@@ -38,13 +38,17 @@ export class Game {
     this.camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
     this.tilemap = new Tilemap();
 
+    // Load resources
     this.resources.loadSprites();
 
     // Call resize event before starting the game
     this.signals.onResize.dispatch(window.innerWidth, window.innerHeight);
 
-    // Start the game loop
-    this.loop();
+    // Async initializations
+    Promise.resolve()
+      .then(() => this.resources.loadSprites())
+      .then(() => { this.tilemap.generate(10, 10) })
+      .then(() => { this.loop() })
   }
 
   private loop() {

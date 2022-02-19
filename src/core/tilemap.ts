@@ -18,8 +18,15 @@ export class Tilemap {
     this.buffer.canvas.width = this.TILE_SIZE * w;
     this.buffer.canvas.height = this.TILE_SIZE * h;
 
-    for (let i = 0; i < w * h; ++i) {
-      this.tiles.push(new Tile());
+    for (let height = 0; height < h; ++height) {
+      for (let width = 0; width < w; ++width) {
+        this.tiles.push(new Tile(game.resources.SPRITES.ARMY_GREEN_SMALL));
+        this.buffer.drawImage(
+          game.resources.SPRITES.ARMY_GREEN_SMALL,
+          width * this.TILE_SIZE,
+          height * this.TILE_SIZE
+        );
+      }
     }
   }
 
