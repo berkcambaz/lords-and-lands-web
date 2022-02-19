@@ -8,6 +8,7 @@ export class Tilemap {
 
   private buffer: CanvasRenderingContext2D;
   private highlightedProvince: Province | undefined;
+  private selectedProvince: Province | undefined;
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -72,7 +73,7 @@ export class Tilemap {
 
   }
 
-  public highlightTile(province: Province | undefined) {
+  public highlightProvince(province: Province | undefined) {
     // Mouse is not over the tilemap
     if (!province) {
       if (!this.highlightedProvince) return;
@@ -99,6 +100,10 @@ export class Tilemap {
     // Add highlight to new province
     this.highlightedProvince = province;
     this.drawTile(province);
+  }
+
+  public selectProvince(province: Province | undefined) {
+
   }
 
   private chooseOrigins(width: number, height: number, countryCount: number) {

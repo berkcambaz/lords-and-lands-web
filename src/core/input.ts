@@ -29,7 +29,7 @@ export class Input {
     this.mouse.x = ev.x;
     this.mouse.y = ev.y;
 
-    game.tilemap.highlightTile(game.util.worldPosToProvince(this.mouse.x, this.mouse.y));
+    game.tilemap.highlightProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y));
   }
 
   private onMouseDown(ev: MouseEvent) {
@@ -37,8 +37,9 @@ export class Input {
   }
 
   private onMouseUp(ev: MouseEvent) {
-    //if (!this.mouse.moved)
-    //  panelSide.toggle(util.worldPosToProvince(this.mouse.x, this.mouse.y));
+    if (!this.mouse.moved) {
+      game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y))
+    }
 
     this.mouse.pressed = false;
     this.mouse.moved = false;
