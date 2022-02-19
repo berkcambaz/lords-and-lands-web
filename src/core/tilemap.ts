@@ -7,7 +7,7 @@ export class Tilemap {
   public readonly TILE_SIZE = 128;
 
   private buffer: CanvasRenderingContext2D;
-  private highlightedTile: { x: number, y: number } | undefined;
+  private highlightedProvince: Province | undefined;
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -37,7 +37,9 @@ export class Tilemap {
       this.buffer.drawImage(landmarkSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
     }
 
-    if (this.highlightedTile && province.x === this.highlightedTile.x && province.y === this.highlightedTile.y) {
+    if (this.highlightedProvince
+      && province.x === this.highlightedProvince.x
+      && province.y === this.highlightedProvince.y) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECT_WHITE,
         province.x * this.TILE_SIZE,
@@ -73,28 +75,30 @@ export class Tilemap {
   public highlightTile(province: Province | undefined) {
     // Mouse is not over the tilemap
     if (!province) {
-      if (!this.highlightedTile) return;
+      if (!this.highlightedProvince) return;
 
-      const oldTile = this.highlightedTile;
-      this.highlightedTile = undefined;
+      const oldProvince = this.highlightedProvince;
+      this.highlightedProvince = undefined;
 
-      this.drawTile(game.util.tilePosToProvince(oldTile.x, oldTile.y) as Province);
+      this.drawTile(oldProvince);
       return;
     }
 
     const x = province.x;
     const y = province.y;
 
-    // Mouse is still over the same tile
-    if (this.highlightedTile && this.highlightedTile.x === x && this.highlightedTile.y === y)
+    // Mouse is still over the same province
+    if (this.highlightedProvince && this.highlightedProvince.x === x && this.highlightedProvince.y === y)
       return;
 
-    // Remove highlight from old tile & add to the new tile
-    const oldTile = this.highlightedTile;
-    this.highlightedTile = undefined;
-    if (oldTile) this.drawTile(game.util.tilePosToProvince(oldTile.x, oldTile.y) as Province);
-    this.highlightedTile = { x, y };
-    this.drawTile(game.util.tilePosToProvince(x, y) as Province);
+    // Remove highlight from old province
+    const oldProvince = this.highlightedProvince;
+    this.highlightedProvince = undefined;
+    if (oldProvince) this.drawTile(oldProvince);
+
+    // Add highlight to new province
+    this.highlightedProvince = province;
+    this.drawTile(province);
   }
 
   private chooseOrigins(width: number, height: number, countryCount: number) {
