@@ -115,11 +115,12 @@ export class Tilemap {
   }
 
   public selectProvince(province: Province | undefined) {
+    // Un-select the old province
     const oldProvince = this.selectedProvince;
     this.selectedProvince = undefined;
     if (oldProvince) this.drawTile(oldProvince);
 
-
+    // Select the new province if it exists and not the same province as the old one
     if (province && (!oldProvince || oldProvince.x !== province.x || oldProvince.y !== province.y)) {
       this.selectedProvince = province;
       this.drawTile(province);
