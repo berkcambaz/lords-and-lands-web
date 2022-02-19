@@ -1,5 +1,6 @@
 import { Camera } from "../core/camera";
 import { Input } from "../core/input";
+import { Maths } from "../core/maths";
 import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
@@ -10,6 +11,7 @@ interface GameSignals {
 }
 
 export class Game {
+  public maths!: Maths;
   public random!: Random;
   public resources!: Resources;
   public input!: Input;
@@ -38,6 +40,7 @@ export class Game {
 
   public run() {
     // Initialize game core
+    this.maths = new Maths();
     this.random = new Random();
     this.resources = new Resources();
     this.input = new Input();

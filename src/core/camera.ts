@@ -6,6 +6,7 @@ export class Camera {
   public w: number;
   public h: number;
   public zoom: number;
+  private zoomPoint: { x: number, y: number };
 
   constructor(x: number, y: number, w: number, h: number) {
     this.x = x;
@@ -13,12 +14,28 @@ export class Camera {
     this.w = w;
     this.h = h;
     this.zoom = 1;
+    this.zoomPoint = { x: this.w / (this.zoom * 2), y: this.h / (this.zoom * 2) }
 
     game.signals.onResize.add(this.onResize);
   }
 
-  public setZoom(zoom: number) {
-    this.zoom = zoom;
+  public setZoom(delta: number) {
+    const dt = Math.sign(-delta) * 0.05;
+    this.zoom = game.maths.clamp(this.zoom + dt, 0.50, 1);
+
+    game.ctx.setTransform(this.zoom, 0, 0, this.zoom, 0, 0);
+
+    const newZoomPointX = window.innerWidth / (this.zoom * 2);
+    const newZoomPointY = window.innerHeight / (this.zoom * 2);
+
+    this.x -= -this.zoomPoint.x + newZoomPointX;
+    this.y -= -this.zoomPoint.y + newZoomPointY;
+
+    this.zoomPoint.x = newZoomPointX;
+    this.zoomPoint.y = newZoomPointY;
+
+    this.w = window.innerWidth / this.zoom;
+    this.h = window.innerHeight / this.zoom;
   }
 
   private onResize(w: number, h: number) {

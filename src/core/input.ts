@@ -10,6 +10,7 @@ export class Input {
     game.canvas.addEventListener("mousedown", (ev) => { this.onMouseDown(ev) })
     game.canvas.addEventListener("mouseup", (ev) => { this.onMouseUp(ev) })
     game.canvas.addEventListener("mouseleave", (ev) => { this.onMouseLeave(ev) })
+    game.canvas.addEventListener("wheel", (ev) => { this.onWheel(ev) })
   }
 
   private onMouseMove(ev: MouseEvent) {
@@ -38,5 +39,9 @@ export class Input {
 
   private onMouseLeave(ev: MouseEvent) {
     this.mouse.pressed = false;
+  }
+
+  private onWheel(ev: WheelEvent) {
+    game.camera.setZoom(ev.deltaY);
   }
 }
