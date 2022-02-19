@@ -30,7 +30,7 @@ export class Tilemap {
     this.buffer.drawImage(
       game.util.provinceToSprite(province),
       province.x * this.TILE_SIZE,
-      province.y * this.TILE_SIZE,
+      province.y * this.TILE_SIZE
     )
   }
 

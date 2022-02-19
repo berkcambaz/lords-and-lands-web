@@ -54,9 +54,6 @@ export class Game {
     this.tilemap = new Tilemap();
     this.gameplay = new Gameplay();
 
-    // Load resources
-    this.resources.loadSprites();
-
     // Call resize event before starting the game
     this.signals.onResize.dispatch(window.innerWidth, window.innerHeight);
 
