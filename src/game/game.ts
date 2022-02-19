@@ -1,4 +1,5 @@
 import { Camera } from "../core/camera";
+import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
 import { Tilemap } from "../core/tilemap";
@@ -8,6 +9,7 @@ interface GameSignals {
 }
 
 export class Game {
+  public random!: Random;
   public resources!: Resources;
   public camera!: Camera;
   public tilemap!: Tilemap;
@@ -34,6 +36,7 @@ export class Game {
 
   public run() {
     // Initialize game core
+    this.random = new Random();
     this.resources = new Resources();
     this.camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
     this.tilemap = new Tilemap();
@@ -47,7 +50,7 @@ export class Game {
     // Async initializations
     Promise.resolve()
       .then(() => this.resources.loadSprites())
-      .then(() => { this.tilemap.generate(10, 10) })
+      .then(() => { this.tilemap.generate(10, 10, 4) })
       .then(() => { this.loop() })
   }
 
