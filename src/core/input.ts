@@ -87,8 +87,9 @@ export class Input {
   private onTouchEnd(ev: TouchEvent) {
     ev.preventDefault();
 
-    //if (!this.mouse.moved)
-    //  panelSide.toggle(util.worldPosToProvince(this.mouse.x, this.mouse.y));
+    if (!this.mouse.moved) {
+      game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y))
+    }
 
     this.mouse.pressed = false;
     this.mouse.moved = false;
@@ -98,5 +99,7 @@ export class Input {
     ev.preventDefault();
 
     this.mouse.pressed = false;
+
+    game.tilemap.highlightProvince(undefined);
   }
 }

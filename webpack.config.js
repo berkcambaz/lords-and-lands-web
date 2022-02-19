@@ -4,8 +4,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/index.ts",
+  output: {
+    filename: "index.js",
+    path: __dirname + "/public"
+  },
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -40,7 +44,10 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"]
+        use: [{
+          loader: "file-loader",
+          options: { outputPath: "images" }
+        }]
       },
       {
         test: /\.(scss|css)/,

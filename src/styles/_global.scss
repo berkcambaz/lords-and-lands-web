@@ -14,3 +14,19 @@ body {
 canvas {
   display: block;
 }
+
+.army--green {
+  background-image: url("/res/sprites/army/green_big.png");
+}
+
+.army--purple {
+  background-image: url("/res/sprites/army/purple_big.png");
+}
+
+.army--red {
+  background-image: url("/res/sprites/army/red_big.png");
+}
+
+.army--yellow {
+  background-image: url("/res/sprites/army/yellow_big.png");
+}
