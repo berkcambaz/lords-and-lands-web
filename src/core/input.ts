@@ -11,6 +11,11 @@ export class Input {
     game.canvas.addEventListener("mouseup", (ev) => { this.onMouseUp(ev) })
     game.canvas.addEventListener("mouseleave", (ev) => { this.onMouseLeave(ev) })
     game.canvas.addEventListener("wheel", (ev) => { this.onWheel(ev) })
+
+    game.canvas.addEventListener("touchmove", (ev) => { this.onTouchMove(ev) })
+    game.canvas.addEventListener("touchstart", (ev) => { this.onTouchStart(ev) })
+    game.canvas.addEventListener("touchend", (ev) => { this.onTouchEnd(ev) })
+    game.canvas.addEventListener("touchcancel", (ev) => { this.onTouchCancel(ev) })
   }
 
   private onMouseMove(ev: MouseEvent) {
@@ -23,6 +28,8 @@ export class Input {
 
     this.mouse.x = ev.x;
     this.mouse.y = ev.y;
+
+    //tilemap.highlightTile(util.worldToTilePos(this.mouse.x, this.mouse.y));
   }
 
   private onMouseDown(ev: MouseEvent) {
@@ -43,5 +50,50 @@ export class Input {
 
   private onWheel(ev: WheelEvent) {
     game.camera.setZoom(ev.deltaY);
+  }
+
+  private onTouchMove(ev: TouchEvent) {
+    ev.preventDefault();
+
+    const x = ev.touches[0].clientX;
+    const y = ev.touches[0].clientY;
+
+    if (this.mouse.pressed) {
+      game.camera.x += (this.mouse.x - x) / game.camera.zoom;
+      game.camera.y += (this.mouse.y - y) / game.camera.zoom;
+
+      this.mouse.moved = true;
+    }
+
+    this.mouse.x = x;
+    this.mouse.y = y;
+
+    //tilemap.highlightTile(util.worldToTilePos(this.mouse.x, this.mouse.y));
+  }
+
+  private onTouchStart(ev: TouchEvent) {
+    ev.preventDefault();
+
+    const rect = game.canvas.getBoundingClientRect();
+    this.mouse.x = ev.touches[0].clientX - rect.left;
+    this.mouse.y = ev.touches[0].clientY - rect.top;
+
+    this.mouse.pressed = true;
+  }
+
+  private onTouchEnd(ev: TouchEvent) {
+    ev.preventDefault();
+
+    //if (!this.mouse.moved)
+    //  panelSide.toggle(util.worldPosToProvince(this.mouse.x, this.mouse.y));
+
+    this.mouse.pressed = false;
+    this.mouse.moved = false;
+  }
+
+  private onTouchCancel(ev: TouchEvent) {
+    ev.preventDefault();
+
+    this.mouse.pressed = false;
   }
 }

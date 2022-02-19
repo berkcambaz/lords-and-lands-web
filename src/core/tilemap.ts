@@ -26,11 +26,18 @@ export class Tilemap {
           width * this.TILE_SIZE,
           height * this.TILE_SIZE
         );
+        this.buffer.drawImage(
+          game.resources.SPRITES.ARMY_GREEN_SMALL,
+          width * this.TILE_SIZE,
+          height * this.TILE_SIZE
+        );
       }
     }
   }
 
   public render() {
+    // TODO: Only render what is seen, since iOS Safari crashes if you try to 
+    // render an image out of bounds
     game.ctx.drawImage(
       this.buffer.canvas,
       game.camera.x,
