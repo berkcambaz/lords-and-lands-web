@@ -47,10 +47,12 @@ export class Input {
 
   private onMouseLeave(ev: MouseEvent) {
     this.mouse.pressed = false;
+
+    game.tilemap.highlightProvince(undefined);
   }
 
   private onWheel(ev: WheelEvent) {
-    game.camera.setZoom(ev.deltaY);
+    //game.camera.setZoom(ev.deltaY);
   }
 
   private onTouchMove(ev: TouchEvent) {
