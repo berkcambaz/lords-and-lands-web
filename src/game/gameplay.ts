@@ -20,13 +20,7 @@ export class Gameplay {
       this.countries[i] = new Country(countries[i], 10, 1, 0, 3);
     }
 
-    for (let y = 0; y < height; ++y) {
-      for (let x = 0; x < width; ++x) {
-        this.provinces[x + width * y] = new Province(x, y);
-      }
-    }
-
-    game.tilemap.generate(width, height, seed);
+    game.tilemap.generate(width, height, seed, this.countries, this.provinces);
   }
 
   public start() {

@@ -5,6 +5,7 @@ import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
 import { Tilemap } from "../core/tilemap";
+import { Util } from "../core/util";
 import { Country, COUNTRY_ID } from "./country";
 import { Gameplay } from "./gameplay";
 
@@ -13,6 +14,7 @@ interface GameSignals {
 }
 
 export class Game {
+  public util!: Util;
   public maths!: Maths;
   public random!: Random;
   public resources!: Resources;
@@ -43,6 +45,7 @@ export class Game {
 
   public run() {
     // Initialize game core
+    this.util = new Util();
     this.maths = new Maths();
     this.random = new Random();
     this.resources = new Resources();
