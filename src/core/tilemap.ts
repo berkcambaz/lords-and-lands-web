@@ -7,6 +7,7 @@ export class Tilemap {
   public readonly TILE_SIZE = 128;
 
   private buffer: CanvasRenderingContext2D;
+  private highlightedTile: { x: number, y: number } | undefined;
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -35,6 +36,14 @@ export class Tilemap {
     if (landmarkSprite) {
       this.buffer.drawImage(landmarkSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
     }
+
+    if (this.highlightedTile && province.x === this.highlightedTile.x && province.y === this.highlightedTile.y) {
+      this.buffer.drawImage(
+        game.resources.SPRITES.TILEMAP_SELECT_WHITE,
+        province.x * this.TILE_SIZE,
+        province.y * this.TILE_SIZE
+      );
+    }
   }
 
   public render() {
@@ -59,6 +68,33 @@ export class Tilemap {
 
   public load() {
 
+  }
+
+  public highlightTile(province: Province | undefined) {
+    // Mouse is not over the tilemap
+    if (!province) {
+      if (!this.highlightedTile) return;
+
+      const oldTile = this.highlightedTile;
+      this.highlightedTile = undefined;
+
+      this.drawTile(game.util.tilePosToProvince(oldTile.x, oldTile.y) as Province);
+      return;
+    }
+
+    const x = province.x;
+    const y = province.y;
+
+    // Mouse is still over the same tile
+    if (this.highlightedTile && this.highlightedTile.x === x && this.highlightedTile.y === y)
+      return;
+
+    // Remove highlight from old tile & add to the new tile
+    const oldTile = this.highlightedTile;
+    this.highlightedTile = undefined;
+    if (oldTile) this.drawTile(game.util.tilePosToProvince(oldTile.x, oldTile.y) as Province);
+    this.highlightedTile = { x, y };
+    this.drawTile(game.util.tilePosToProvince(x, y) as Province);
   }
 
   private chooseOrigins(width: number, height: number, countryCount: number) {

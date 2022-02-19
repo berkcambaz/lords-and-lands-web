@@ -15,6 +15,10 @@ import LANDMARK_HOUSE from "../../res/sprites/landmarks/house.png";
 import LANDMARK_MOUNTAINS from "../../res/sprites/landmarks/mountains.png";
 import LANDMARK_TOWER from "../../res/sprites/landmarks/tower.png";
 
+import TILEMAP_SELECT_GRAY from "../../res/sprites/tilemap/select_gray.png";
+import TILEMAP_SELECT_WHITE from "../../res/sprites/tilemap/select_white.png";
+import TILEMAP_SELECTED from "../../res/sprites/tilemap/selected.png";
+
 const sprites = {
   ARMY_GREEN_SMALL,
   ARMY_RED_SMALL,
@@ -32,6 +36,10 @@ const sprites = {
   LANDMARK_HOUSE,
   LANDMARK_MOUNTAINS,
   LANDMARK_TOWER,
+
+  TILEMAP_SELECT_GRAY,
+  TILEMAP_SELECT_WHITE,
+  TILEMAP_SELECTED,
 }
 
 type SPRITES = { [key in keyof typeof sprites]: HTMLImageElement };

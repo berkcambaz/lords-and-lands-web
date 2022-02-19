@@ -29,7 +29,7 @@ export class Input {
     this.mouse.x = ev.x;
     this.mouse.y = ev.y;
 
-    //tilemap.highlightTile(util.worldToTilePos(this.mouse.x, this.mouse.y));
+    game.tilemap.highlightTile(game.util.worldPosToProvince(this.mouse.x, this.mouse.y));
   }
 
   private onMouseDown(ev: MouseEvent) {

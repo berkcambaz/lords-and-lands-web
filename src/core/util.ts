@@ -40,4 +40,21 @@ export class Util {
         throw Error(`Country with id ${province.country.id} doesn't exist.`);
     }
   }
+
+  public worldPosToProvince(x: number, y: number) {
+    x = Math.floor((x + game.camera.x * game.camera.zoom) / (game.tilemap.TILE_SIZE * game.camera.zoom))
+    y = Math.floor((y + game.camera.y * game.camera.zoom) / (game.tilemap.TILE_SIZE * game.camera.zoom))
+
+    return this.tilePosToProvince(x, y);
+  }
+
+  public tilePosToProvince(x: number, y: number) {
+    if (!game.gameplay.width || !game.gameplay.height)
+      return undefined;
+
+    if (x < 0 || x > game.gameplay.width - 1 || y < 0 || y > game.gameplay.height - 1)
+      return undefined;
+
+    return game.gameplay.provinces[x + game.gameplay.width * y];
+  }
 }
