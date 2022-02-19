@@ -5,6 +5,8 @@ import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
 import { Tilemap } from "../core/tilemap";
+import { Country, COUNTRY_ID } from "./country";
+import { Gameplay } from "./gameplay";
 
 interface GameSignals {
   onResize: Signal<[w: number, h: number]>
@@ -17,6 +19,7 @@ export class Game {
   public input!: Input;
   public camera!: Camera;
   public tilemap!: Tilemap;
+  public gameplay!: Gameplay;
 
   public signals: GameSignals;
 
@@ -46,6 +49,7 @@ export class Game {
     this.input = new Input();
     this.camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
     this.tilemap = new Tilemap();
+    this.gameplay = new Gameplay();
 
     // Load resources
     this.resources.loadSprites();
@@ -56,7 +60,7 @@ export class Game {
     // Async initializations
     Promise.resolve()
       .then(() => this.resources.loadSprites())
-      .then(() => { this.tilemap.generate(10, 10, 4) })
+      .then(() => { this.gameplay.create(10, 10, 0, [COUNTRY_ID.GREEN, COUNTRY_ID.PURPLE, COUNTRY_ID.RED, COUNTRY_ID.YELLOW]) })
       .then(() => { this.loop() })
   }
 

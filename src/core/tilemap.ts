@@ -1,4 +1,5 @@
 import { game } from "..";
+import { Country } from "../game/country";
 import { Tile } from "./tile";
 
 export class Tilemap {
@@ -13,26 +14,14 @@ export class Tilemap {
     this.buffer = buffer;
   }
 
-  public generate(w: number, h: number, countries: number) {
+  public generate(width: number, height: number, seed: number) {
     this.tiles = [];
-    this.buffer.canvas.width = this.TILE_SIZE * w;
-    this.buffer.canvas.height = this.TILE_SIZE * h;
+    this.buffer.canvas.width = this.TILE_SIZE * width;
+    this.buffer.canvas.height = this.TILE_SIZE * height;
 
-    for (let height = 0; height < h; ++height) {
-      for (let width = 0; width < w; ++width) {
-        this.tiles.push(new Tile(game.resources.SPRITES.TILE_GREEN));
-        this.buffer.drawImage(
-          game.resources.SPRITES.TILE_GREEN,
-          width * this.TILE_SIZE,
-          height * this.TILE_SIZE
-        );
-        this.buffer.drawImage(
-          game.resources.SPRITES.ARMY_GREEN_SMALL,
-          width * this.TILE_SIZE,
-          height * this.TILE_SIZE
-        );
-      }
-    }
+    this.chooseOrigins();
+    this.chooseProvinces();
+    this.sprinkleNature();
   }
 
   public render() {
@@ -56,6 +45,18 @@ export class Tilemap {
   }
 
   public load() {
+
+  }
+
+  private chooseOrigins() {
+
+  }
+
+  private chooseProvinces() {
+
+  }
+
+  private sprinkleNature() {
 
   }
 }
