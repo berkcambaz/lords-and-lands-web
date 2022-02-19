@@ -1,5 +1,6 @@
 import { game } from "..";
 import { Country } from "../game/country";
+import { Landmark, LANDMARK_ID } from "../game/landmark";
 import { Province } from "../game/province";
 
 export class Tilemap {
@@ -19,7 +20,7 @@ export class Tilemap {
 
     const origins = this.chooseOrigins(width, height, countries.length);
     this.chooseProvinces(width, height, countries, provinces, origins);
-    this.sprinkleNature();
+    this.sprinkleNature(width, height, provinces);
 
     for (let i = 0; i < provinces.length; ++i) {
       this.drawTile(provinces[i]);
@@ -27,11 +28,13 @@ export class Tilemap {
   }
 
   public drawTile(province: Province) {
-    this.buffer.drawImage(
-      game.util.provinceToSprite(province),
-      province.x * this.TILE_SIZE,
-      province.y * this.TILE_SIZE
-    )
+    const provinceSprite = game.util.provinceToSprite(province);
+    this.buffer.drawImage(provinceSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
+
+    const landmarkSprite = game.util.provinceToLandmarkSprite(province);
+    if (landmarkSprite) {
+      this.buffer.drawImage(landmarkSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
+    }
   }
 
   public render() {
@@ -99,16 +102,16 @@ export class Tilemap {
 
         if (originY - 1 > -1 && !provinces[upIndex]) {
           origins[countryId].push({ x: originX, y: originY - 1 })
-          provinces[upIndex] = new Province(originX, originY - 1, countries[countryId]);
+          provinces[upIndex] = new Province(originX, originY - 1, countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originX + 1 < width && !provinces[rightIndex]) {
           origins[countryId].push({ x: originX + 1, y: originY })
-          provinces[rightIndex] = new Province(originX + 1, originY, countries[countryId]);
+          provinces[rightIndex] = new Province(originX + 1, originY, countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originY + 1 < height && !provinces[downIndex]) {
           origins[countryId].push({ x: originX, y: originY + 1 })
-          provinces[downIndex] = new Province(originX, originY + 1, countries[countryId]);
+          provinces[downIndex] = new Province(originX, originY + 1, countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originX - 1 > -1 && !provinces[leftIndex]) {
           origins[countryId].push({ x: originX - 1, y: originY })
-          provinces[leftIndex] = new Province(originX - 1, originY, countries[countryId]);
+          provinces[leftIndex] = new Province(originX - 1, originY, countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else {
           origins[countryId].splice(0, 1);
         }
@@ -118,7 +121,15 @@ export class Tilemap {
     }
   }
 
-  private sprinkleNature() {
-
+  private sprinkleNature(width: number, height: number, provinces: Province[]) {
+    for (let y = 0; y < height; ++y) {
+      for (let x = 0; x < width; ++x) {
+        provinces[x + y * width].landmark.id = game.random.percent([
+          { percent: 10, result: LANDMARK_ID.MOUNTAINS },
+          { percent: 15, result: LANDMARK_ID.FOREST },
+          { percent: 75, result: LANDMARK_ID.NONE }
+        ])
+      }
+    }
   }
 }
