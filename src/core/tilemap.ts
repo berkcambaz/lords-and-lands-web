@@ -30,12 +30,24 @@ export class Tilemap {
   }
 
   public drawTile(province: Province) {
+    this.buffer.clearRect(province.x * this.TILE_SIZE, province.y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
+
     const provinceSprite = game.util.provinceToSprite(province);
     this.buffer.drawImage(provinceSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
 
     const landmarkSprite = game.util.provinceToLandmarkSprite(province);
     if (landmarkSprite) {
       this.buffer.drawImage(landmarkSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
+    }
+
+    if (this.selectedProvince
+      && province.x === this.selectedProvince.x
+      && province.y === this.selectedProvince.y) {
+      this.buffer.drawImage(
+        game.resources.SPRITES.TILEMAP_SELECTED,
+        province.x * this.TILE_SIZE,
+        province.y * this.TILE_SIZE
+      );
     }
 
     if (this.highlightedProvince
@@ -103,7 +115,15 @@ export class Tilemap {
   }
 
   public selectProvince(province: Province | undefined) {
+    const oldProvince = this.selectedProvince;
+    this.selectedProvince = undefined;
+    if (oldProvince) this.drawTile(oldProvince);
 
+
+    if (province && (!oldProvince || oldProvince.x !== province.x || oldProvince.y !== province.y)) {
+      this.selectedProvince = province;
+      this.drawTile(province);
+    }
   }
 
   private chooseOrigins(width: number, height: number, countryCount: number) {
