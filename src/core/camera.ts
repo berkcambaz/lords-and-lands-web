@@ -16,7 +16,7 @@ export class Camera {
     this.zoom = 1;
     this.zoomPoint = { x: this.w / (this.zoom * 2), y: this.h / (this.zoom * 2) }
 
-    game.signals.onResize.add(this.onResize);
+    game.signals.onResize.add((w, h) => { this.onResize(w, h) });
   }
 
   public setZoom(delta: number) {
@@ -39,10 +39,16 @@ export class Camera {
   }
 
   private onResize(w: number, h: number) {
-    this.w = w;
-    this.h = h;
 
     game.canvas.width = w;
     game.canvas.height = h;
+
+    game.ctx.setTransform(this.zoom, 0, 0, this.zoom, 0, 0);
+
+    this.w = w / this.zoom;
+    this.h = h / this.zoom;
+
+    this.zoomPoint.x = w / (this.zoom * 2);
+    this.zoomPoint.y = h / (this.zoom * 2);
   }
 }
