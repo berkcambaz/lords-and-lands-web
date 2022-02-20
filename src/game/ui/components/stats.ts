@@ -24,10 +24,10 @@ export class Component_Stats extends UI_Component {
     return `
       <img class="img--country" src="${game.util.countryIdToSprite(this.state.countryId)}" />
       <div class="info">
-        <span>Gold: 0</span>
-        <span>Income: 0</span>
-        <span>Army: 0</span>
-        <span>Manpower: 0</span>
+        <span>Gold: ${this.state.gold}</span>
+        <span>Income: ${this.state.income}</span>
+        <span>Army: ${this.state.army}</span>
+        <span>Manpower: ${this.state.manpower}</span>
       </div>
     `;
   }

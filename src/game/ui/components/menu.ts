@@ -136,9 +136,6 @@ export class Component_Menu extends UI_Component {
       this.clear();
 
       game.gameplay.start();
-
-      // Enable stats ui
-      game.ui.stats.render();
     })
   }
 

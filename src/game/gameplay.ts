@@ -9,7 +9,7 @@ export class Gameplay {
   public height!: number;
   public seed!: number;
 
-  public turn!: COUNTRY_ID;
+  public currentCountry!: Country;
 
   public create(width: number, height: number, seed: number, countries: COUNTRY_ID[]) {
     this.countries = [];
@@ -27,14 +27,31 @@ export class Gameplay {
 
   public start() {
     // First country's turn
-    this.turn = this.countries[0].id;
+    this.currentCountry = this.countries[0];
+
+    // Render the stats ui
+    game.ui.stats.render({
+      countryId: this.currentCountry.id,
+      gold: this.currentCountry.gold,
+      income: this.currentCountry.income,
+      army: this.currentCountry.army,
+      manpower: this.currentCountry.manpower
+    })
+  }
+
+  public nextTurn() {
+
+  }
+
+  public previousTurn() {
+    // TODO: Implement
   }
 
   public save() {
-
+    // TODO: Implement
   }
 
   public load() {
-
+    // TODO: Implement
   }
 }
