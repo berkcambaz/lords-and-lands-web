@@ -115,10 +115,12 @@ export class Component_Menu extends UI_Component {
     })
 
     this.state.buttonGenerate()?.addEventListener("click", (ev) => {
-      game.gameplay.create(
-        this.state.width,
-        this.state.height,
-        0, [COUNTRY_ID.GREEN, COUNTRY_ID.PURPLE, COUNTRY_ID.RED, COUNTRY_ID.YELLOW])
+      const countries: COUNTRY_ID[] = [];
+      for (let i = 0; i < this.state.countries.length; ++i) {
+        if (this.state.countries[i]) countries.push(i);
+      }
+
+      game.gameplay.create(this.state.width, this.state.height, 0, countries)
     })
     this.state.buttonStart()?.addEventListener("click", (ev) => {
       game.gameplay.start();
