@@ -60,11 +60,12 @@ export class Tilemap {
     }
 
     if (this.highlightedProvince && Vec2.equals(province.pos, this.highlightedProvince.pos)) {
-      this.buffer.drawImage(
-        game.resources.SPRITES.TILEMAP_SELECT_WHITE,
-        province.pos.x * this.TILE_SIZE,
-        province.pos.y * this.TILE_SIZE
-      );
+      if (!this.selectedProvince || !Vec2.equals(province.pos, this.selectedProvince.pos))
+        this.buffer.drawImage(
+          game.resources.SPRITES.TILEMAP_SELECT_WHITE,
+          province.pos.x * this.TILE_SIZE,
+          province.pos.y * this.TILE_SIZE
+        );
     }
   }
 
