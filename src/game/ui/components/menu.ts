@@ -135,6 +135,7 @@ export class Component_Menu extends UI_Component {
   }
 
   public clear() {
-
+    const elem = document.getElementById("menu");
+    if (elem) elem.parentElement?.removeChild(elem);
   }
 }
