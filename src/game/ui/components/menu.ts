@@ -96,21 +96,21 @@ export class Component_Menu extends UI_Component {
 
     // Initialize width elements
     this.state.buttonWidthIncrease()?.addEventListener("click", (ev) => {
-      ++this.state.width;
+      this.state.width = game.maths.clamp(this.state.width + 1, 5, 25);
       (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
     })
     this.state.buttonWidthDecrease()?.addEventListener("click", (ev) => {
-      --this.state.width;
+      this.state.width = game.maths.clamp(this.state.width - 1, 5, 25);
       (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
     })
 
     // Initialize height elements
     this.state.buttonHeightIncrease()?.addEventListener("click", (ev) => {
-      ++this.state.height;
+      this.state.height = game.maths.clamp(this.state.height + 1, 5, 25);
       (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
     })
     this.state.buttonHeightDecrease()?.addEventListener("click", (ev) => {
-      --this.state.height;
+      this.state.height = game.maths.clamp(this.state.height - 1, 5, 25);
       (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
     })
 
@@ -119,6 +119,9 @@ export class Component_Menu extends UI_Component {
       for (let i = 0; i < this.state.countries.length; ++i) {
         if (this.state.countries[i]) countries.push(i);
       }
+
+      // There has to be at least 2 countries 
+      if (countries.length < 2) return;
 
       game.gameplay.create(this.state.width, this.state.height, 0, countries)
     })
