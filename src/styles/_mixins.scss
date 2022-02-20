@@ -1,1 +1,11 @@
 @import "variables";
+
+@mixin space_between($a, $b) {
+  :nth-child(n) {
+    margin: $a $b;
+  }
+
+  :nth-child(1) {
+    margin: 0;
+  }
+}
