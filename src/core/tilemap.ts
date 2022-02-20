@@ -2,6 +2,7 @@ import { game } from "..";
 import { Country } from "../game/country";
 import { Landmark, LANDMARK_ID } from "../game/landmark";
 import { Province } from "../game/province";
+import { Vec2 } from "./vec2";
 
 export class Tilemap {
   public readonly TILE_SIZE = 128;
@@ -30,33 +31,39 @@ export class Tilemap {
   }
 
   public drawTile(province: Province) {
-    this.buffer.clearRect(province.x * this.TILE_SIZE, province.y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
+    this.buffer.clearRect(
+      province.pos.x * this.TILE_SIZE,
+      province.pos.y * this.TILE_SIZE,
+      this.TILE_SIZE, this.TILE_SIZE
+    );
 
     const provinceSprite = game.util.provinceToSprite(province);
-    this.buffer.drawImage(provinceSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
+    this.buffer.drawImage(provinceSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
 
     const landmarkSprite = game.util.provinceToLandmarkSprite(province);
     if (landmarkSprite) {
-      this.buffer.drawImage(landmarkSprite, province.x * this.TILE_SIZE, province.y * this.TILE_SIZE)
+      this.buffer.drawImage(landmarkSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
     }
 
-    if (this.selectedProvince
-      && province.x === this.selectedProvince.x
-      && province.y === this.selectedProvince.y) {
+    if (this.selectedProvince && Vec2.equals(province.pos, this.selectedProvince.pos)) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECTED,
-        province.x * this.TILE_SIZE,
-        province.y * this.TILE_SIZE
+        province.pos.x * this.TILE_SIZE,
+        province.pos.y * this.TILE_SIZE
+      );
+
+      this.buffer.drawImage(
+        game.resources.SPRITES.TILEMAP_SELECT_GRAY,
+        province.pos.x * this.TILE_SIZE,
+        province.pos.y * this.TILE_SIZE
       );
     }
 
-    if (this.highlightedProvince
-      && province.x === this.highlightedProvince.x
-      && province.y === this.highlightedProvince.y) {
+    if (this.highlightedProvince && Vec2.equals(province.pos, this.highlightedProvince.pos)) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECT_WHITE,
-        province.x * this.TILE_SIZE,
-        province.y * this.TILE_SIZE
+        province.pos.x * this.TILE_SIZE,
+        province.pos.y * this.TILE_SIZE
       );
     }
   }
@@ -97,11 +104,8 @@ export class Tilemap {
       return;
     }
 
-    const x = province.x;
-    const y = province.y;
-
     // Mouse is still over the same province
-    if (this.highlightedProvince && this.highlightedProvince.x === x && this.highlightedProvince.y === y)
+    if (this.highlightedProvince && Vec2.equals(this.highlightedProvince.pos, province.pos))
       return;
 
     // Remove highlight from old province
@@ -121,7 +125,7 @@ export class Tilemap {
     if (oldProvince) this.drawTile(oldProvince);
 
     // Select the new province if it exists and not the same province as the old one
-    if (province && (!oldProvince || oldProvince.x !== province.x || oldProvince.y !== province.y)) {
+    if (province && (!oldProvince || !Vec2.equals(oldProvince.pos, province.pos))) {
       this.selectedProvince = province;
       this.drawTile(province);
     }
@@ -143,8 +147,7 @@ export class Tilemap {
 
     for (let i = 0; i < countries.length; ++i) {
       provinces[origins[i][0].x + origins[i][0].y * width] = new Province(
-        origins[i][0].x,
-        origins[i][0].y,
+        new Vec2(origins[i][0].x, origins[i][0].y),
         countries[i],
         new Landmark(LANDMARK_ID.NONE)
       );
@@ -177,16 +180,16 @@ export class Tilemap {
 
         if (originY - 1 > -1 && !provinces[upIndex]) {
           origins[countryId].push({ x: originX, y: originY - 1 })
-          provinces[upIndex] = new Province(originX, originY - 1, countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[upIndex] = new Province(new Vec2(originX, originY - 1), countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originX + 1 < width && !provinces[rightIndex]) {
           origins[countryId].push({ x: originX + 1, y: originY })
-          provinces[rightIndex] = new Province(originX + 1, originY, countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[rightIndex] = new Province(new Vec2(originX + 1, originY), countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originY + 1 < height && !provinces[downIndex]) {
           origins[countryId].push({ x: originX, y: originY + 1 })
-          provinces[downIndex] = new Province(originX, originY + 1, countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[downIndex] = new Province(new Vec2(originX, originY + 1), countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else if (originX - 1 > -1 && !provinces[leftIndex]) {
           origins[countryId].push({ x: originX - 1, y: originY })
-          provinces[leftIndex] = new Province(originX - 1, originY, countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[leftIndex] = new Province(new Vec2(originX - 1, originY), countries[countryId], new Landmark(LANDMARK_ID.NONE));
         } else {
           origins[countryId].splice(0, 1);
         }

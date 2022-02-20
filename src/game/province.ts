@@ -1,16 +1,15 @@
+import { Vec2 } from "../core/vec2";
 import { Country } from "./country";
 import { Landmark } from "./landmark";
 
 export class Province {
-  public x: number;
-  public y: number;
+  public pos: Vec2;
 
   public country: Country;
   public landmark: Landmark;
 
-  constructor(x: number, y: number, country: Country, landmark: Landmark) {
-    this.x = x;
-    this.y = y;
+  constructor(pos: Vec2, country: Country, landmark: Landmark) {
+    this.pos = pos;
     this.country = country;
     this.landmark = landmark;
   }
