@@ -20,7 +20,7 @@ export class Tilemap {
     this.buffer.canvas.width = this.TILE_SIZE * width;
     this.buffer.canvas.height = this.TILE_SIZE * height;
 
-    const origins = this.chooseOrigins(width, height, countries.length);
+    const origins = this.chooseOrigins(width, height, countries, provinces);
     this.chooseProvinces(width, height, countries, provinces, origins);
     this.sprinkleNature(width, height, provinces);
 
@@ -127,10 +127,10 @@ export class Tilemap {
     }
   }
 
-  private chooseOrigins(width: number, height: number, countryCount: number) {
+  private chooseOrigins(width: number, height: number, countries: Country[], provinces: Province[]) {
     const origins: { x: number, y: number }[][] = [];
 
-    for (let i = 0; i < countryCount; ++i) {
+    for (let i = 0; i < countries.length; ++i) {
       origins[i] = [{ x: game.random.number(0, width), y: game.random.number(0, height) }];
 
       for (let j = i - 1; j >= 0; --j) {
@@ -139,6 +139,15 @@ export class Tilemap {
           break;
         }
       }
+    }
+
+    for (let i = 0; i < countries.length; ++i) {
+      provinces[origins[i][0].x + origins[i][0].y * width] = new Province(
+        origins[i][0].x,
+        origins[i][0].y,
+        countries[i],
+        new Landmark(LANDMARK_ID.NONE)
+      );
     }
 
     return origins;
