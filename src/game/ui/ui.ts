@@ -12,6 +12,6 @@ export class UI {
 
   public init() {
     this.menu.render();
-    this.stats.render();
+    //this.stats.render();
   }
 }
