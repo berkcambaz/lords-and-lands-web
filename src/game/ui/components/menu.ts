@@ -1,4 +1,5 @@
 import { game } from "../../..";
+import { COUNTRY_ID } from "../../country";
 import { UI_Component } from "../ui_component";
 
 export class Component_Menu extends UI_Component {
@@ -75,7 +76,7 @@ export class Component_Menu extends UI_Component {
     this.container.innerHTML = this.html();
     document.body.appendChild(this.container);
 
-    // Initialize elements
+    // Initialize country buttons
     this.state.buttonCountryGreen()?.addEventListener("click", (ev) => {
       this.state.countries[0] = !this.state.countries[0];
       (this.state.buttonCountryGreen() as HTMLElement).classList.toggle("disabled");
@@ -93,6 +94,7 @@ export class Component_Menu extends UI_Component {
       (this.state.buttonCountryYellow() as HTMLElement).classList.toggle("disabled");
     })
 
+    // Initialize width elements
     this.state.buttonWidthIncrease()?.addEventListener("click", (ev) => {
       ++this.state.width;
       (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
@@ -102,6 +104,7 @@ export class Component_Menu extends UI_Component {
       (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
     })
 
+    // Initialize height elements
     this.state.buttonHeightIncrease()?.addEventListener("click", (ev) => {
       ++this.state.height;
       (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
@@ -109,6 +112,16 @@ export class Component_Menu extends UI_Component {
     this.state.buttonHeightDecrease()?.addEventListener("click", (ev) => {
       --this.state.height;
       (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
+    })
+
+    this.state.buttonGenerate()?.addEventListener("click", (ev) => {
+      game.gameplay.create(
+        this.state.width,
+        this.state.height,
+        0, [COUNTRY_ID.GREEN, COUNTRY_ID.PURPLE, COUNTRY_ID.RED, COUNTRY_ID.YELLOW])
+    })
+    this.state.buttonStart()?.addEventListener("click", (ev) => {
+      game.gameplay.start();
     })
   }
 

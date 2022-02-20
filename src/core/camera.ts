@@ -13,7 +13,7 @@ export class Camera {
     this.y = y;
     this.w = w;
     this.h = h;
-    this.zoom = 1;
+    this.zoom = 0.5;
     this.zoomPoint = { x: this.w / (this.zoom * 2), y: this.h / (this.zoom * 2) }
 
     game.signals.onResize.add((w, h) => { this.onResize(w, h) });

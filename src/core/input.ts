@@ -52,7 +52,7 @@ export class Input {
   }
 
   private onWheel(ev: WheelEvent) {
-    //game.camera.setZoom(ev.deltaY);
+    game.camera.setZoom(ev.deltaY);
   }
 
   private onTouchMove(ev: TouchEvent) {
