@@ -7,6 +7,10 @@ export class Component_Menu extends UI_Component {
     width: 10,
     height: 10,
     countries: [true, true, true, true],
+  };
+
+  private dom = {
+    elem: () => document.getElementById("menu"),
 
     buttonCountryGreen: () => document.getElementById("menu_country_green"),
     buttonCountryPurple: () => document.getElementById("menu_country_purple"),
@@ -25,7 +29,7 @@ export class Component_Menu extends UI_Component {
 
     buttonGenerate: () => document.getElementById("menu_generate"),
     buttonStart: () => document.getElementById("menu_start"),
-  };
+  }
 
   protected html() {
     return `
@@ -70,51 +74,53 @@ export class Component_Menu extends UI_Component {
     `;
   }
 
-  public render() {
+  public render(state?: typeof this.state) {
+    if (state) this.state = state;
+
     this.container = document.createElement("div");
     this.container.id = "menu";
     this.container.innerHTML = this.html();
     document.body.appendChild(this.container);
 
     // Initialize country buttons
-    this.state.buttonCountryGreen()?.addEventListener("click", (ev) => {
+    this.dom.buttonCountryGreen()?.addEventListener("click", (ev) => {
       this.state.countries[0] = !this.state.countries[0];
-      (this.state.buttonCountryGreen() as HTMLElement).classList.toggle("disabled");
+      (this.dom.buttonCountryGreen() as HTMLElement).classList.toggle("disabled");
     })
-    this.state.buttonCountryPurple()?.addEventListener("click", (ev) => {
+    this.dom.buttonCountryPurple()?.addEventListener("click", (ev) => {
       this.state.countries[1] = !this.state.countries[1];
-      (this.state.buttonCountryPurple() as HTMLElement).classList.toggle("disabled");
+      (this.dom.buttonCountryPurple() as HTMLElement).classList.toggle("disabled");
     })
-    this.state.buttonCountryRed()?.addEventListener("click", (ev) => {
+    this.dom.buttonCountryRed()?.addEventListener("click", (ev) => {
       this.state.countries[2] = !this.state.countries[2];
-      (this.state.buttonCountryRed() as HTMLElement).classList.toggle("disabled");
+      (this.dom.buttonCountryRed() as HTMLElement).classList.toggle("disabled");
     })
-    this.state.buttonCountryYellow()?.addEventListener("click", (ev) => {
+    this.dom.buttonCountryYellow()?.addEventListener("click", (ev) => {
       this.state.countries[3] = !this.state.countries[3];
-      (this.state.buttonCountryYellow() as HTMLElement).classList.toggle("disabled");
+      (this.dom.buttonCountryYellow() as HTMLElement).classList.toggle("disabled");
     })
 
     // Initialize width elements
-    this.state.buttonWidthIncrease()?.addEventListener("click", (ev) => {
+    this.dom.buttonWidthIncrease()?.addEventListener("click", (ev) => {
       this.state.width = game.maths.clamp(this.state.width + 1, 5, 25);
-      (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
+      (this.dom.elemWidth() as HTMLElement).textContent = this.state.width.toString();
     })
-    this.state.buttonWidthDecrease()?.addEventListener("click", (ev) => {
+    this.dom.buttonWidthDecrease()?.addEventListener("click", (ev) => {
       this.state.width = game.maths.clamp(this.state.width - 1, 5, 25);
-      (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
+      (this.dom.elemWidth() as HTMLElement).textContent = this.state.width.toString();
     })
 
     // Initialize height elements
-    this.state.buttonHeightIncrease()?.addEventListener("click", (ev) => {
+    this.dom.buttonHeightIncrease()?.addEventListener("click", (ev) => {
       this.state.height = game.maths.clamp(this.state.height + 1, 5, 25);
-      (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
+      (this.dom.elemHeight() as HTMLElement).textContent = this.state.height.toString();
     })
-    this.state.buttonHeightDecrease()?.addEventListener("click", (ev) => {
+    this.dom.buttonHeightDecrease()?.addEventListener("click", (ev) => {
       this.state.height = game.maths.clamp(this.state.height - 1, 5, 25);
-      (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
+      (this.dom.elemHeight() as HTMLElement).textContent = this.state.height.toString();
     })
 
-    this.state.buttonGenerate()?.addEventListener("click", (ev) => {
+    this.dom.buttonGenerate()?.addEventListener("click", (ev) => {
       const countries: COUNTRY_ID[] = [];
       for (let i = 0; i < this.state.countries.length; ++i) {
         if (this.state.countries[i]) countries.push(i);
@@ -125,17 +131,23 @@ export class Component_Menu extends UI_Component {
 
       game.gameplay.create(this.state.width, this.state.height, 0, countries)
     })
-    this.state.buttonStart()?.addEventListener("click", (ev) => {
+    this.dom.buttonStart()?.addEventListener("click", (ev) => {
+      // Disable menu ui
+      this.clear();
+
       game.gameplay.start();
+
+      // Enable stats ui
+      game.ui.stats.render();
     })
   }
 
-  public update() {
-
+  public update(state?: typeof this.state) {
+    if (state) this.state = state;
   }
 
   public clear() {
-    const elem = document.getElementById("menu");
+    const elem = this.dom.elem();
     if (elem) elem.parentElement?.removeChild(elem);
   }
 }

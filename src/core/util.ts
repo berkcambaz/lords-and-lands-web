@@ -4,6 +4,21 @@ import { LANDMARK_ID } from "../game/landmark";
 import { Province } from "../game/province";
 
 export class Util {
+  public countryIdToSprite(countryId: COUNTRY_ID) {
+    switch (countryId) {
+      case COUNTRY_ID.GREEN:
+        return game.resources.SPRITES.ARMY_GREEN_BIG;
+      case COUNTRY_ID.PURPLE:
+        return game.resources.SPRITES.ARMY_PURPLE_BIG;
+      case COUNTRY_ID.RED:
+        return game.resources.SPRITES.ARMY_RED_BIG;
+      case COUNTRY_ID.YELLOW:
+        return game.resources.SPRITES.ARMY_YELLOW_BIG;
+      default:
+        throw Error(`Country with id ${countryId} doesn't exist.`);
+    }
+  }
+
   public provinceToSprite(province: Province) {
     switch (province.country.id) {
       case COUNTRY_ID.GREEN:

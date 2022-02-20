@@ -2,8 +2,8 @@ import { Component_Menu } from "./components/menu";
 import { Component_Stats } from "./components/stats";
 
 export class UI {
-  private menu: Component_Menu;
-  private stats: Component_Stats;
+  public menu: Component_Menu;
+  public stats: Component_Stats;
 
   constructor() {
     this.menu = new Component_Menu();
@@ -12,6 +12,5 @@ export class UI {
 
   public init() {
     this.menu.render();
-    //this.stats.render();
   }
 }

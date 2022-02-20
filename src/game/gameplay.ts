@@ -9,6 +9,8 @@ export class Gameplay {
   public height!: number;
   public seed!: number;
 
+  public turn!: COUNTRY_ID;
+
   public create(width: number, height: number, seed: number, countries: COUNTRY_ID[]) {
     this.countries = [];
     this.provinces = [];
@@ -24,7 +26,8 @@ export class Gameplay {
   }
 
   public start() {
-
+    // First country's turn
+    this.turn = this.countries[0].id;
   }
 
   public save() {
