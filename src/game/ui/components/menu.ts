@@ -1,58 +1,70 @@
 import { game } from "../../..";
 import { UI_Component } from "../ui_component";
 
-interface State {
-  width: number;
-  height: number;
-  input: HTMLInputElement | null;
-}
-
 export class Component_Menu extends UI_Component {
-  private state: State = {
+  private state = {
     width: 10,
     height: 10,
-    input: null
+    countries: [true, true, true, true],
+
+    buttonCountryGreen: () => document.getElementById("menu_country_green"),
+    buttonCountryPurple: () => document.getElementById("menu_country_purple"),
+    buttonCountryRed: () => document.getElementById("menu_country_red"),
+    buttonCountryYellow: () => document.getElementById("menu_country_yellow"),
+
+    inputSeed: () => document.getElementById("menu_input_seed"),
+
+    buttonWidthIncrease: () => document.getElementById("menu_width_increase"),
+    buttonWidthDecrease: () => document.getElementById("menu_width_decrease"),
+    elemWidth: () => document.getElementById("menu_width"),
+
+    buttonHeightIncrease: () => document.getElementById("menu_height_increase"),
+    buttonHeightDecrease: () => document.getElementById("menu_height_decrease"),
+    elemHeight: () => document.getElementById("menu_height"),
+
+    buttonGenerate: () => document.getElementById("menu_generate"),
+    buttonStart: () => document.getElementById("menu_start"),
   };
 
   protected html() {
     return `
       <div>
-        <button class="button--country">
+        <button id="menu_country_green" class="button--country">
           <img src=${game.resources.URL_SPRITES.ARMY_GREEN_BIG} />
         </button>
-        <button class="button--country">
+        <button id="menu_country_purple" class="button--country">
           <img src=${game.resources.URL_SPRITES.ARMY_PURPLE_BIG} />
         </button>
-        <button class="button--country">
+        <button id="menu_country_red" class="button--country">
           <img src=${game.resources.URL_SPRITES.ARMY_RED_BIG} />
         </button>
-        <button class="button--country">
+        <button id="menu_country_yellow" class="button--country">
           <img src=${game.resources.URL_SPRITES.ARMY_YELLOW_BIG} />
         </button>
       </div>
 
       <div>
         Seed:
-        <input type="text" placeholder="Seed..." />
+        <input id="menu_input_seed" type="text" placeholder="Seed..." />
       </div>
 
       <div>
         Width:
-        <button> < </button>
-        ${this.state.width}
-        <button> > </button>
+        <button id="menu_width_decrease"> < </button>
+        <span id="menu_width">${this.state.width}</span>
+        <button id="menu_width_increase"> > </button>
       </div>
 
       <div>
         Height:
-        <button> < </button>
-        ${this.state.height}
-        <button> > </button>
+        <button id="menu_height_decrease"> < </button>
+        <span id="menu_height">${this.state.height}</span>
+        <button id="menu_height_increase"> > </button>
       </div>
 
       <div>
-        <button>Generate</button>
-        <button>Start</button>
+        <button id="menu_generate">Generate</button>
+        <button id="menu_start">Start</button>
       </div>
     `;
   }
@@ -62,6 +74,42 @@ export class Component_Menu extends UI_Component {
     this.container.id = "menu";
     this.container.innerHTML = this.html();
     document.body.appendChild(this.container);
+
+    // Initialize elements
+    this.state.buttonCountryGreen()?.addEventListener("click", (ev) => {
+      this.state.countries[0] = !this.state.countries[0];
+      (this.state.buttonCountryGreen() as HTMLElement).classList.toggle("disabled");
+    })
+    this.state.buttonCountryPurple()?.addEventListener("click", (ev) => {
+      this.state.countries[1] = !this.state.countries[1];
+      (this.state.buttonCountryPurple() as HTMLElement).classList.toggle("disabled");
+    })
+    this.state.buttonCountryRed()?.addEventListener("click", (ev) => {
+      this.state.countries[2] = !this.state.countries[2];
+      (this.state.buttonCountryRed() as HTMLElement).classList.toggle("disabled");
+    })
+    this.state.buttonCountryYellow()?.addEventListener("click", (ev) => {
+      this.state.countries[3] = !this.state.countries[3];
+      (this.state.buttonCountryYellow() as HTMLElement).classList.toggle("disabled");
+    })
+
+    this.state.buttonWidthIncrease()?.addEventListener("click", (ev) => {
+      ++this.state.width;
+      (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
+    })
+    this.state.buttonWidthDecrease()?.addEventListener("click", (ev) => {
+      --this.state.width;
+      (this.state.elemWidth() as HTMLElement).textContent = this.state.width.toString();
+    })
+
+    this.state.buttonHeightIncrease()?.addEventListener("click", (ev) => {
+      ++this.state.height;
+      (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
+    })
+    this.state.buttonHeightDecrease()?.addEventListener("click", (ev) => {
+      --this.state.height;
+      (this.state.elemHeight() as HTMLElement).textContent = this.state.height.toString();
+    })
   }
 
   public update() {
