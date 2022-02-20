@@ -8,6 +8,7 @@ import { Tilemap } from "../core/tilemap";
 import { Util } from "../core/util";
 import { Country, COUNTRY_ID } from "./country";
 import { Gameplay } from "./gameplay";
+import { UI } from "./ui/ui";
 
 interface GameSignals {
   onResize: Signal<[w: number, h: number]>
@@ -22,6 +23,7 @@ export class Game {
   public camera!: Camera;
   public tilemap!: Tilemap;
   public gameplay!: Gameplay;
+  public ui!: UI;
 
   public signals: GameSignals;
 
@@ -53,6 +55,7 @@ export class Game {
     this.camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
     this.tilemap = new Tilemap();
     this.gameplay = new Gameplay();
+    this.ui = new UI();
 
     // Call resize event before starting the game
     this.signals.onResize.dispatch(window.innerWidth, window.innerHeight);

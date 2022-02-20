@@ -17,26 +17,18 @@ module.exports = {
     port: 8080
   },
   resolve: {
-    extensions: ['.ts', '.jsx', '.js', '.json']
+    extensions: ['.ts', '.js', '.json']
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.(ts)$/,
         exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"],
-              plugins: [
-                [
-                  "@babel/plugin-transform-react-jsx",
-                  {
-                    pragma: "Soda.createElement",
-                  }
-                ]
-              ]
+              presets: ["@babel/preset-env"]
             }
           },
           {
