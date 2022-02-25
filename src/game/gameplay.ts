@@ -30,13 +30,13 @@ export class Gameplay {
     this.currentCountry = this.countries[0];
 
     // Render the stats ui
-    game.ui.stats.render({
-      countryId: this.currentCountry.id,
-      gold: this.currentCountry.gold,
-      income: this.currentCountry.income,
-      army: this.currentCountry.army,
-      manpower: this.currentCountry.manpower
-    })
+    //game.ui.stats.render({
+    //  countryId: this.currentCountry.id,
+    //  gold: this.currentCountry.gold,
+    //  income: this.currentCountry.income,
+    //  army: this.currentCountry.army,
+    //  manpower: this.currentCountry.manpower
+    //})
   }
 
   public nextTurn() {

@@ -12,10 +12,10 @@ export class Input {
     game.canvas.addEventListener("mouseleave", (ev) => { this.onMouseLeave(ev) })
     game.canvas.addEventListener("wheel", (ev) => { this.onWheel(ev) })
 
-    //game.canvas.addEventListener("touchmove", (ev) => { this.onTouchMove(ev) })
-    //game.canvas.addEventListener("touchstart", (ev) => { this.onTouchStart(ev) })
-    //game.canvas.addEventListener("touchend", (ev) => { this.onTouchEnd(ev) })
-    //game.canvas.addEventListener("touchcancel", (ev) => { this.onTouchCancel(ev) })
+    game.canvas.addEventListener("touchmove", (ev) => { this.onTouchMove(ev) })
+    game.canvas.addEventListener("touchstart", (ev) => { this.onTouchStart(ev) })
+    game.canvas.addEventListener("touchend", (ev) => { this.onTouchEnd(ev) })
+    game.canvas.addEventListener("touchcancel", (ev) => { this.onTouchCancel(ev) })
   }
 
   private onMouseMove(ev: MouseEvent) {

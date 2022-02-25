@@ -34,5 +34,9 @@
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.2"
+  },
+  "dependencies": {
+    "@dorkodu/soda": "^1.0.5",
+    "@dorkodu/superpage.js": "^0.0.1"
   }
 }

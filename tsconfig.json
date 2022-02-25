@@ -5,7 +5,9 @@
     "moduleResolution": "Node",
     "strict": true,
     "declaration": false,
-    "rootDir": "src"
+    "rootDir": "src",
+    "jsx": "react",
+    "reactNamespace": "Soda"
   },
   "include": [
     "src/**/*",
