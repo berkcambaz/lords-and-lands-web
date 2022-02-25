@@ -17,20 +17,20 @@ module.exports = {
     port: 8080
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   module: {
     rules: [
       {
-        test: /\.(ts)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"]
-            }
-          },
+          //{
+          //  loader: "babel-loader",
+          //  options: {
+          //    presets: ["@babel/preset-env"]
+          //  }
+          //},
           {
             loader: "ts-loader"
           }

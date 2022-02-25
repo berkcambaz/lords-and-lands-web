@@ -57,7 +57,7 @@ type URL_SPRITES = { [key in keyof typeof sprites]: string };
 
 export class Resources {
   public readonly SPRITES: SPRITES = {} as SPRITES;
-  public readonly URL_SPRITES: URL_SPRITES = {} as URL_SPRITES;;
+  public readonly URL_SPRITES: URL_SPRITES = {} as URL_SPRITES;
 
   public loadSprites() {
     return new Promise((resolve, reject) => {

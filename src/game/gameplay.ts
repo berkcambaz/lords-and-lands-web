@@ -10,6 +10,7 @@ export class Gameplay {
   public seed!: number;
 
   public currentCountry!: Country;
+  public turn!: number;
 
   public create(width: number, height: number, seed: number, countries: COUNTRY_ID[]) {
     this.countries = [];
@@ -23,11 +24,15 @@ export class Gameplay {
     }
 
     game.tilemap.generate(width, height, seed, this.countries, this.provinces);
+
+    // REMOVE \\
+    this.start();
   }
 
   public start() {
     // First country's turn
     this.currentCountry = this.countries[0];
+    this.turn = 1;
 
     // Render the stats ui
     //game.ui.stats.render({

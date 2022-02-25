@@ -10,7 +10,8 @@ export class Input {
     game.canvas.addEventListener("mousedown", (ev) => { this.onMouseDown(ev) })
     game.canvas.addEventListener("mouseup", (ev) => { this.onMouseUp(ev) })
     game.canvas.addEventListener("mouseleave", (ev) => { this.onMouseLeave(ev) })
-    game.canvas.addEventListener("wheel", (ev) => { this.onWheel(ev) })
+
+    //game.canvas.addEventListener("wheel", (ev) => { this.onWheel(ev) })
 
     game.canvas.addEventListener("touchmove", (ev) => { this.onTouchMove(ev) })
     game.canvas.addEventListener("touchstart", (ev) => { this.onTouchStart(ev) })
