@@ -1,11 +1,15 @@
 import { Soda } from "@dorkodu/soda";
 
+import { MenuMain } from "./MenuMain";
+import { MenuNew } from "./MenuNew";
 import { Stats } from "./Stats";
 
 export function App() {
   return (
     <div>
-      <Stats />
+      <MenuNew />
+      {0 ? <MenuMain /> : ""}
+      {0 ? <Stats /> : ""}
     </div>
   )
 }

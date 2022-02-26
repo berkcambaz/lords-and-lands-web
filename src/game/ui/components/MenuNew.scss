@@ -1,0 +1,32 @@
+@import "../../../styles/_mixins.scss";
+
+.menunew {
+  @include default_bar("bottom");
+
+  .btn--country {
+    padding: 0;
+
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+
+    &:nth-child(n) {
+      margin-right: 5px;
+    }
+    
+    &:nth-child(1) {
+      margin-left: 5px;
+    }
+
+    &.disabled {
+      background-color: #afafaf;
+    }
+
+    img {
+      display: block;
+
+      width: 64px;
+      height: 64px;
+    }
+  }
+}
