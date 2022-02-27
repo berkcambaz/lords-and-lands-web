@@ -1,11 +1,11 @@
 import { Soda } from "@dorkodu/soda";
 
-import { MainMenu } from "./MainMenu";
+import { Menu } from "./Menu";
 
 export function App() {
   return (
     <div>
-      <MainMenu />
+      <Menu />
     </div>
   )
 }

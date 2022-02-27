@@ -1,26 +1,28 @@
 @import "/src/styles/variables";
 
 .main-menu {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 100vw;
-  color: $color0;
-  background-color: $color6;
 
-  @media screen and (min-width: 1024px) {
-    width: 1024px;
-    border-radius: 0 0 10px 10px;
-  }
-
-  .__bar {
+  .__top {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    color: $color0;
+    background-color: $color6;
+
+    width: 100vw;
     height: 50px;
+    
+    @media screen and (min-width: 1024px) {
+      width: 1024px;
+      border-radius: 0 0 10px 10px;
+    }
 
     .__name-title {
       font-size: $font-big;
@@ -38,5 +40,15 @@
       padding: 9px;
       cursor: pointer;
     }
+  }
+
+  .__mid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
   }
 }
