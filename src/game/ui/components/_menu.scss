@@ -1,8 +1,7 @@
 @import "/src/styles/variables";
 @import "/src/styles/mixins";
 
-.main-menu {
-
+.ui-menu {
   .__top {
     display: flex;
     justify-content: center;
@@ -49,16 +48,18 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    display: flex;
-    flex-direction: column;
+    .__menu {
+      display: flex;
+      flex-direction: column;
 
-    background-color: $color3;
-    padding: 5px 10px;
-    border-radius: 5px;
+      background-color: $color3;
+      padding: 5px 10px;
+      border-radius: 5px;
 
-    .__main-btn {
-      @include default_button();
-      margin: 5px 0;
+      .__main-btn {
+        @include default_button();
+        margin: 5px 0;
+      }
     }
   }
 }
