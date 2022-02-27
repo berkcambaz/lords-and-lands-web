@@ -1,0 +1,26 @@
+.ui-menu {
+  .__new {
+    background-color: $color6;
+    padding: 5px;
+    border-radius: 10px 10px 0 0;
+
+    .__img-container {
+      display: flex;
+      justify-content: space-around;
+      :nth-child(n) {
+        cursor: pointer;
+        border-radius: 5px;
+        width: 48px;
+        height: 48px;
+
+        &.enabled {
+          background-color: $color7;
+        }
+
+        &.disabled {
+          background-color: $color3;
+        }
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ export function Menu() {
         <div class="__name-title">Lords and Lands</div>
         <div class="__version-title">v0.0.1</div>
       </div>
-      <div class="__mid">{getMenuStateComponent()}</div>
+      <div class="__bottom">{getMenuStateComponent()}</div>
     </div>
   )
 }

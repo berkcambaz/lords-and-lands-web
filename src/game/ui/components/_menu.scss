@@ -1,5 +1,4 @@
 @import "/src/styles/variables";
-@import "/src/styles/mixins";
 
 .ui-menu {
   .__top {
@@ -18,10 +17,10 @@
 
     width: 100vw;
     height: 50px;
-    
+
     @media screen and (min-width: 1024px) {
       width: 1024px;
-      border-radius: 0 0 10px 10px;
+      border-radius: 0 0 10px 10px; 
     }
 
     .__name-title {
@@ -42,10 +41,10 @@
     }
   }
 
-  .__mid {
+  .__bottom {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
   }
 }

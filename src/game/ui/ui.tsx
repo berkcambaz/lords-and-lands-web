@@ -19,7 +19,7 @@ export class UI {
   public ingameState: INGAME_STATE;
 
   constructor() {
-    this.menuState = MENU_STATE.MAIN;
+    this.menuState = MENU_STATE.NEW;
     this.ingameState = INGAME_STATE.MAIN;
   }
 
