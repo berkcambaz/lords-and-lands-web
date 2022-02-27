@@ -1,0 +1,42 @@
+@import "/src/styles/variables";
+
+.main-menu {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100vw;
+  color: $color0;
+  background-color: $color6;
+
+  @media screen and (min-width: 1024px) {
+    width: 1024px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .__bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 50px;
+
+    .__name-title {
+      font-size: $font-big;
+      font-weight: $font-bold;
+    }
+  
+    .__version-title {
+      font-size: $font-small;
+    }
+
+    .__icon {
+      position: absolute;
+      left: 0;
+      // __bar is 50px & icon is 32x32 so (50 - 32) / 2 = 9
+      padding: 9px;
+      cursor: pointer;
+    }
+  }
+}
