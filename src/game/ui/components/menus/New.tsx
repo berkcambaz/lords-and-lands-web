@@ -1,11 +1,19 @@
 import { Soda } from "@dorkodu/soda";
 import { game } from "../../../..";
+import { INGAME_STATE, MENU_STATE } from "../../ui";
 
 export function New() {
   const [countries, setCountries] = Soda.state([true, true, true, true]);
   const [size, setSize] = Soda.state({ w: 10, h: 10 });
 
   const toggleCountry = (id: number) => {
+    let countryCount = 0;
+    for (let i = 0; i < countries.length; ++i)
+      if (countries[i])
+        countryCount++;
+
+    if (countries[id] && countryCount == 2) return;
+
     countries[id] = !countries[id];
     setCountries(countries);
   }
@@ -27,6 +35,11 @@ export function New() {
 
   const start = () => {
     game.gameplay.start();
+
+    game.ui.menuState = MENU_STATE.NONE;
+    game.ui.ingameState = INGAME_STATE.MAIN;
+    game.ui.menuHandler();
+    //game.ui.ingameHandler();
   }
 
   return (

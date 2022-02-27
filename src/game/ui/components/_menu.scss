@@ -39,6 +39,10 @@
       padding: 9px;
       cursor: pointer;
     }
+
+    .__disabled {
+      visibility: hidden;
+    }
   }
 
   .__bottom {

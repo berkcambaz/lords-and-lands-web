@@ -10,10 +10,11 @@ import { Load } from "./menus/Load";
 import { Save } from "./menus/Save";
 import { Settings } from "./menus/Settings";
 
-import { MENU_STATE } from "../ui";
+import { INGAME_STATE, MENU_STATE } from "../ui";
 
 function getMenuStateComponent() {
   switch (game.ui.menuState) {
+    case MENU_STATE.NONE: return "";
     case MENU_STATE.MAIN: return <Main />
     case MENU_STATE.NEW: return <New />
     case MENU_STATE.LOAD: return <Load />
@@ -24,10 +25,21 @@ function getMenuStateComponent() {
 }
 
 export function Menu() {
+  const [_, update] = Soda.state(0);
+  game.ui.menuHandler = update;
+
+  const hideBackIcon = () => {
+    return game.ui.menuState === MENU_STATE.MAIN || game.ui.ingameState === INGAME_STATE.MAIN;
+  };
+
+  const goback = () => {
+    game.ui.setMenuState(MENU_STATE.MAIN);
+  }
+
   return (
     <div class="ui-menu">
       <div class="__top">
-        <ICONS.Back class="__icon" />
+        <ICONS.Back class={`__icon ${hideBackIcon() ? "__disabled" : ""}`} onclick={goback} />
         <div class="__name-title">Lords and Lands</div>
         <div class="__version-title">v0.0.1</div>
       </div>
