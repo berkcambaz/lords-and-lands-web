@@ -1,54 +1,17 @@
-@mixin space_between($a, $b) {
-  :nth-child(n) {
-    margin: $a $b;
-  }
-
-  :nth-child(1) {
-    margin: 0;
-  }
-}
-
-@mixin default_bar($pos) {
-  position: absolute;
-
-  @if ($pos == "top") { top: 0; }
-  @if ($pos == "bottom") { bottom: 0; }
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  width: 100vw;
-  height: 64px;
-  padding: 3px 0;
-  background-color: #bbbbbb;
-
-  @media screen and (min-width: 1024px) {
-    width: 1024px;
-
-    left: 50%;
-    transform: translate(-50%, 0);
-
-    @if ($pos == "top") { border-radius: 0 0 10px 10px; }
-    @if ($pos == "bottom") { border-radius: 10px 10px 0 0; }
-  }
-}
+@import "./variables";
 
 @mixin default_button {
-  padding: 4px 12px;
+  padding: 5px 20px;
 
-  background-color: #000000;
-  color: #ffffff;
+  background-color: $color6;
+  color: $color0;
 
-  font-size: 16px;
-
-  border-radius: 4px;
+  border-radius: 5px;
   border: 0;
   
   cursor: pointer;
-}
 
-@mixin default_icon {
-  padding: 16px;
-  cursor: pointer;
+  &:hover {
+    background-color: $color7;
+  }
 }
