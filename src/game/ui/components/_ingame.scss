@@ -1,0 +1,59 @@
+@mixin bar($pos) {
+  width: 100vw;
+  height: 64px;
+
+  @media screen and (min-width: 1024px) {
+    width: 1024px;
+    @if ($pos == "top") { border-radius: 0 0 10px 10px; }
+    @if ($pos == "bottom") { border-radius: 10px 10px 0 0; }
+  }
+}
+
+.ui-ingame {
+  .__top {
+    @include bar("top");
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: $color6;
+
+    img {
+      width: 48px;
+      height: 48px;
+      margin: 0 8px;
+    }
+
+    .__info {
+      width: 100px
+    }
+
+    .__icon {
+      position: absolute;
+      right: 0;
+      padding-right: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .__bottom {
+    @include bar("bottom");
+    
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    background-color: $color6;
+  }
+}

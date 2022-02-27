@@ -1,6 +1,7 @@
 import { game } from "..";
 import { Country, COUNTRY_ID } from "./country";
 import { Province } from "./province";
+import { INGAME_STATE, MENU_STATE } from "./ui/ui";
 
 export class Gameplay {
   public countries!: Country[];
@@ -30,6 +31,13 @@ export class Gameplay {
     // First country's turn
     this.currentCountry = this.countries[0];
     this.turn = 1;
+
+    // Handle the ui states and update
+    game.ui.menuState = MENU_STATE.NONE;
+    game.ui.ingameState = INGAME_STATE.MAIN;
+    game.ui.appHandler();
+    game.ui.menuHandler();
+    game.ui.ingameHandler();
   }
 
   public nextTurn() {

@@ -24,6 +24,8 @@ import TILEMAP_SELECT_GRAY from "../../res/sprites/tilemap/select_gray.png";
 import TILEMAP_SELECT_WHITE from "../../res/sprites/tilemap/select_white.png";
 import TILEMAP_SELECTED from "../../res/sprites/tilemap/selected.png";
 
+import MISC_DEMOLISH from "../../res/sprites/misc/demolish.png";
+
 const sprites = {
   ARMY_GREEN_BIG,
   ARMY_RED_BIG,
@@ -50,6 +52,8 @@ const sprites = {
   TILEMAP_SELECT_GRAY,
   TILEMAP_SELECT_WHITE,
   TILEMAP_SELECTED,
+
+  MISC_DEMOLISH
 }
 
 type SPRITES = { [key in keyof typeof sprites]: HTMLImageElement };

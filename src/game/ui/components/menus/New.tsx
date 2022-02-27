@@ -35,11 +35,6 @@ export function New() {
 
   const start = () => {
     game.gameplay.start();
-
-    game.ui.menuState = MENU_STATE.NONE;
-    game.ui.ingameState = INGAME_STATE.MAIN;
-    game.ui.menuHandler();
-    //game.ui.ingameHandler();
   }
 
   return (

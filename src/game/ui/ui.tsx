@@ -21,6 +21,7 @@ export class UI {
   public ingameState: INGAME_STATE;
   public menuHandler!: () => any;
   public ingameHandler!: () => any;
+  public appHandler!: () => any;
 
   constructor() {
     this.menuState = MENU_STATE.MAIN;
@@ -38,6 +39,6 @@ export class UI {
 
   public setIngameState(state: INGAME_STATE) {
     this.ingameState = state;
-    //this.ingameHandler();
+    this.ingameHandler();
   }
 }
