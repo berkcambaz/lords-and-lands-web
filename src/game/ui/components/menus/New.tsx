@@ -10,6 +10,25 @@ export function New() {
     setCountries(countries);
   }
 
+  const changeSize = (w: number, h: number) => {
+    size.w = game.maths.clamp(size.w + w, 5, 25);
+    size.h = game.maths.clamp(size.h + h, 5, 25);
+    setSize(size);
+  }
+
+  const generate = () => {
+    const chosenCountries = [];
+    for (let i = 0; i < countries.length; ++i)
+      if (countries[i])
+        chosenCountries.push(i);
+
+    game.gameplay.create(size.w, size.h, 0, chosenCountries);
+  }
+
+  const start = () => {
+    game.gameplay.start();
+  }
+
   return (
     <div class="__new">
       <div class="__img-container">
@@ -25,21 +44,21 @@ export function New() {
 
       <div>
         <span>Width: </span>
-        <button> &#60; </button>
-        <span> 0 </span>
-        <button> &#62; </button>
+        <button class="btn" onClick={() => { changeSize(-1, 0) }}> &#60; </button>
+        <span> {size.w} </span>
+        <button class="btn" onClick={() => { changeSize(+1, 0) }}> &#62; </button>
       </div>
 
       <div>
         <span>Height: </span>
-        <button> &#60; </button>
-        <span> 0 </span>
-        <button> &#62; </button>
+        <button class="btn" onClick={() => { changeSize(0, -1) }}> &#60; </button>
+        <span> {size.h} </span>
+        <button class="btn" onClick={() => { changeSize(0, +1) }}> &#62; </button>
       </div>
 
       <div>
-        <button>Generate</button>
-        <button>Start</button>
+        <button class="btn" onclick={generate}>Generate</button>
+        <button class="btn" onclick={start}>Start</button>
       </div>
     </div>
   )

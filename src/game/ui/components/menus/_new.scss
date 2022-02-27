@@ -3,10 +3,11 @@
     background-color: $color6;
     padding: 5px;
     border-radius: 10px 10px 0 0;
-
+    
     .__img-container {
       display: flex;
       justify-content: space-around;
+
       :nth-child(n) {
         cursor: pointer;
         border-radius: 5px;
@@ -21,6 +22,10 @@
           background-color: $color3;
         }
       }
+    }
+
+    .btn {
+      @include default_button();
     }
   }
 }
