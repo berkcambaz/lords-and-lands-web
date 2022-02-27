@@ -65,7 +65,7 @@ export class Game {
       .then(() => this.resources.loadSprites())
       .then(() => { this.ui.init() })
       .then(() => { this.gameplay.create(10, 10, 0, [COUNTRY_ID.GREEN, COUNTRY_ID.PURPLE, COUNTRY_ID.RED, COUNTRY_ID.YELLOW]) })
-      .then(() => { this.gameplay.start() })
+      //.then(() => { this.gameplay.start() })
       .then(() => { this.loop() })
   }
 

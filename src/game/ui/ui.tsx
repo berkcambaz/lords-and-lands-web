@@ -19,26 +19,37 @@ export enum INGAME_STATE {
 export class UI {
   public menuState: MENU_STATE;
   public ingameState: INGAME_STATE;
+
   public menuHandler!: () => any;
   public ingameHandler!: () => any;
   public appHandler!: () => any;
 
+  private previous: (() => any)[];
+
   constructor() {
     this.menuState = MENU_STATE.MAIN;
     this.ingameState = INGAME_STATE.NONE;
+    this.previous = [];
   }
 
   public init() {
     Soda.render(<App />, document.body);
   }
 
-  public setMenuState(state: MENU_STATE) {
-    this.menuState = state;
-    this.menuHandler();
+  public pushPrevious(previous: () => any) {
+    this.previous.push(previous);
   }
 
-  public setIngameState(state: INGAME_STATE) {
-    this.ingameState = state;
-    this.ingameHandler();
+  public hasPrevious() {
+    return this.previous.length > 0;
+  }
+
+  public popPrevious() {
+    const previous = this.previous.pop();
+    if (previous) previous();
+  }
+
+  public clearPrevious() {
+    this.previous = [];
   }
 }

@@ -33,6 +33,7 @@ export class Gameplay {
     this.turn = 1;
 
     // Handle the ui states and update
+    game.ui.clearPrevious();
     game.ui.menuState = MENU_STATE.NONE;
     game.ui.ingameState = INGAME_STATE.MAIN;
     game.ui.appHandler();

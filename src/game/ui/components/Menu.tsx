@@ -28,18 +28,12 @@ export function Menu() {
   const [_, update] = Soda.state(0);
   game.ui.menuHandler = update;
 
-  const hideBackIcon = () => {
-    return game.ui.menuState === MENU_STATE.MAIN || game.ui.ingameState === INGAME_STATE.MAIN;
-  };
-
-  const goback = () => {
-    game.ui.setMenuState(MENU_STATE.MAIN);
-  }
+  const goback = () => { game.ui.popPrevious(); }
 
   return (
     <div class="ui-menu">
       <div class="__top">
-        <ICONS.Back class={`__icon ${hideBackIcon() ? "__disabled" : ""}`} onclick={goback} />
+        <ICONS.Back class={`__icon ${game.ui.hasPrevious() ? "" : "__disabled"}`} onclick={goback} />
         <div class="__name-title">Lords and Lands</div>
         <div class="__version-title">v0.0.1</div>
       </div>
