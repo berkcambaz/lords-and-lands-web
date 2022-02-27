@@ -1,0 +1,15 @@
+.ui-menu {
+  .__main {
+    display: flex;
+    flex-direction: column;
+
+    background-color: $color3;
+    padding: 5px 10px;
+    border-radius: 5px;
+
+    .__btn {
+      @include default_button();
+      margin: 5px 0;
+    }
+  }
+}
