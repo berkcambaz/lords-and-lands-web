@@ -194,16 +194,16 @@ export class Tilemap {
 
         if (originY - 1 > -1 && !provinces[upIndex]) {
           origins[countryId].push({ x: originX, y: originY - 1 })
-          provinces[upIndex] = new Province(new Vec2(originX, originY - 1), countries[countryId], undefined);
+          provinces[upIndex] = new Province(new Vec2(originX, originY - 1), countries[countryId]);
         } else if (originX + 1 < width && !provinces[rightIndex]) {
           origins[countryId].push({ x: originX + 1, y: originY })
-          provinces[rightIndex] = new Province(new Vec2(originX + 1, originY), countries[countryId], undefined);
+          provinces[rightIndex] = new Province(new Vec2(originX + 1, originY), countries[countryId]);
         } else if (originY + 1 < height && !provinces[downIndex]) {
           origins[countryId].push({ x: originX, y: originY + 1 })
-          provinces[downIndex] = new Province(new Vec2(originX, originY + 1), countries[countryId], undefined);
+          provinces[downIndex] = new Province(new Vec2(originX, originY + 1), countries[countryId]);
         } else if (originX - 1 > -1 && !provinces[leftIndex]) {
           origins[countryId].push({ x: originX - 1, y: originY })
-          provinces[leftIndex] = new Province(new Vec2(originX - 1, originY), countries[countryId], undefined);
+          provinces[leftIndex] = new Province(new Vec2(originX - 1, originY), countries[countryId]);
         } else {
           origins[countryId].splice(0, 1);
         }

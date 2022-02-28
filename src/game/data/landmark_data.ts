@@ -26,7 +26,7 @@ export interface LandmarkData {
 }
 
 function newLandmark(data: LandmarkData) {
-  return { ...data };
+  return { data };
 }
 
 export const LANDMARK_DATA = {

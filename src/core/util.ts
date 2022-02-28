@@ -47,7 +47,9 @@ export class Util {
 
 
   public provinceToLandmarkSprite(province: Province) {
-    switch (province.landmark?.data.id) {
+    if (!province.landmark) return null;
+
+    switch (province.landmark.data.id) {
       case "CAPITAL":
         return game.resources.SPRITES.LANDMARK_CAPITAL;
       case "CHURCH":
@@ -61,7 +63,7 @@ export class Util {
       case "TOWER":
         return game.resources.SPRITES.LANDMARK_TOWER;
       default:
-        return null;
+        throw new Error(`Landmark with id ${province.landmark.data.id} doesn't exist.`);
     }
   }
 

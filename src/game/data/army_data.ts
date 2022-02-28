@@ -13,7 +13,7 @@ export interface ArmyData {
 }
 
 function newArmy(data: ArmyData) {
-  return { ...data };
+  return { data };
 }
 
 export const ARMY_DATA = {
