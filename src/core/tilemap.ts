@@ -70,27 +70,43 @@ export class Tilemap {
   }
 
   public render() {
-    // TODO: Only render what is seen, since iOS Safari crashes if you try to 
-    // render an image out of bounds
+    let x = game.camera.x;
+    let y = game.camera.y;
+    let w = this.buffer.canvas.width;
+    let h = this.buffer.canvas.height;
+
+    let targetX = 0;
+    let targetY = 0;
+    let targetW = this.buffer.canvas.width;
+    let targetH = this.buffer.canvas.height;
+
+    if (x < 0) {
+      targetX = -x;
+      x = 0;
+    }
+    if (y < 0) {
+      targetY = -y;
+      y = 0;
+    }
+
+    if (x + w > game.camera.w) {
+
+    }
+    if (y + h > game.camera.h) {
+
+    }
+
     game.ctx.drawImage(
       this.buffer.canvas,
-      game.camera.x,
-      game.camera.y,
-      game.camera.w,
-      game.camera.h,
-      0,
-      0,
-      game.camera.w,
-      game.camera.h
+      x,
+      y,
+      w,
+      h,
+      targetX,
+      targetY,
+      targetW,
+      targetH
     )
-  }
-
-  public save() {
-
-  }
-
-  public load() {
-
   }
 
   public highlightProvince(province: Province | undefined) {
