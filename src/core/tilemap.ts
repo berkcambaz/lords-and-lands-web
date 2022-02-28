@@ -77,8 +77,6 @@ export class Tilemap {
 
     let targetX = 0;
     let targetY = 0;
-    let targetW = this.buffer.canvas.width;
-    let targetH = this.buffer.canvas.height;
 
     if (x < 0) {
       targetX = -x;
@@ -90,10 +88,10 @@ export class Tilemap {
     }
 
     if (x + w > game.camera.w) {
-
+      w -= x;
     }
     if (y + h > game.camera.h) {
-
+      h -= y;
     }
 
     game.ctx.drawImage(
@@ -104,8 +102,8 @@ export class Tilemap {
       h,
       targetX,
       targetY,
-      targetW,
-      targetH
+      w,
+      h
     )
   }
 
