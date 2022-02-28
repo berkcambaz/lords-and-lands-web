@@ -1,6 +1,5 @@
 import { game } from "..";
 import { COUNTRY_ID } from "../game/country";
-import { LANDMARK_ID } from "../game/landmark";
 import { Province } from "../game/province";
 
 export class Util {
@@ -20,7 +19,19 @@ export class Util {
   }
 
   public provinceToSprite(province: Province) {
-    switch (province.country.id) {
+    switch (province.occupier?.id) {
+      case COUNTRY_ID.GREEN:
+        return game.resources.SPRITES.TILE_GREEN_OCCUPIED;
+      case COUNTRY_ID.PURPLE:
+        return game.resources.SPRITES.TILE_PURPLE_OCCUPIED;
+      case COUNTRY_ID.RED:
+        return game.resources.SPRITES.TILE_RED_OCCUPIED;
+      case COUNTRY_ID.YELLOW:
+        return game.resources.SPRITES.TILE_YELLOW_OCCUPIED;
+    }
+
+
+    switch (province.owner.id) {
       case COUNTRY_ID.GREEN:
         return game.resources.SPRITES.TILE_GREEN;
       case COUNTRY_ID.PURPLE:
@@ -30,29 +41,27 @@ export class Util {
       case COUNTRY_ID.YELLOW:
         return game.resources.SPRITES.TILE_YELLOW;
       default:
-        throw Error(`Country with id ${province.country.id} doesn't exist.`);
+        throw Error(`Country with id ${province.owner.id} doesn't exist.`);
     }
   }
 
 
   public provinceToLandmarkSprite(province: Province) {
-    switch (province.landmark.id) {
-      case LANDMARK_ID.CAPITAL:
+    switch (keyof(province.landmark?.data)) {
+      case "CAPITAL":
         return game.resources.SPRITES.LANDMARK_CAPITAL;
-      case LANDMARK_ID.CHURCH:
+      case "CHURCH":
         return game.resources.SPRITES.LANDMARK_CHURCH;
-      case LANDMARK_ID.FOREST:
+      case "FOREST":
         return game.resources.SPRITES.LANDMARK_FOREST;
-      case LANDMARK_ID.HOUSE:
+      case "HOUSE":
         return game.resources.SPRITES.LANDMARK_HOUSE;
-      case LANDMARK_ID.MOUNTAINS:
+      case "MOUNTAINS":
         return game.resources.SPRITES.LANDMARK_MOUNTAINS;
-      case LANDMARK_ID.TOWER:
+      case "TOWER":
         return game.resources.SPRITES.LANDMARK_TOWER;
-      case LANDMARK_ID.NONE:
-        return null;
       default:
-        throw Error(`Country with id ${province.country.id} doesn't exist.`);
+        return null;
     }
   }
 

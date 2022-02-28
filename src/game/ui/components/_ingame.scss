@@ -1,6 +1,5 @@
 @mixin bar($pos) {
   width: 100vw;
-  height: 64px;
 
   @media screen and (min-width: 1024px) {
     width: 1024px;
@@ -12,6 +11,7 @@
 .ui-ingame {
   .__top {
     @include bar("top");
+    height: 64px;
 
     position: absolute;
     top: 0;
@@ -44,7 +44,6 @@
 
   .__bottom {
     @include bar("bottom");
-    height: 64px;
     
     position: absolute;
     bottom: 0;
@@ -56,6 +55,8 @@
 
     > :first-child {
       height: 64px;
+      display: inline-block;
+      white-space: nowrap;
 
       :first-child {
         margin-left: 7px;
@@ -67,6 +68,7 @@
     }
 
     img {
+      display: inline-block;
       width: 48px;
       height: 48px;
       margin: 7px 3px;

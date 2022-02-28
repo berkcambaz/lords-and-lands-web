@@ -12,6 +12,10 @@ import TILE_GREEN from "../../res/sprites/tiles/green.png";
 import TILE_RED from "../../res/sprites/tiles/red.png";
 import TILE_YELLOW from "../../res/sprites/tiles/yellow.png";
 import TILE_PURPLE from "../../res/sprites/tiles/purple.png";
+import TILE_GREEN_OCCUPIED from "../../res/sprites/tiles/green_occupied.png";
+import TILE_RED_OCCUPIED from "../../res/sprites/tiles/red_occupied.png";
+import TILE_YELLOW_OCCUPIED from "../../res/sprites/tiles/yellow_occupied.png";
+import TILE_PURPLE_OCCUPIED from "../../res/sprites/tiles/purple_occupied.png";
 
 import LANDMARK_CAPITAL from "../../res/sprites/landmarks/capital.png";
 import LANDMARK_CHURCH from "../../res/sprites/landmarks/church.png";
@@ -48,6 +52,10 @@ const sprites = {
   TILE_RED,
   TILE_YELLOW,
   TILE_PURPLE,
+  TILE_GREEN_OCCUPIED,
+  TILE_RED_OCCUPIED,
+  TILE_YELLOW_OCCUPIED,
+  TILE_PURPLE_OCCUPIED,
 
   LANDMARK_CAPITAL,
   LANDMARK_CHURCH,

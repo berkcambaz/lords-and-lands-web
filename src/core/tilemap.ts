@@ -1,6 +1,6 @@
 import { game } from "..";
 import { Country } from "../game/country";
-import { Landmark, LANDMARK_ID } from "../game/landmark";
+import { Landmark } from "../game/landmark";
 import { Province } from "../game/province";
 import { Vec2 } from "./vec2";
 
@@ -163,8 +163,7 @@ export class Tilemap {
     for (let i = 0; i < countries.length; ++i) {
       provinces[origins[i][0].x + origins[i][0].y * width] = new Province(
         new Vec2(origins[i][0].x, origins[i][0].y),
-        countries[i],
-        new Landmark(LANDMARK_ID.NONE)
+        countries[i]
       );
     }
 
@@ -195,16 +194,16 @@ export class Tilemap {
 
         if (originY - 1 > -1 && !provinces[upIndex]) {
           origins[countryId].push({ x: originX, y: originY - 1 })
-          provinces[upIndex] = new Province(new Vec2(originX, originY - 1), countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[upIndex] = new Province(new Vec2(originX, originY - 1), countries[countryId], undefined);
         } else if (originX + 1 < width && !provinces[rightIndex]) {
           origins[countryId].push({ x: originX + 1, y: originY })
-          provinces[rightIndex] = new Province(new Vec2(originX + 1, originY), countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[rightIndex] = new Province(new Vec2(originX + 1, originY), countries[countryId], undefined);
         } else if (originY + 1 < height && !provinces[downIndex]) {
           origins[countryId].push({ x: originX, y: originY + 1 })
-          provinces[downIndex] = new Province(new Vec2(originX, originY + 1), countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[downIndex] = new Province(new Vec2(originX, originY + 1), countries[countryId], undefined);
         } else if (originX - 1 > -1 && !provinces[leftIndex]) {
           origins[countryId].push({ x: originX - 1, y: originY })
-          provinces[leftIndex] = new Province(new Vec2(originX - 1, originY), countries[countryId], new Landmark(LANDMARK_ID.NONE));
+          provinces[leftIndex] = new Province(new Vec2(originX - 1, originY), countries[countryId], undefined);
         } else {
           origins[countryId].splice(0, 1);
         }
@@ -217,10 +216,10 @@ export class Tilemap {
   private sprinkleNature(width: number, height: number, provinces: Province[]) {
     for (let y = 0; y < height; ++y) {
       for (let x = 0; x < width; ++x) {
-        provinces[x + y * width].landmark.id = game.random.percent([
-          { percent: 10, result: LANDMARK_ID.MOUNTAINS },
-          { percent: 15, result: LANDMARK_ID.FOREST },
-          { percent: 75, result: LANDMARK_ID.NONE }
+        provinces[x + y * width].landmark = game.random.percent([
+          { percent: 10, result: Landmark.getLandmarkData("MOUNTAINS") },
+          { percent: 15, result: Landmark.getLandmarkData("FOREST") },
+          { percent: 75, result: undefined }
         ])
       }
     }
