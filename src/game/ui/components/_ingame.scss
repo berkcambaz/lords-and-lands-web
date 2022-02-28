@@ -44,7 +44,7 @@
 
   .__bottom {
     @include bar("bottom");
-    height: auto;
+    height: 64px;
     
     position: absolute;
     bottom: 0;
@@ -56,8 +56,14 @@
 
     > :first-child {
       height: 64px;
-      display: flex;
-      flex-wrap: nowrap;
+
+      :first-child {
+        margin-left: 7px;
+      }
+
+      :last-child {
+        margin-right: 7px;
+      }
     }
 
     img {

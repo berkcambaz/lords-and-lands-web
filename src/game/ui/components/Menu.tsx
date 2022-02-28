@@ -10,7 +10,7 @@ import { Load } from "./menus/Load";
 import { Save } from "./menus/Save";
 import { Settings } from "./menus/Settings";
 
-import { INGAME_STATE, MENU_STATE } from "../ui";
+import { MENU_STATE } from "../ui";
 
 function getMenuStateComponent() {
   switch (game.ui.menuState) {

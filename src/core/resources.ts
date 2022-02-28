@@ -31,6 +31,7 @@ import UI_ICON_BUILDING from "../../res/sprites/ui/icon_building.png";
 import UI_ICON_DIPLOMACY from "../../res/sprites/ui/icon_diplomacy.png";
 import UI_ICON_ARROW_LEFT from "../../res/sprites/ui/icon_arrow_left.png";
 import UI_ICON_ARROW_RIGHT from "../../res/sprites/ui/icon_arrow_right.png";
+import UI_ICON_CANCEL from "../../res/sprites/ui/icon_cancel.png";
 
 const sprites = {
   ARMY_GREEN_BIG,
@@ -66,6 +67,7 @@ const sprites = {
   UI_ICON_DIPLOMACY,
   UI_ICON_ARROW_LEFT,
   UI_ICON_ARROW_RIGHT,
+  UI_ICON_CANCEL,
 }
 
 type SPRITES = { [key in keyof typeof sprites]: HTMLImageElement };

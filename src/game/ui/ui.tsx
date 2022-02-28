@@ -13,7 +13,10 @@ export enum MENU_STATE {
 
 export enum INGAME_STATE {
   NONE = -1,
-  MAIN
+  MAIN,
+  ARMY,
+  BUILDING,
+  DIPLOMACY
 }
 
 export class UI {

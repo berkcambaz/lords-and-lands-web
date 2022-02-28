@@ -3,6 +3,20 @@ import { game } from "../../..";
 import { INGAME_STATE, MENU_STATE } from "../ui";
 import { ICONS } from "./Icons";
 import { Main } from "./ingames/Main";
+import { Army } from "./ingames/Army";
+import { Building } from "./ingames/Building";
+import { Diplomacy } from "./ingames/Diplomacy";
+
+function getIngameStateComponent() {
+  switch (game.ui.ingameState) {
+    case INGAME_STATE.NONE: return "";
+    case INGAME_STATE.MAIN: return <Main />
+    case INGAME_STATE.ARMY: return <Army />
+    case INGAME_STATE.BUILDING: return <Building />
+    case INGAME_STATE.DIPLOMACY: return <Diplomacy />
+    default: throw new Error(`Ingame state with id ${game.ui.ingameState} not found.`);
+  }
+}
 
 export function Ingame() {
   const [_, update] = Soda.state(0);
@@ -37,9 +51,8 @@ export function Ingame() {
         </div>
         <ICONS.Settings class="__icon" onclick={settings} />
       </div>
-
       <div class="__bottom">
-        <Main />
+        {getIngameStateComponent()}
       </div>
     </div>
   )
