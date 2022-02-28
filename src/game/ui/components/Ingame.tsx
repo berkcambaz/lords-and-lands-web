@@ -2,6 +2,7 @@ import { Soda } from "@dorkodu/soda";
 import { game } from "../../..";
 import { INGAME_STATE, MENU_STATE } from "../ui";
 import { ICONS } from "./Icons";
+import { Main } from "./ingames/Main";
 
 export function Ingame() {
   const [_, update] = Soda.state(0);
@@ -38,7 +39,7 @@ export function Ingame() {
       </div>
 
       <div class="__bottom">
-
+        <Main />
       </div>
     </div>
   )

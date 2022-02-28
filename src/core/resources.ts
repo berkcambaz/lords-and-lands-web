@@ -26,6 +26,10 @@ import TILEMAP_SELECTED from "../../res/sprites/tilemap/selected.png";
 
 import MISC_DEMOLISH from "../../res/sprites/misc/demolish.png";
 
+import UI_ICON_ARMY from "../../res/sprites/ui/icon_army.png";
+import UI_ICON_BUILDING from "../../res/sprites/ui/icon_building.png";
+import UI_ICON_DIPLOMACY from "../../res/sprites/ui/icon_diplomacy.png";
+
 const sprites = {
   ARMY_GREEN_BIG,
   ARMY_RED_BIG,
@@ -53,7 +57,11 @@ const sprites = {
   TILEMAP_SELECT_WHITE,
   TILEMAP_SELECTED,
 
-  MISC_DEMOLISH
+  MISC_DEMOLISH,
+
+  UI_ICON_ARMY,
+  UI_ICON_BUILDING,
+  UI_ICON_DIPLOMACY,
 }
 
 type SPRITES = { [key in keyof typeof sprites]: HTMLImageElement };
