@@ -44,6 +44,7 @@
 
   .__bottom {
     @include bar("bottom");
+    height: auto;
     
     position: absolute;
     bottom: 0;
@@ -51,25 +52,21 @@
     transform: translate(-50%, 0);
     
     background-color: $color6;
+    overflow-x: auto;
 
     > :first-child {
       height: 64px;
+      display: flex;
+      flex-wrap: nowrap;
     }
 
     img {
       width: 48px;
       height: 48px;
-      margin: 8px 4px;
+      margin: 7px 3px;
       border: 1px solid $color3;
       border-radius: 5px;
       cursor: pointer;
-    }
-
-    & img:first-child {
-      margin-left: 8px;
-    }
-    & img:last-child {
-      margin-right: 8px;
     }
   }
 }

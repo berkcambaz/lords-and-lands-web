@@ -29,6 +29,8 @@ import MISC_DEMOLISH from "../../res/sprites/misc/demolish.png";
 import UI_ICON_ARMY from "../../res/sprites/ui/icon_army.png";
 import UI_ICON_BUILDING from "../../res/sprites/ui/icon_building.png";
 import UI_ICON_DIPLOMACY from "../../res/sprites/ui/icon_diplomacy.png";
+import UI_ICON_ARROW_LEFT from "../../res/sprites/ui/icon_arrow_left.png";
+import UI_ICON_ARROW_RIGHT from "../../res/sprites/ui/icon_arrow_right.png";
 
 const sprites = {
   ARMY_GREEN_BIG,
@@ -62,6 +64,8 @@ const sprites = {
   UI_ICON_ARMY,
   UI_ICON_BUILDING,
   UI_ICON_DIPLOMACY,
+  UI_ICON_ARROW_LEFT,
+  UI_ICON_ARROW_RIGHT,
 }
 
 type SPRITES = { [key in keyof typeof sprites]: HTMLImageElement };
