@@ -47,7 +47,7 @@ export class Util {
 
 
   public provinceToLandmarkSprite(province: Province) {
-    switch (keyof(province.landmark?.data)) {
+    switch (province.landmark?.data.id) {
       case "CAPITAL":
         return game.resources.SPRITES.LANDMARK_CAPITAL;
       case "CHURCH":

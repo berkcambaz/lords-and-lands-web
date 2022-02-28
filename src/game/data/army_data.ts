@@ -1,5 +1,10 @@
+enum ArmyId {
+  NORMAL
+}
+
 export interface ArmyData {
-  id: string;
+  id: keyof typeof ArmyId;
+
   cost: number;
 
   offensive: number;
@@ -13,7 +18,7 @@ function newArmy(data: ArmyData) {
 
 export const ARMY_DATA = {
   NORMAL: newArmy({
-    id: "normal",
+    id: "NORMAL",
     cost: 2,
     offensive: 0,
     defensive: 0,
