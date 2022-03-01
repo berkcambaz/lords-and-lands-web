@@ -1,5 +1,5 @@
 import { game } from "..";
-import { COUNTRY_ID } from "../game/country";
+import { Country, COUNTRY_ID } from "../game/country";
 import { LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Province } from "../game/province";
 
@@ -83,5 +83,16 @@ export class Util {
       return undefined;
 
     return game.gameplay.provinces[x + game.gameplay.width * y];
+  }
+
+  public hasLandmark(country: Country, id: LANDMARK_ID) {
+    for (let i = 0; i < game.gameplay.provinces.length; ++i) {
+      if (game.gameplay.provinces[i].owner.id === country.id
+        && game.gameplay.provinces[i].landmark?.data.id === id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

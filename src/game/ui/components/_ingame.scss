@@ -75,6 +75,14 @@
       border: 1px solid $color3;
       border-radius: 5px;
       cursor: pointer;
+
+      &.__hidden {
+        display: none;
+      }
+
+      &.__disabled {
+        background-color: $color5;
+      }
     }
   }
 }
