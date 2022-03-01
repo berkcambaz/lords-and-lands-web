@@ -1,3 +1,4 @@
+import { Province } from "../../province";
 import { LandmarkData, LANDMARK_ID } from "./_landmark_data";
 
 export class LandmarkChurch extends LandmarkData {

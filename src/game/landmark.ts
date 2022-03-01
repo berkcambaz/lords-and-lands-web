@@ -92,8 +92,6 @@ export class Landmark {
     province.owner.manpower += landmark.manpower;
 
     province.landmark = new Landmark(landmark);
-    console.log(province);
-
 
     // Call onBuild 
     landmark.onBuild(province);

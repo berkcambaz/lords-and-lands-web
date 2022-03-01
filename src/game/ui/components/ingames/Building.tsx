@@ -53,7 +53,7 @@ export function Building() {
       <img src={game.resources.URL_SPRITES.LANDMARK_CHURCH} class={classLandmark(LANDMARK_ID.CHURCH)} onclick={() => { eventBuild(LANDMARK_ID.CHURCH) }} />
       <img src={game.resources.URL_SPRITES.LANDMARK_HOUSE} class={classLandmark(LANDMARK_ID.HOUSE)} onclick={() => { eventBuild(LANDMARK_ID.HOUSE) }} />
       <img src={game.resources.URL_SPRITES.LANDMARK_TOWER} class={classLandmark(LANDMARK_ID.TOWER)} onclick={() => { eventBuild(LANDMARK_ID.TOWER) }} />
-      <img src={game.resources.URL_SPRITES.UI_ICON_CANCEL} class={classDemolish()} onclick={eventDemolish()} />
+      <img src={game.resources.URL_SPRITES.UI_ICON_CANCEL} class={classDemolish()} onclick={eventDemolish} />
     </div>
   )
 }
