@@ -11,6 +11,7 @@ export class Gameplay {
   public seed!: number;
 
   public currentCountry!: Country;
+  public currentProvince!: Province | undefined;
   public turn!: number;
 
   public create(width: number, height: number, seed: number, countries: COUNTRY_ID[]) {
@@ -30,6 +31,7 @@ export class Gameplay {
   public start() {
     // First country's turn
     this.currentCountry = this.countries[0];
+    this.currentProvince = undefined;
     this.turn = 1;
 
     // Handle the ui states and update
@@ -42,10 +44,14 @@ export class Gameplay {
   }
 
   public nextTurn() {
-
+    // TODO: Implement
   }
 
-  public previousTurn() {
+  public undo() {
+    // TODO: Implement
+  }
+
+  public redo() {
     // TODO: Implement
   }
 

@@ -27,9 +27,6 @@ export function Main() {
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
       <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
-      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
-      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
-      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
     </div>
   )
 }

@@ -45,7 +45,7 @@ export class Tilemap {
       this.buffer.drawImage(landmarkSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
     }
 
-    if (this.selectedProvince && Vec2.equals(province.pos, this.selectedProvince.pos)) {
+    if (this.selectedProvince && Province.equals(province, this.selectedProvince)) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECTED,
         province.pos.x * this.TILE_SIZE,
@@ -59,8 +59,8 @@ export class Tilemap {
       );
     }
 
-    if (this.highlightedProvince && Vec2.equals(province.pos, this.highlightedProvince.pos)) {
-      if (!this.selectedProvince || !Vec2.equals(province.pos, this.selectedProvince.pos))
+    if (this.highlightedProvince && Province.equals(province, this.highlightedProvince)) {
+      if (!this.selectedProvince || !Province.equals(province, this.selectedProvince))
         this.buffer.drawImage(
           game.resources.SPRITES.TILEMAP_SELECT_WHITE,
           province.pos.x * this.TILE_SIZE,
@@ -120,7 +120,7 @@ export class Tilemap {
     }
 
     // Mouse is still over the same province
-    if (this.highlightedProvince && Vec2.equals(this.highlightedProvince.pos, province.pos))
+    if (this.highlightedProvince && Province.equals(this.highlightedProvince, province))
       return;
 
     // Remove highlight from old province
@@ -140,7 +140,7 @@ export class Tilemap {
     if (oldProvince) this.drawTile(oldProvince);
 
     // Select the new province if it exists and not the same province as the old one
-    if (province && (!oldProvince || !Vec2.equals(oldProvince.pos, province.pos))) {
+    if (province && (!oldProvince || !Province.equals(oldProvince, province))) {
       this.selectedProvince = province;
       this.drawTile(province);
     }

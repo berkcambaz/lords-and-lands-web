@@ -31,4 +31,8 @@ export class Province {
     this.landmark = landmark;
     this.army = army;
   }
+
+  public static equals(a: Province, b: Province) {
+    return Vec2.equals(a.pos, b.pos);
+  }
 }
