@@ -43,8 +43,9 @@ export class Landmark {
     if (province.landmark) return false;
 
     // If capital is not built and currently building a capital, allow it
-    let capitalBuilt = game.util.hasLandmark(province.owner, landmark.id);
+    let capitalBuilt = game.util.hasLandmark(province.owner, LANDMARK_ID.CAPITAL);
     if (!capitalBuilt) capitalBuilt = landmark.id === LANDMARK_ID.CAPITAL;
+
 
     // If it's unique and not build, allow it
     let alreadyBuilt = landmark.unique && game.util.hasLandmark(province.owner, landmark.id);
@@ -91,6 +92,8 @@ export class Landmark {
     province.owner.manpower += landmark.manpower;
 
     province.landmark = new Landmark(landmark);
+    console.log(province);
+
 
     // Call onBuild 
     landmark.onBuild(province);
