@@ -1,6 +1,7 @@
 import { game } from "../../..";
 import { Signal } from "../../../core/signal";
 import { Country } from "../../country";
+import { Landmark } from "../../landmark";
 import { Province, PROVINCE_STATE } from "../../province";
 import { LandmarkCapital } from "./landmark_capital";
 import { LandmarkChurch } from "./landmark_church";
@@ -109,14 +110,34 @@ export class LandmarkData {
     return true;
   }
 
-  public onBuild(province: Province) {
+  public onBuild(province: Province | undefined) {
+    if (!province) return;
+
+    if (!this.availableToBuild(game.gameplay.currentCountry, province) ||
+      !this.canBuild(game.gameplay.currentCountry, province))
+      return;
+
     province.owner.gold -= this.cost;
     province.owner.income += this.income;
     province.owner.manpower += this.manpower;
+
+    province.landmark = new Landmark(this);
+
+    // Update the UI
   }
 
-  public onDemolish(province: Province) {
+  public onDemolish(province: Province | undefined) {
+    if (!province) return;
+
+    if (!this.availableToDemolish(game.gameplay.currentCountry, province) ||
+      !this.canDemolish(game.gameplay.currentCountry, province))
+      return;
+
     province.owner.income -= this.income;
     province.owner.manpower -= this.manpower;
+
+    province.landmark = undefined;
+
+    // Update the UI
   }
 }
