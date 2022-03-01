@@ -1,6 +1,5 @@
 import { Country } from "./country";
-
-import { ArmyData, ARMY_DATA } from "./data/army_data";
+import { ArmyData } from "./data/armies/_army_data";
 
 export enum ARMY_STATE {
   READY,
@@ -17,12 +16,8 @@ export class Army {
 
   constructor(country: Country, data: ArmyData, state: ARMY_STATE, exhaust: number) {
     this.country = country;
-    this.data = Object.assign({}, data);
+    this.data = data;
     this.state = state;
     this.exhaust = exhaust;
-  }
-
-  public static getArmyData(army: keyof typeof ARMY_DATA) {
-    return ARMY_DATA[army];
   }
 }

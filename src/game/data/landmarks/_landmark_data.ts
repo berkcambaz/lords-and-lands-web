@@ -1,5 +1,11 @@
 import { Signal } from "../../../core/signal";
 import { Province } from "../../province";
+import { LandmarkCapital } from "./landmark_capital";
+import { LandmarkChurch } from "./landmark_church";
+import { LandmarkForest } from "./landmark_forest";
+import { LandmarkHouse } from "./landmark_house";
+import { LandmarkMountains } from "./landmark_mountains";
+import { LandmarkTower } from "./landmark_tower";
 
 export enum LANDMARK_ID {
   CAPITAL,
@@ -8,11 +14,6 @@ export enum LANDMARK_ID {
   MOUNTAINS,
   FOREST,
   TOWER
-}
-
-interface LandmarkSignals {
-  onBuild: Signal<[province: Province]>,
-  onDemolish: Signal<[province: Province]>
 }
 
 export class LandmarkData {
@@ -31,8 +32,6 @@ export class LandmarkData {
   offensive: number;
   defensive: number;
   resistance: number;
-
-  signals: LandmarkSignals;
 
   constructor(
     id: LANDMARK_ID,
@@ -62,14 +61,6 @@ export class LandmarkData {
     this.offensive = offensive;
     this.defensive = defensive;
     this.resistance = resistance;
-
-    this.signals = {
-      onBuild: new Signal(),
-      onDemolish: new Signal()
-    }
-
-    this.signals.onBuild.add(this.onBuild);
-    this.signals.onDemolish.add(this.onDemolish);
   }
 
   protected onBuild(province: Province) {
@@ -78,5 +69,24 @@ export class LandmarkData {
 
   protected onDemolish(province: Province) {
 
+  }
+
+  public static createLandmark(id: LANDMARK_ID) {
+    switch (id) {
+      case LANDMARK_ID.CAPITAL:
+        return new LandmarkCapital();
+      case LANDMARK_ID.CHURCH:
+        return new LandmarkChurch();
+      case LANDMARK_ID.FOREST:
+        return new LandmarkForest();
+      case LANDMARK_ID.HOUSE:
+        return new LandmarkHouse();
+      case LANDMARK_ID.MOUNTAINS:
+        return new LandmarkMountains();
+      case LANDMARK_ID.TOWER:
+        return new LandmarkTower();
+      default:
+        throw new Error(`Landmark with id ${id} doesn't exist.`);
+    }
   }
 }
