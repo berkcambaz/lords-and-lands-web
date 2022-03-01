@@ -15,10 +15,10 @@ export function Building() {
 
     const landmark = Landmark.create(id);
 
-    if (!landmark.availableToBuild(game.gameplay.currentCountry, game.gameplay.currentProvince))
+    if (!Landmark.availableToBuild(game.gameplay.currentCountry, game.gameplay.currentProvince, landmark))
       return "__hidden";
 
-    if (!landmark.canBuild(game.gameplay.currentCountry, game.gameplay.currentProvince))
+    if (!Landmark.canBuild(game.gameplay.currentCountry, game.gameplay.currentProvince, landmark))
       return "__disabled";
   }
 
@@ -28,22 +28,22 @@ export function Building() {
 
     const landmark = game.gameplay.currentProvince.landmark.data;
 
-    if (!landmark.availableToDemolish(game.gameplay.currentCountry, game.gameplay.currentProvince))
+    if (!Landmark.availableToDemolish(game.gameplay.currentCountry, game.gameplay.currentProvince, landmark))
       return "__hidden";
 
-    if (!landmark.canDemolish(game.gameplay.currentCountry, game.gameplay.currentProvince))
+    if (!Landmark.canDemolish(game.gameplay.currentCountry, game.gameplay.currentProvince, landmark))
       return "__disabled";
   }
 
   const eventBuild = (id: LANDMARK_ID) => {
     const landmark = Landmark.create(id);
-    landmark.onBuild(game.gameplay.currentProvince);
+    Landmark.onBuild(game.gameplay.currentProvince, landmark);
   }
 
   const eventDemolish = () => {
     const landmark = game.gameplay.currentProvince?.landmark?.data;
     if (!landmark) return;
-    landmark.onDemolish(game.gameplay.currentProvince);
+    Landmark.onDemolish(game.gameplay.currentProvince, landmark);
   }
 
   return (
