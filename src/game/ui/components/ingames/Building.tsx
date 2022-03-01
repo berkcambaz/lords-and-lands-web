@@ -37,13 +37,13 @@ export function Building() {
 
   const eventBuild = (id: LANDMARK_ID) => {
     const landmark = Landmark.create(id);
-    Landmark.onBuild(game.gameplay.currentProvince, landmark);
+    Landmark.build(game.gameplay.currentProvince, landmark);
   }
 
   const eventDemolish = () => {
     const landmark = game.gameplay.currentProvince?.landmark?.data;
     if (!landmark) return;
-    Landmark.onDemolish(game.gameplay.currentProvince, landmark);
+    Landmark.demolish(game.gameplay.currentProvince, landmark);
   }
 
   return (

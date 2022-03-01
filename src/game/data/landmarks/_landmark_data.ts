@@ -59,4 +59,12 @@ export class LandmarkData {
     this.defensive = defensive;
     this.resistance = resistance;
   }
+
+  public onBuild(province: Province) {
+
+  }
+
+  public onDemolish(province: Province) {
+
+  }
 }

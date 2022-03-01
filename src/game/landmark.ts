@@ -79,7 +79,7 @@ export class Landmark {
     return true;
   }
 
-  public static onBuild(province: Province | undefined, landmark: LandmarkData) {
+  public static build(province: Province | undefined, landmark: LandmarkData) {
     if (!province) return;
 
     if (!Landmark.availableToBuild(game.gameplay.currentCountry, province, landmark) ||
@@ -92,10 +92,17 @@ export class Landmark {
 
     province.landmark = new Landmark(landmark);
 
+    // Call onBuild 
+    landmark.onBuild(province);
+
     // Update the UI
+    game.ui.ingameHandler();
+
+    // Update the tilemap
+    game.tilemap.drawTile(province);
   }
 
-  public static onDemolish(province: Province | undefined, landmark: LandmarkData) {
+  public static demolish(province: Province | undefined, landmark: LandmarkData) {
     if (!province) return;
 
     if (!Landmark.availableToDemolish(game.gameplay.currentCountry, province, landmark) ||
@@ -107,6 +114,13 @@ export class Landmark {
 
     province.landmark = undefined;
 
+    // Call onBuild 
+    landmark.onDemolish(province);
+
     // Update the UI
+    game.ui.ingameHandler();
+
+    // Update the tilemap
+    game.tilemap.drawTile(province);
   }
 }
