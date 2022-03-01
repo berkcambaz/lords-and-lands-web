@@ -43,6 +43,10 @@ export class Gameplay {
     game.ui.ingameHandler();
   }
 
+  public selectProvince(province: Province | undefined) {
+    this.currentProvince = province;
+  }
+
   public nextTurn() {
     // TODO: Implement
   }

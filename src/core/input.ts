@@ -39,7 +39,7 @@ export class Input {
 
   private onMouseUp(ev: MouseEvent) {
     if (!this.mouse.moved) {
-      game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y))
+      game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y));
     }
 
     this.mouse.pressed = false;

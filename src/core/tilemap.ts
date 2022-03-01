@@ -145,6 +145,8 @@ export class Tilemap {
       this.selectedProvince = province;
       this.drawTile(province);
     }
+
+    game.gameplay.selectProvince(this.selectedProvince);
   }
 
   private chooseOrigins(width: number, height: number, countries: Country[], provinces: Province[]) {
