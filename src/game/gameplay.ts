@@ -22,7 +22,7 @@ export class Gameplay {
     this.seed = seed;
 
     for (let i = 0; i < countries.length; ++i) {
-      this.countries[i] = new Country(countries[i], 10, 1, 0, 3);
+      this.countries[i] = new Country(countries[i], 0, 0, 0, 0);
     }
 
     game.tilemap.generate(width, height, seed, this.countries, this.provinces);
