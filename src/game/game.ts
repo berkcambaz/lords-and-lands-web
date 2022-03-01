@@ -6,7 +6,7 @@ import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
 import { Tilemap } from "../core/tilemap";
 import { Util } from "../core/util";
-import { Country, COUNTRY_ID } from "./country";
+import { COUNTRY_ID } from "./country";
 import { Gameplay } from "./gameplay";
 import { UI } from "./ui/ui";
 

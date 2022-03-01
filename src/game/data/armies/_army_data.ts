@@ -55,13 +55,4 @@ export class ArmyData {
   protected onDisband(province: Province) {
 
   }
-
-  public static createArmy(id: ARMY_ID) {
-    switch (id) {
-      case ARMY_ID.NORMAL:
-        return new ArmyNormal();
-      default:
-        throw new Error(`Army with id ${id} doesn't exist.`);
-    }
-  }
 }

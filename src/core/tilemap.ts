@@ -1,5 +1,6 @@
 import { game } from "..";
 import { Country } from "../game/country";
+import { LandmarkData, LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Landmark } from "../game/landmark";
 import { Province } from "../game/province";
 import { Vec2 } from "./vec2";
@@ -216,11 +217,13 @@ export class Tilemap {
   private sprinkleNature(width: number, height: number, provinces: Province[]) {
     for (let y = 0; y < height; ++y) {
       for (let x = 0; x < width; ++x) {
-        provinces[x + y * width].landmark = game.random.percent([
-          { percent: 10, result: Landmark.getLandmarkData("MOUNTAINS") },
-          { percent: 15, result: Landmark.getLandmarkData("FOREST") },
+        const data: LandmarkData | undefined = game.random.percent([
+          { percent: 10, result: Landmark.create(LANDMARK_ID.MOUNTAINS) },
+          { percent: 15, result: Landmark.create(LANDMARK_ID.FOREST) },
           { percent: 75, result: undefined }
         ])
+
+        if (data) provinces[x + y * width].landmark = new Landmark(data);
       }
     }
   }

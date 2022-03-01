@@ -70,23 +70,4 @@ export class LandmarkData {
   protected onDemolish(province: Province) {
 
   }
-
-  public static createLandmark(id: LANDMARK_ID) {
-    switch (id) {
-      case LANDMARK_ID.CAPITAL:
-        return new LandmarkCapital();
-      case LANDMARK_ID.CHURCH:
-        return new LandmarkChurch();
-      case LANDMARK_ID.FOREST:
-        return new LandmarkForest();
-      case LANDMARK_ID.HOUSE:
-        return new LandmarkHouse();
-      case LANDMARK_ID.MOUNTAINS:
-        return new LandmarkMountains();
-      case LANDMARK_ID.TOWER:
-        return new LandmarkTower();
-      default:
-        throw new Error(`Landmark with id ${id} doesn't exist.`);
-    }
-  }
 }

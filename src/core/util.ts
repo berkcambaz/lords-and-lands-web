@@ -1,5 +1,6 @@
 import { game } from "..";
 import { COUNTRY_ID } from "../game/country";
+import { LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Province } from "../game/province";
 
 export class Util {
@@ -50,17 +51,17 @@ export class Util {
     if (!province.landmark) return null;
 
     switch (province.landmark.data.id) {
-      case "CAPITAL":
+      case LANDMARK_ID.CAPITAL:
         return game.resources.SPRITES.LANDMARK_CAPITAL;
-      case "CHURCH":
+      case LANDMARK_ID.CHURCH:
         return game.resources.SPRITES.LANDMARK_CHURCH;
-      case "FOREST":
+      case LANDMARK_ID.FOREST:
         return game.resources.SPRITES.LANDMARK_FOREST;
-      case "HOUSE":
+      case LANDMARK_ID.HOUSE:
         return game.resources.SPRITES.LANDMARK_HOUSE;
-      case "MOUNTAINS":
+      case LANDMARK_ID.MOUNTAINS:
         return game.resources.SPRITES.LANDMARK_MOUNTAINS;
-      case "TOWER":
+      case LANDMARK_ID.TOWER:
         return game.resources.SPRITES.LANDMARK_TOWER;
       default:
         throw new Error(`Landmark with id ${province.landmark.data.id} doesn't exist.`);
