@@ -4,4 +4,11 @@ import "./index.scss";
 
 export const game = new Game();
 
-window.onload = () => { game.run() }
+window.onload = () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js");
+  }
+
+  game.run();
+}
+
