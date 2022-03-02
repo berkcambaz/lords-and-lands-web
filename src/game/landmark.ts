@@ -80,11 +80,11 @@ export class Landmark {
     return true;
   }
 
-  public static build(province: Province | undefined, landmark: LandmarkData) {
+  public static build(country: Country, province: Province | undefined, landmark: LandmarkData) {
     if (!province) return;
 
-    if (!Landmark.availableToBuild(game.gameplay.currentCountry, province, landmark) ||
-      !Landmark.canBuild(game.gameplay.currentCountry, province, landmark))
+    if (!Landmark.availableToBuild(country, province, landmark) ||
+      !Landmark.canBuild(country, province, landmark))
       return;
 
     province.owner.gold -= landmark.cost;
@@ -103,11 +103,11 @@ export class Landmark {
     game.tilemap.drawTile(province);
   }
 
-  public static demolish(province: Province | undefined, landmark: LandmarkData) {
+  public static demolish(country: Country, province: Province | undefined, landmark: LandmarkData) {
     if (!province) return;
 
-    if (!Landmark.availableToDemolish(game.gameplay.currentCountry, province, landmark) ||
-      !Landmark.canDemolish(game.gameplay.currentCountry, province, landmark))
+    if (!Landmark.availableToDemolish(country, province, landmark) ||
+      !Landmark.canDemolish(country, province, landmark))
       return;
 
     province.owner.income -= landmark.income;

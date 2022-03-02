@@ -30,4 +30,40 @@ export class Army {
         throw new Error(`Army with id ${id} doesn't exist.`);
     }
   }
+
+  public static availableToRecruit() {
+
+  }
+
+  public static canRecruit() {
+
+  }
+
+  public static availableToDisband() {
+
+  }
+
+  public static canDisband() {
+
+  }
+
+  public static availableToMove() {
+
+  }
+
+  public static canMove() {
+
+  }
+
+  public static recruit() {
+
+  }
+
+  public static disband() {
+
+  }
+
+  public static move() {
+
+  }
 }
