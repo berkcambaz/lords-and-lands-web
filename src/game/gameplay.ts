@@ -66,6 +66,7 @@ export class Gameplay {
     }
 
     // Update UI
+    game.ui.ingameHandler();
   }
 
   public undo() {
