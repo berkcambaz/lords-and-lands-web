@@ -1,6 +1,7 @@
 import { Country } from "./country";
 import { ArmyNormal } from "./data/armies/army_normal";
 import { ArmyData, ARMY_ID } from "./data/armies/_army_data";
+import { Province, PROVINCE_STATE } from "./province";
 
 export enum ARMY_STATE {
   READY,
@@ -31,39 +32,66 @@ export class Army {
     }
   }
 
-  public static availableToRecruit() {
+  public static availableToRecruit(country: Country, province: Province, army: ArmyData) {
+    // If not the owner
+    if (country.id !== province.owner.id) return false;
+
+    // If there is already an army
+    if (province.army) return false;
+
+    // If there is no recruitable building
+    if (!province.landmark?.data.recruitable) return false;
+
+    return true;
+  }
+
+  public static canRecruit(country: Country, province: Province, army: ArmyData) {
+    // If province is not free
+    if (province.state !== PROVINCE_STATE.FREE) return false;
+
+    // If not enough money
+    if (province.owner.gold < army.cost) return false;
+
+    return true;
+  }
+
+  public static availableToDisband(country: Country, province: Province, army: ArmyData) {
+    // If there's no army
+    if (!province.army) return false;
+
+    // If not the owner
+    if (province.army.country.id !== country.id) return false;
+
+    return true;
+  }
+
+  public static canDisband(country: Country, province: Province, army: ArmyData) {
+    // TODO: Check if allies land, and if so, allow to disband
+    // TODO: Check if adjacent to non-ally army, if so, don't allow to disband
+
+    // If not on own country
+    if (country.id !== province.owner.id) return false;
+
+    return true;
+  }
+
+  public static availableToMove(country: Country, province: Province, army: ArmyData) {
 
   }
 
-  public static canRecruit() {
+  public static canMove(country: Country, province: Province, army: ArmyData) {
 
   }
 
-  public static availableToDisband() {
+  public static recruit(country: Country, province: Province, army: ArmyData) {
 
   }
 
-  public static canDisband() {
+  public static disband(country: Country, province: Province, army: ArmyData) {
 
   }
 
-  public static availableToMove() {
-
-  }
-
-  public static canMove() {
-
-  }
-
-  public static recruit() {
-
-  }
-
-  public static disband() {
-
-  }
-
-  public static move() {
+  public static move(country: Country, province: Province, army: ArmyData) {
 
   }
 }
