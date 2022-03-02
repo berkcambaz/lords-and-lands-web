@@ -1,6 +1,7 @@
 import { game } from "../../..";
 import { ARMY_STATE } from "../../army";
-import { Province } from "../../province";
+import { Landmark } from "../../landmark";
+import { Province, PROVINCE_STATE } from "../../province";
 import { ArmyNormal } from "./army_normal";
 
 export enum ARMY_ID {
@@ -27,9 +28,15 @@ export class ArmyData {
   }
 
   public onUpdate(province: Province) {
+    if (!province.army) return;
+
+    this.onHitProvince(province);
+
     // Reduce exhaust if ready
-    if (province.army?.state === ARMY_STATE.READY)
+    if (province.army.state === ARMY_STATE.READY)
       province.army.exhaust = game.maths.clamp(province.army.exhaust - 0.25, 0, 6);
+
+    province.army.state = ARMY_STATE.READY;
   }
 
   public onHit(from: Province, to: Province) {
@@ -68,8 +75,44 @@ export class ArmyData {
     }
   }
 
-  public onGetHit(from: Province, to: Province) {
+  public onHitProvince(province: Province) {
+    // If owner & province is free
+    if (province.owner.id === province.army?.country.id && province.state === PROVINCE_STATE.FREE) return;
 
+    // If army is not ready
+    if (province.army?.state !== ARMY_STATE.READY) return;
+
+    let ally = 0;
+    let enemy = 0;
+
+    // Add dice
+    ally += game.random.dice();
+    enemy += game.random.dice();
+
+    // Add breakthrough for ally & resistance for enemy
+    if (province.army) ally += province.army.data.breakthrough;
+    if (province.landmark) enemy += province.landmark.data.resistance;
+
+    // Subtract exhaust modifier from ally
+    if (province.army) ally -= province.army.exhaust;
+
+    // Add support bonus
+    ally += game.util.getSupportBonus(province);
+
+    if (ally > enemy) {
+      // If freeing own province
+      if (province.owner.id === province.army.country.id) {
+        this.onFree(province);
+      }
+      // If occupying unoccupied province or occupied by someone else
+      else if (!province.occupier || province.occupier.id !== province.army.country.id) {
+        this.onOccupy(province);
+      }
+      // If conquering sieged province
+      else {
+        this.onConquer(province);
+      }
+    }
   }
 
   public onMove(from: Province, to: Province) {
@@ -83,15 +126,24 @@ export class ArmyData {
   }
 
   public onFree(province: Province) {
-
-  }
-
-  public onInvade(province: Province) {
-
+    province.occupier = undefined;
+    province.state = PROVINCE_STATE.FREE;
+    Landmark.addEffects(province);
   }
 
   public onOccupy(province: Province) {
+    province.occupier = province.army?.country;
+    province.state = PROVINCE_STATE.OCCUPIED;
+    Landmark.removeEffects(province);
+  }
 
+  public onConquer(province: Province) {
+    if (!province.army) return;
+
+    province.owner = province.army.country;
+    province.occupier = undefined;
+    province.state = PROVINCE_STATE.FREE;
+    Landmark.addEffects(province);
   }
 
   public onRecruit(province: Province) {

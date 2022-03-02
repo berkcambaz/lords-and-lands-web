@@ -87,11 +87,10 @@ export class Landmark {
       !Landmark.canBuild(country, province, landmark))
       return;
 
-    country.gold -= landmark.cost;
-    country.income += landmark.income;
-    country.manpower += landmark.manpower;
-
     province.landmark = new Landmark(landmark);
+
+    country.gold -= landmark.cost;
+    this.addEffects(province);
 
     // Call onBuild 
     landmark.onBuild(province);
@@ -110,8 +109,7 @@ export class Landmark {
       !Landmark.canDemolish(country, province, landmark))
       return;
 
-    country.income -= landmark.income;
-    country.manpower -= landmark.manpower;
+    this.removeEffects(province);
 
     province.landmark = undefined;
 
@@ -123,5 +121,19 @@ export class Landmark {
 
     // Update the tilemap
     game.tilemap.drawTile(province);
+  }
+
+  public static addEffects(province: Province) {
+    if (!province.landmark) return;
+
+    province.owner.income += province.landmark.data.income;
+    province.owner.manpower += province.landmark.data.manpower;
+  }
+
+  public static removeEffects(province: Province) {
+    if (!province.landmark) return;
+
+    province.owner.income -= province.landmark.data.income;
+    province.owner.manpower -= province.landmark.data.manpower;
   }
 }
