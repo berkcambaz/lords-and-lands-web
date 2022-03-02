@@ -125,4 +125,17 @@ export class Util {
 
     return provinces;
   }
+
+  public checkMoveableProvinces(provinces: Province[]) {
+    // TODO: Handle ally situation
+    const moveables: Province[] = [];
+
+    for (let i = 0; i < provinces.length; ++i) {
+      if (!provinces[i].army || provinces[i].army?.country.id !== game.gameplay.currentCountry.id) {
+        moveables.push(provinces[i]);
+      }
+    }
+
+    return moveables;
+  }
 }
