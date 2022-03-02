@@ -56,7 +56,9 @@ export class Gameplay {
     // Increase gold by the amount of income & update armies
     this.currentCountry.gold += this.currentCountry.income;
     for (let i = 0; i < this.provinces.length; ++i) {
-      if (this.provinces[i].army) this.provinces[i].army?.data.onUpdate(this.provinces[i]);
+      // Only update the current country's armies not the others
+      if (this.provinces[i].army?.country.id === this.currentCountry.id)
+        this.provinces[i].army?.data.onUpdate(this.provinces[i]);
     }
 
     for (let i = 0; i < this.countries.length; ++i) {
