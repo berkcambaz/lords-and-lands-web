@@ -159,6 +159,8 @@ export class ArmyData {
   }
 
   public onDisband(province: Province) {
-
+    // If the province was invaded & not ours, set it to free
+    if (province.state === PROVINCE_STATE.INVADED && province.owner.id !== province.army?.country.id)
+      province.state = PROVINCE_STATE.FREE;
   }
 }
