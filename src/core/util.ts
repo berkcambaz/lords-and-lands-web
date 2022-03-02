@@ -74,7 +74,7 @@ export class Util {
 
     switch (province.army.data.id) {
       case ARMY_ID.NORMAL:
-        switch (province.owner.id) {
+        switch (province.army.country.id) {
           case COUNTRY_ID.GREEN:
             return game.resources.SPRITES.ARMY_GREEN_SMALL;
           case COUNTRY_ID.PURPLE:
