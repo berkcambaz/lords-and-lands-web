@@ -74,7 +74,18 @@ export class Util {
 
     switch (province.army.data.id) {
       case ARMY_ID.NORMAL:
-        return game.resources.SPRITES.ARMY_GREEN_SMALL;
+        switch (province.owner.id) {
+          case COUNTRY_ID.GREEN:
+            return game.resources.SPRITES.ARMY_GREEN_SMALL;
+          case COUNTRY_ID.PURPLE:
+            return game.resources.SPRITES.ARMY_PURPLE_SMALL;
+          case COUNTRY_ID.RED:
+            return game.resources.SPRITES.ARMY_RED_SMALL;
+          case COUNTRY_ID.YELLOW:
+            return game.resources.SPRITES.ARMY_YELLOW_SMALL;
+          default:
+            throw new Error(`Country with id ${province.owner.id} doesn't exist.`);
+        }
       default:
         throw new Error(`Army with id ${province.army.data.id} doesn't exist.`);
     }
