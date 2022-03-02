@@ -53,7 +53,7 @@ export class ArmyData {
 
     // Add land bonus (offensive for ally, defensive for enemy)
     if (from.landmark) ally += from.landmark.data.offensive;
-    if (to.landmark) enemy += to.landmark.data.offensive;
+    if (to.landmark) enemy += to.landmark.data.defensive;
 
     // Add support bonus
     ally += game.util.getSupportBonus(from);
@@ -67,7 +67,7 @@ export class ArmyData {
       from.army = undefined;
     }
     else if (ally === enemy) {
-      if (from.army) from.army.exhaust += 0.5;
+      if (to.army) to.army.exhaust += 0.5;
     }
     else if (ally < enemy) {
       from.army = undefined;
