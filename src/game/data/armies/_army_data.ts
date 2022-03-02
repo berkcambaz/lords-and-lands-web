@@ -2,6 +2,7 @@ import { game } from "../../..";
 import { ARMY_STATE } from "../../army";
 import { Landmark } from "../../landmark";
 import { Province, PROVINCE_STATE } from "../../province";
+import { LANDMARK_ID } from "../landmarks/_landmark_data";
 import { ArmyNormal } from "./army_normal";
 
 export enum ARMY_ID {
@@ -146,6 +147,8 @@ export class ArmyData {
   }
 
   public onOccupy(province: Province) {
+    // TODO: Handle for capital
+
     province.occupier = province.army?.country;
     province.state = PROVINCE_STATE.OCCUPIED;
     Landmark.removeEffects(province);
@@ -153,6 +156,8 @@ export class ArmyData {
 
   public onConquer(province: Province) {
     if (!province.army) return;
+
+    // TODO: Handle for capital
 
     province.owner = province.army.country;
     province.occupier = undefined;
