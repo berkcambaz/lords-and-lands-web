@@ -33,8 +33,13 @@ export class ArmyData {
   }
 
   public onMove(from: Province, to: Province) {
-    to.army = from.army;
-    from.army = undefined;
+    if (!to.army) {
+      to.army = from.army;
+      from.army = undefined;
+    }
+    else {
+      this.onHit(from, to);
+    }
   }
 
   public onFree(province: Province) {

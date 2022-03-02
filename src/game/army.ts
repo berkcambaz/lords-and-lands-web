@@ -81,7 +81,7 @@ export class Army {
     if (!province.army) return false;
 
     // If not the owner
-    if (country.id !== province.owner.id) return false;
+    if (province.army.country.id !== country.id) return false;
 
     return true;
   }
