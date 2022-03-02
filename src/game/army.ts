@@ -103,7 +103,7 @@ export class Army {
     country.gold -= army.cost;
     country.army += 1;
 
-    province.army = new Army(country, army, ARMY_STATE.READY, 0);
+    province.army = new Army(country, army, ARMY_STATE.NOT_READY, 0);
 
     // Call onRecruit 
     army.onRecruit(province);
