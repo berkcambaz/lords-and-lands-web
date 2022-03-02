@@ -18,6 +18,10 @@ export function Main() {
     game.ui.ingameHandler();
   }
 
+  const nextTurn = () => {
+    game.gameplay.nextTurn();
+  }
+
   return (
     <div class="__main">
       <img src={game.resources.URL_SPRITES.UI_ICON_ARMY} onclick={army} />
@@ -26,7 +30,7 @@ export function Main() {
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_LEFT} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
-      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
+      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} onClick={nextTurn} />
     </div>
   )
 }
