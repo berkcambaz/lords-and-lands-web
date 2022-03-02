@@ -76,11 +76,11 @@ export class Army {
   }
 
   public static availableToMove(country: Country, province: Province, army: ArmyData) {
-
+    return true;
   }
 
   public static canMove(country: Country, province: Province, army: ArmyData) {
-
+    return true;
   }
 
   public static recruit(country: Country, province: Province, army: ArmyData) {

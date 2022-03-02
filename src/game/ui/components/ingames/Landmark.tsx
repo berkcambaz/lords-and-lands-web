@@ -4,7 +4,7 @@ import { LANDMARK_ID } from "../../../data/landmarks/_landmark_data";
 import { Landmark } from "../../../landmark";
 import { INGAME_STATE } from "../../ui";
 
-export function Building() {
+export function LandmarkUI() {
   const goback = () => {
     game.ui.ingameState = INGAME_STATE.MAIN;
     game.ui.ingameHandler();

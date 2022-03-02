@@ -2,7 +2,7 @@ import { Soda } from "@dorkodu/soda";
 import { game } from "../../../..";
 import { INGAME_STATE } from "../../ui";
 
-export function Diplomacy() {
+export function DiplomacyUI() {
   const goback = () => {
     game.ui.ingameState = INGAME_STATE.MAIN;
     game.ui.ingameHandler();

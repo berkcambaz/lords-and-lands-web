@@ -3,17 +3,17 @@ import { game } from "../../..";
 import { INGAME_STATE, MENU_STATE } from "../ui";
 import { ICONS } from "./Icons";
 import { Main } from "./ingames/Main";
-import { Army } from "./ingames/Army";
-import { Building } from "./ingames/Building";
-import { Diplomacy } from "./ingames/Diplomacy";
+import { ArmyUI } from "./ingames/Army";
+import { LandmarkUI } from "./ingames/Landmark";
+import { DiplomacyUI } from "./ingames/Diplomacy";
 
 function getIngameStateComponent() {
   switch (game.ui.ingameState) {
     case INGAME_STATE.NONE: return "";
     case INGAME_STATE.MAIN: return <Main />
-    case INGAME_STATE.ARMY: return <Army />
-    case INGAME_STATE.BUILDING: return <Building />
-    case INGAME_STATE.DIPLOMACY: return <Diplomacy />
+    case INGAME_STATE.ARMY: return <ArmyUI />
+    case INGAME_STATE.BUILDING: return <LandmarkUI />
+    case INGAME_STATE.DIPLOMACY: return <DiplomacyUI />
     default: throw new Error(`Ingame state with id ${game.ui.ingameState} not found.`);
   }
 }
