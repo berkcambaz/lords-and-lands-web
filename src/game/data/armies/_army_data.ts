@@ -33,7 +33,8 @@ export class ArmyData {
   }
 
   public onMove(from: Province, to: Province) {
-
+    to.army = from.army;
+    from.army = undefined;
   }
 
   public onFree(province: Province) {

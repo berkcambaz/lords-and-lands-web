@@ -77,10 +77,19 @@ export class Army {
   }
 
   public static availableToMove(country: Country, province: Province, army: ArmyData) {
+    // If no army
+    if (!province.army) return false;
+
+    // If not the owner
+    if (country.id !== province.owner.id) return false;
+
     return true;
   }
 
   public static canMove(country: Country, province: Province, army: ArmyData) {
+    // If army is not in ready state
+    if (province.army?.state !== ARMY_STATE.READY) return false;
+
     return true;
   }
 
@@ -127,9 +136,24 @@ export class Army {
     game.tilemap.drawTile(province);
   }
 
-  public static move(country: Country, province: Province | undefined, army: ArmyData) {
-    if (!province) return;
+  public static move(country: Country, from: Province | undefined, to: Province, army: ArmyData) {
+    if (!from) return;
+    if (!from.army) return;
 
-    // TODO: Implement
+    if (!Army.availableToMove(country, from, army) ||
+      !Army.canMove(country, from, army))
+      return;
+
+    from.army.state = ARMY_STATE.NOT_READY;
+
+    // Call onMove
+    army.onMove(from, to);
+
+    // Update the UI
+    game.ui.ingameHandler();
+
+    // Update the tilemap
+    game.tilemap.drawTile(from);
+    game.tilemap.drawTile(to);
   }
 }

@@ -1,4 +1,5 @@
 import { game } from "..";
+import { Army } from "../game/army";
 import { Country } from "../game/country";
 import { LandmarkData, LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Landmark } from "../game/landmark";
@@ -169,6 +170,13 @@ export class Tilemap {
     const shownProvinces = this.shownProvinces;
     this.shownProvinces = []
     for (let i = 0; i < shownProvinces.length; ++i) {
+      // If clicked to a shown province, try to move the army
+      if (province && Province.equals(province, shownProvinces[i])) {
+        const army = game.gameplay.currentProvince?.army?.data;
+        if (!army) return;
+        Army.move(game.gameplay.currentCountry, game.gameplay.currentProvince, province, army);
+      }
+
       this.drawTile(shownProvinces[i]);
     }
 
