@@ -1,5 +1,6 @@
 import { game } from "..";
 import { Country, COUNTRY_ID } from "./country";
+import { LANDMARK_ID } from "./data/landmarks/_landmark_data";
 import { Province } from "./province";
 import { INGAME_STATE, MENU_STATE } from "./ui/ui";
 
@@ -49,7 +50,22 @@ export class Gameplay {
   }
 
   public nextTurn() {
-    // TODO: Implement
+    // If doesn't have a capital, return
+    if (!game.util.hasLandmark(this.currentCountry, LANDMARK_ID.CAPITAL)) return;
+
+    // Increase gold by the amount of income & update armies
+    this.currentCountry.gold += this.currentCountry.income;
+    for (let i = 0; i < this.provinces.length; ++i) {
+      if (this.provinces[i].army) this.provinces[i].army?.data.onUpdate(this.provinces[i]);
+    }
+
+    for (let i = 0; i < this.countries.length; ++i) {
+      if (this.countries[i].id === this.currentCountry.id) {
+        this.currentCountry = this.countries[(i + 1) % this.countries.length];
+      }
+    }
+
+    // Update UI
   }
 
   public undo() {

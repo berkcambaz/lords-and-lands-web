@@ -153,4 +153,14 @@ export class Util {
 
     return bonus;
   }
+
+  public getProvinceCount(country: Country) {
+    let count = 0;
+
+    for (let i = 0; i < game.gameplay.provinces.length; ++i) {
+      if (game.gameplay.provinces[i].owner.id === country.id) count++;
+    }
+
+    return count;
+  }
 }

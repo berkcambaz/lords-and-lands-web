@@ -1,4 +1,5 @@
 import { game } from "../../..";
+import { ARMY_STATE } from "../../army";
 import { Province } from "../../province";
 import { ArmyNormal } from "./army_normal";
 
@@ -23,6 +24,12 @@ export class ArmyData {
     this.offensive = offensive;
     this.defensive = defensive;
     this.breakthrough = breakthrough;
+  }
+
+  public onUpdate(province: Province) {
+    // Reduce exhaust if ready
+    if (province.army?.state === ARMY_STATE.READY)
+      province.army.exhaust = game.maths.clamp(province.army.exhaust - 0.25, 0, 6);
   }
 
   public onHit(from: Province, to: Province) {
