@@ -43,12 +43,12 @@ export class Landmark {
     if (province.landmark) return false;
 
     // If capital is not built and currently building a capital, allow it
-    let capitalBuilt = game.util.hasLandmark(province.owner, LANDMARK_ID.CAPITAL);
+    let capitalBuilt = game.util.hasLandmark(country, LANDMARK_ID.CAPITAL);
     if (!capitalBuilt) capitalBuilt = landmark.id === LANDMARK_ID.CAPITAL;
 
 
     // If it's unique and not build, allow it
-    let alreadyBuilt = landmark.unique && game.util.hasLandmark(province.owner, landmark.id);
+    let alreadyBuilt = landmark.unique && game.util.hasLandmark(country, landmark.id);
 
     return capitalBuilt && !landmark.unbuildable && !alreadyBuilt;
   }
@@ -87,9 +87,9 @@ export class Landmark {
       !Landmark.canBuild(country, province, landmark))
       return;
 
-    province.owner.gold -= landmark.cost;
-    province.owner.income += landmark.income;
-    province.owner.manpower += landmark.manpower;
+    country.gold -= landmark.cost;
+    country.income += landmark.income;
+    country.manpower += landmark.manpower;
 
     province.landmark = new Landmark(landmark);
 
@@ -110,12 +110,12 @@ export class Landmark {
       !Landmark.canDemolish(country, province, landmark))
       return;
 
-    province.owner.income -= landmark.income;
-    province.owner.manpower -= landmark.manpower;
+    country.income -= landmark.income;
+    country.manpower -= landmark.manpower;
 
     province.landmark = undefined;
 
-    // Call onBuild 
+    // Call onDemolish
     landmark.onDemolish(province);
 
     // Update the UI

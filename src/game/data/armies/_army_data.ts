@@ -24,35 +24,35 @@ export class ArmyData {
     this.breakthrough = breakthrough;
   }
 
-  protected onHit(from: Province, to: Province) {
+  public onHit(from: Province, to: Province) {
 
   }
 
-  protected onGetHit(from: Province, to: Province) {
+  public onGetHit(from: Province, to: Province) {
 
   }
 
-  protected onMove(from: Province, to: Province) {
+  public onMove(from: Province, to: Province) {
 
   }
 
-  protected onFree(province: Province) {
+  public onFree(province: Province) {
 
   }
 
-  protected onInvade(province: Province) {
+  public onInvade(province: Province) {
 
   }
 
-  protected onOccupy(province: Province) {
+  public onOccupy(province: Province) {
 
   }
 
-  protected onRecruit(province: Province) {
+  public onRecruit(province: Province) {
 
   }
 
-  protected onDisband(province: Province) {
+  public onDisband(province: Province) {
 
   }
 }

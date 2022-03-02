@@ -1,3 +1,4 @@
+import { game } from "..";
 import { Country } from "./country";
 import { ArmyNormal } from "./data/armies/army_normal";
 import { ArmyData, ARMY_ID } from "./data/armies/_army_data";
@@ -85,13 +86,50 @@ export class Army {
 
   public static recruit(country: Country, province: Province | undefined, army: ArmyData) {
     if (!province) return;
+
+    if (!Army.availableToRecruit(country, province, army) ||
+      !Army.canRecruit(country, province, army))
+      return;
+
+    country.gold -= army.cost;
+    country.army += 1;
+
+    province.army = new Army(country, army, ARMY_STATE.NOT_READY, 0);
+
+    // Call onRecruit 
+    army.onRecruit(province);
+
+    // Update the UI
+    game.ui.ingameHandler();
+
+    // Update the tilemap
+    game.tilemap.drawTile(province);
   }
 
-  public static disband(country: Country, province: Province | undefined) {
+  public static disband(country: Country, province: Province | undefined, army: ArmyData) {
     if (!province) return;
+
+    if (!Army.availableToDisband(country, province, army) ||
+      !Army.canDisband(country, province, army))
+      return;
+
+    country.army -= 1;
+
+    province.army = undefined;
+
+    // Call onDisband
+    army.onDisband(province);
+
+    // Update the UI
+    game.ui.ingameHandler();
+
+    // Update the tilemap
+    game.tilemap.drawTile(province);
   }
 
-  public static move(country: Country, province: Province | undefined) {
+  public static move(country: Country, province: Province | undefined, army: ArmyData) {
     if (!province) return;
+
+    // TODO: Implement
   }
 }

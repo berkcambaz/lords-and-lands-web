@@ -55,11 +55,15 @@ export function ArmyUI() {
   }
 
   const eventMove = () => {
-    Army.move(game.gameplay.currentCountry, game.gameplay.currentProvince);
+    const army = game.gameplay.currentProvince?.army?.data;
+    if (!army) return;
+    Army.move(game.gameplay.currentCountry, game.gameplay.currentProvince, army);
   }
 
   const eventDisband = () => {
-    Army.disband(game.gameplay.currentCountry, game.gameplay.currentProvince);
+    const army = game.gameplay.currentProvince?.army?.data;
+    if (!army) return;
+    Army.disband(game.gameplay.currentCountry, game.gameplay.currentProvince, army);
   }
 
   return (
