@@ -50,15 +50,16 @@ export function ArmyUI() {
   }
 
   const eventRecruit = (id: ARMY_ID) => {
-
+    const army = Army.create(id);
+    Army.recruit(game.gameplay.currentCountry, game.gameplay.currentProvince, army);
   }
 
   const eventMove = () => {
-
+    Army.move(game.gameplay.currentCountry, game.gameplay.currentProvince);
   }
 
   const eventDisband = () => {
-
+    Army.disband(game.gameplay.currentCountry, game.gameplay.currentProvince);
   }
 
   return (

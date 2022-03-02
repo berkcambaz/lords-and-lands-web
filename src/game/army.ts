@@ -83,15 +83,15 @@ export class Army {
     return true;
   }
 
-  public static recruit(country: Country, province: Province, army: ArmyData) {
-
+  public static recruit(country: Country, province: Province | undefined, army: ArmyData) {
+    if (!province) return;
   }
 
-  public static disband(country: Country, province: Province, army: ArmyData) {
-
+  public static disband(country: Country, province: Province | undefined) {
+    if (!province) return;
   }
 
-  public static move(country: Country, province: Province, army: ArmyData) {
-
+  public static move(country: Country, province: Province | undefined) {
+    if (!province) return;
   }
 }
