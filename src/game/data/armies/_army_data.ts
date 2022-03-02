@@ -112,6 +112,12 @@ export class ArmyData {
       else {
         this.onConquer(province);
       }
+
+      // Update UI
+      game.ui.ingameHandler();
+
+      // Update tilemap
+      game.tilemap.drawTile(province);
     }
   }
 
