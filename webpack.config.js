@@ -2,9 +2,10 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/index.ts",
   output: {
     filename: "index.js",
@@ -63,9 +64,14 @@ module.exports = {
     ]
   },
   plugins: [
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
+      title: "Lords and Lands"
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
