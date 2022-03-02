@@ -165,6 +165,13 @@ export class Tilemap {
   }
 
   public selectProvince(province: Province | undefined) {
+    // Reset the shown provinces
+    const shownProvinces = this.shownProvinces;
+    this.shownProvinces = []
+    for (let i = 0; i < shownProvinces.length; ++i) {
+      this.drawTile(shownProvinces[i]);
+    }
+
     // Un-select the old province
     const oldProvince = this.selectedProvince;
     this.selectedProvince = undefined;
