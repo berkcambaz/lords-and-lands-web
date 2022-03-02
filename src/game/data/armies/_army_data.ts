@@ -117,6 +117,14 @@ export class ArmyData {
 
   public onMove(from: Province, to: Province) {
     if (!to.army) {
+      // If the old province was invaded & not ours, set it to free
+      if (from.state === PROVINCE_STATE.INVADED && from.owner.id !== from.army?.country.id)
+        from.state = PROVINCE_STATE.FREE;
+
+      // If the new province is free & not ours, set it to invaded
+      if (to.state === PROVINCE_STATE.FREE && to.owner.id !== from.army?.country.id)
+        to.state = PROVINCE_STATE.INVADED;
+
       to.army = from.army;
       from.army = undefined;
     }
