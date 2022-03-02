@@ -138,4 +138,19 @@ export class Util {
 
     return moveables;
   }
+
+  public getSupportBonus(province: Province) {
+    let bonus = 0;
+
+    const adjacents = this.getAdjacentProvinces(province);
+
+    for (let i = 0; i < adjacents.length; ++i) {
+      // If ally add +0.5 (support)
+      // If enemy add -1.0 (encirclement)
+      if (province.army?.country.id === adjacents[i].army?.country.id) bonus += 0.5;
+      else bonus += -1;
+    }
+
+    return bonus;
+  }
 }
