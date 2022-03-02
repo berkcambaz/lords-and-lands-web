@@ -11,6 +11,7 @@ export class Tilemap {
   private buffer: CanvasRenderingContext2D;
   private highlightedProvince: Province | undefined;
   private selectedProvince: Province | undefined;
+  private shownProvinces: Province[] | undefined;
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -152,6 +153,10 @@ export class Tilemap {
     }
 
     game.gameplay.selectProvince(this.selectedProvince);
+  }
+
+  public showProvinces(provinces: Province[]) {
+
   }
 
   private chooseOrigins(width: number, height: number, countries: Country[], provinces: Province[]) {

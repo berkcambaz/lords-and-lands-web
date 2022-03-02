@@ -97,6 +97,8 @@ export class Util {
     return game.gameplay.provinces[x + game.gameplay.width * y];
   }
 
+  /// GAMEPLAY UTILITY \\\
+
   public hasLandmark(country: Country, id: LANDMARK_ID) {
     for (let i = 0; i < game.gameplay.provinces.length; ++i) {
       if (game.gameplay.provinces[i].owner.id === country.id
@@ -106,5 +108,21 @@ export class Util {
     }
 
     return false;
+  }
+
+  public getAdjacentProvinces(province: Province) {
+    const provinces: Province[] = [];
+
+    const up = game.gameplay.provinces[province.pos.x + (province.pos.y + 1) * game.gameplay.width];
+    const down = game.gameplay.provinces[province.pos.x + (province.pos.y - 1) * game.gameplay.width];
+    const left = game.gameplay.provinces[(province.pos.x - 1) + province.pos.y * game.gameplay.width];
+    const right = game.gameplay.provinces[(province.pos.x + 1) + province.pos.y * game.gameplay.width];
+
+    if (up) provinces.push(up);
+    if (down) provinces.push(down);
+    if (left) provinces.push(left);
+    if (right) provinces.push(right);
+
+    return provinces;
   }
 }
