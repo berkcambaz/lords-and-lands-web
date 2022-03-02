@@ -58,6 +58,9 @@ export function ArmyUI() {
     //const army = game.gameplay.currentProvince?.army?.data;
     //if (!army) return;
     //Army.move(game.gameplay.currentCountry, game.gameplay.currentProvince, army);
+    if (!game.gameplay.currentProvince) return;
+    const provinces = game.util.getAdjacentProvinces(game.gameplay.currentProvince)
+    game.tilemap.showProvinces(provinces);
   }
 
   const eventDisband = () => {

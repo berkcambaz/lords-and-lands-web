@@ -11,7 +11,7 @@ export class Tilemap {
   private buffer: CanvasRenderingContext2D;
   private highlightedProvince: Province | undefined;
   private selectedProvince: Province | undefined;
-  private shownProvinces: Province[] | undefined;
+  private shownProvinces!: Province[];
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -22,6 +22,11 @@ export class Tilemap {
   public generate(width: number, height: number, seed: number, countries: Country[], provinces: Province[]) {
     this.buffer.canvas.width = this.TILE_SIZE * width;
     this.buffer.canvas.height = this.TILE_SIZE * height;
+
+    // Reset highlighted, selected & shown provinces
+    this.highlightedProvince = undefined;
+    this.selectedProvince = undefined;
+    this.shownProvinces = [];
 
     const origins = this.chooseOrigins(width, height, countries, provinces);
     this.chooseProvinces(width, height, countries, provinces, origins);
@@ -39,19 +44,37 @@ export class Tilemap {
       this.TILE_SIZE, this.TILE_SIZE
     );
 
+    // Render province
     const provinceSprite = game.util.provinceToSprite(province);
     this.buffer.drawImage(provinceSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
 
+    // Render landmark
     const landmarkSprite = game.util.provinceToLandmarkSprite(province);
     if (landmarkSprite) {
       this.buffer.drawImage(landmarkSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
     }
 
+    // Render army
     const armySprite = game.util.provinceToArmySprite(province);
     if (armySprite) {
       this.buffer.drawImage(armySprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
     }
 
+    // Render shown
+    if (this.shownProvinces.length > 0) {
+      for (let i = 0; i < this.shownProvinces.length; ++i) {
+        if (Province.equals(province, this.shownProvinces[i])) {
+          this.buffer.drawImage(
+            game.resources.SPRITES.TILEMAP_SELECT_GRAY,
+            province.pos.x * this.TILE_SIZE,
+            province.pos.y * this.TILE_SIZE
+          );
+          break;
+        }
+      }
+    }
+
+    // Render selected
     if (this.selectedProvince && Province.equals(province, this.selectedProvince)) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECTED,
@@ -66,6 +89,7 @@ export class Tilemap {
       );
     }
 
+    // Render highlighted
     if (this.highlightedProvince && Province.equals(province, this.highlightedProvince)) {
       if (!this.selectedProvince || !Province.equals(province, this.selectedProvince))
         this.buffer.drawImage(
@@ -156,6 +180,20 @@ export class Tilemap {
   }
 
   public showProvinces(provinces: Province[]) {
+    const oldProvinces = this.shownProvinces;
+
+    if (provinces.length === 0 || Province.equalsArray(oldProvinces, provinces)) {
+      this.shownProvinces = [];
+      for (let i = 0; i < oldProvinces.length; ++i) {
+        this.drawTile(oldProvinces[i]);
+      }
+    }
+    else {
+      this.shownProvinces = provinces;
+      for (let i = 0; i < provinces.length; ++i) {
+        this.drawTile(provinces[i]);
+      }
+    }
 
   }
 

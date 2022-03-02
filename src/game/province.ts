@@ -35,4 +35,14 @@ export class Province {
   public static equals(a: Province, b: Province) {
     return Vec2.equals(a.pos, b.pos);
   }
+
+  public static equalsArray(a: Province[], b: Province[]) {
+    if (a.length !== b.length) return false;
+
+    for (let i = 0; i < a.length; ++i) {
+      if (!Vec2.equals(a[i].pos, b[i].pos)) return false;
+    }
+
+    return true;
+  }
 }
