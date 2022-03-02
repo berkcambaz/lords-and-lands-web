@@ -62,6 +62,7 @@ export class Gameplay {
     for (let i = 0; i < this.countries.length; ++i) {
       if (this.countries[i].id === this.currentCountry.id) {
         this.currentCountry = this.countries[(i + 1) % this.countries.length];
+        break;
       }
     }
 
