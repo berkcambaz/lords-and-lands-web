@@ -78,7 +78,7 @@ export function ArmyUI() {
   return (
     <div>
       <img src={game.resources.URL_SPRITES.UI_ICON_ARMY} onclick={goback} />
-      <img src={game.resources.URL_SPRITES.ARMY_GREEN_BIG} class={classRecruit(ARMY_ID.NORMAL)} onclick={() => { eventRecruit(ARMY_ID.NORMAL) }} />
+      <img src={game.util.countryIdToSprite(game.gameplay.currentCountry.id)} class={classRecruit(ARMY_ID.NORMAL)} onclick={() => { eventRecruit(ARMY_ID.NORMAL) }} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} class={classMove()} onclick={eventMove} />
       <img src={game.resources.URL_SPRITES.UI_ICON_CANCEL} class={classDisband()} onclick={eventDisband} />
     </div>
