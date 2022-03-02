@@ -46,6 +46,11 @@ export class Tilemap {
       this.buffer.drawImage(landmarkSprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
     }
 
+    const armySprite = game.util.provinceToArmySprite(province);
+    if (armySprite) {
+      this.buffer.drawImage(armySprite, province.pos.x * this.TILE_SIZE, province.pos.y * this.TILE_SIZE)
+    }
+
     if (this.selectedProvince && Province.equals(province, this.selectedProvince)) {
       this.buffer.drawImage(
         game.resources.SPRITES.TILEMAP_SELECTED,

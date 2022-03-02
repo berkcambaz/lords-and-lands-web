@@ -1,5 +1,6 @@
 import { game } from "..";
 import { Country, COUNTRY_ID } from "../game/country";
+import { ARMY_ID } from "../game/data/armies/_army_data";
 import { LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Province } from "../game/province";
 
@@ -65,6 +66,17 @@ export class Util {
         return game.resources.SPRITES.LANDMARK_TOWER;
       default:
         throw new Error(`Landmark with id ${province.landmark.data.id} doesn't exist.`);
+    }
+  }
+
+  public provinceToArmySprite(province: Province) {
+    if (!province.army) return null;
+
+    switch (province.army.data.id) {
+      case ARMY_ID.NORMAL:
+        return game.resources.SPRITES.ARMY_GREEN_SMALL;
+      default:
+        throw new Error(`Army with id ${province.army.data.id} doesn't exist.`);
     }
   }
 
