@@ -29,8 +29,8 @@ export function Main() {
       <img src={game.resources.URL_SPRITES.UI_ICON_DIPLOMACY} onclick={diplomacy} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_LEFT} />
       <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
-      <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} />
-      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} onClick={nextTurn} />
+      <img src={game.resources.URL_SPRITES.UI_ICON_ARROW_RIGHT} onClick={nextTurn} />
+      <img src={game.resources.URL_SPRITES.LANDMARK_CAPITAL} />
     </div>
   )
 }
