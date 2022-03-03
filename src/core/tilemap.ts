@@ -126,8 +126,6 @@ export class Tilemap {
       h -= y;
     }
 
-
-
     game.ctx.drawImage(
       this.buffer.canvas,
       x,

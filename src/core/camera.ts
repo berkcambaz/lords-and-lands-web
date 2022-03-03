@@ -39,11 +39,14 @@ export class Camera {
   }
 
   private onResize(w: number, h: number) {
+    const ratio = window.devicePixelRatio;
 
-    game.canvas.width = w;
-    game.canvas.height = h;
+    game.canvas.width = w * ratio;
+    game.canvas.height = h * ratio;
+    game.canvas.style.width = w + "px";
+    game.canvas.style.height = h + "px";
 
-    game.ctx.setTransform(this.zoom, 0, 0, this.zoom, 0, 0);
+    game.ctx.setTransform(this.zoom * ratio, 0, 0, this.zoom * ratio, 0, 0);
 
     this.w = w / this.zoom;
     this.h = h / this.zoom;
