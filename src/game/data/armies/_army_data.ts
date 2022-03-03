@@ -64,6 +64,8 @@ export class ArmyData {
     if (to.army) enemy -= to.army.exhaust;
 
     if (ally > enemy) {
+      if (to.army) to.army.country.army -= 1;
+
       to.army = from.army;
       from.army = undefined;
     }
@@ -71,6 +73,8 @@ export class ArmyData {
       if (to.army) to.army.exhaust += 0.5;
     }
     else if (ally < enemy) {
+      if (from.army) from.army.country.army -= 1;
+
       from.army = undefined;
       if (to.army) to.army.exhaust += 0.25;
     }

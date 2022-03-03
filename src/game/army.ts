@@ -51,7 +51,10 @@ export class Army {
     if (province.state !== PROVINCE_STATE.FREE) return false;
 
     // If not enough money
-    if (province.owner.gold < army.cost) return false;
+    if (country.gold < army.cost) return false;
+
+    // If not enough manpower
+    if (country.army >= country.manpower) return false;
 
     return true;
   }

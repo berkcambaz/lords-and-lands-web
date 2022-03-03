@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: "./src/index.ts",
   output: {
     filename: "index.js",
