@@ -119,12 +119,14 @@ export class Tilemap {
       y = 0;
     }
 
-    if (x + w > game.camera.w) {
+    if (x + w > game.camera.w * game.camera.zoom) {
       w -= x;
     }
-    if (y + h > game.camera.h) {
+    if (y + h > game.camera.h * game.camera.zoom) {
       h -= y;
     }
+
+
 
     game.ctx.drawImage(
       this.buffer.canvas,
