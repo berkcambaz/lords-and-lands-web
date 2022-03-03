@@ -64,10 +64,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new WorkboxPlugin.GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true
-    }),
+    //new WorkboxPlugin.GenerateSW({
+    //  clientsClaim: true,
+    //  skipWaiting: true
+    //}),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",

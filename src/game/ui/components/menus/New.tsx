@@ -41,9 +41,9 @@ export function New() {
     <div class="__new">
       <div class="__img-container">
         <img class={countries[0] ? "enabled" : "disabled"} onclick={() => { toggleCountry(0) }} src={game.resources.URL_SPRITES.ARMY_GREEN_BIG} />
-        <img class={countries[1] ? "enabled" : "disabled"} onclick={() => { toggleCountry(1) }} src={game.resources.URL_SPRITES.ARMY_YELLOW_BIG} />
+        <img class={countries[1] ? "enabled" : "disabled"} onclick={() => { toggleCountry(1) }} src={game.resources.URL_SPRITES.ARMY_PURPLE_BIG} />
         <img class={countries[2] ? "enabled" : "disabled"} onclick={() => { toggleCountry(2) }} src={game.resources.URL_SPRITES.ARMY_RED_BIG} />
-        <img class={countries[3] ? "enabled" : "disabled"} onclick={() => { toggleCountry(3) }} src={game.resources.URL_SPRITES.ARMY_PURPLE_BIG} />
+        <img class={countries[3] ? "enabled" : "disabled"} onclick={() => { toggleCountry(3) }} src={game.resources.URL_SPRITES.ARMY_YELLOW_BIG} />
       </div>
 
       <div>
