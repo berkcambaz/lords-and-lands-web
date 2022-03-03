@@ -1,5 +1,6 @@
 import { game } from "../../..";
 import { ARMY_STATE } from "../../army";
+import { Country } from "../../country";
 import { Landmark } from "../../landmark";
 import { Province, PROVINCE_STATE } from "../../province";
 import { LANDMARK_ID } from "../landmarks/_landmark_data";
@@ -107,15 +108,15 @@ export class ArmyData {
     if (ally > enemy) {
       // If freeing own province
       if (province.owner.id === province.army.country.id) {
-        this.onFree(province);
+        this.onFree(province.army.country, province);
       }
       // If occupying unoccupied province or occupied by someone else
       else if (!province.occupier || province.occupier.id !== province.army.country.id) {
-        this.onOccupy(province);
+        this.onOccupy(province.army.country, province);
       }
       // If conquering sieged province
       else {
-        this.onConquer(province);
+        this.onConquer(province.army.country, province);
       }
 
       // Update UI
@@ -123,6 +124,8 @@ export class ArmyData {
 
       // Update tilemap
       game.tilemap.drawTile(province);
+    } else if (province.landmark?.data.id === LANDMARK_ID.CAPITAL) {
+      this.onOccupy(province.army.country, province);
     }
   }
 
@@ -144,26 +147,68 @@ export class ArmyData {
     }
   }
 
-  public onFree(province: Province) {
+  public onFree(country: Country, province: Province) {
     province.occupier = undefined;
     province.state = PROVINCE_STATE.FREE;
     Landmark.addEffects(province);
   }
 
-  public onOccupy(province: Province) {
-    // TODO: Handle for capital
+  public onOccupy(country: Country, province: Province) {
+    if (province.landmark?.data.id === LANDMARK_ID.CAPITAL) {
+      for (let i = 0; i < game.gameplay.provinces.length; ++i) {
+        const target = game.gameplay.provinces[i];
 
-    province.occupier = province.army?.country;
+        // If not own
+        if (target.owner.id === country.id) continue;
+
+        // If not enemy's
+        if (target.owner.id !== province.owner.id) continue;
+
+        // If capital
+        if (target.landmark?.data.id === LANDMARK_ID.CAPITAL) continue;
+
+        // If occupied by someone else
+        if (target.occupier && target.occupier.id !== country.id) continue;
+
+        // If invaded by someone else
+        if (target.state === PROVINCE_STATE.INVADED && target.army?.country.id !== country.id) continue;
+
+        if (game.random.dice() > 5) {
+          if (target.state === PROVINCE_STATE.OCCUPIED) this.onConquer(country, target);
+          else this.onOccupy(country, target);
+
+          // Update tilemap
+          game.tilemap.drawTile(target);
+        }
+      }
+
+      // If there is only one province left, allow it to be occupieed
+      if (game.util.getProvinceCount(province.owner) !== 1) return;
+    }
+
+    province.occupier = country;
     province.state = PROVINCE_STATE.OCCUPIED;
     Landmark.removeEffects(province);
   }
 
-  public onConquer(province: Province) {
-    if (!province.army) return;
+  public onConquer(country: Country, province: Province) {
+    if (province.landmark?.data.id === LANDMARK_ID.CAPITAL) {
+      // If there is only one province left, allow it to be occupieed
+      if (game.util.getProvinceCount(province.owner) !== 1) return;
 
-    // TODO: Handle for capital
+      // Remove the country
+      for (let i = 0; i < game.gameplay.countries.length; ++i) {
+        if (game.gameplay.countries[i].id === province.owner.id) {
+          game.gameplay.countries.splice(i, 1);
+          break;
+        }
+      }
 
-    province.owner = province.army.country;
+      // Remove the capital landmark
+      province.landmark = undefined;
+    }
+
+    province.owner = country;
     province.occupier = undefined;
     province.state = PROVINCE_STATE.FREE;
     Landmark.addEffects(province);
