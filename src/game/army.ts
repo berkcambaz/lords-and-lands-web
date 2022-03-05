@@ -2,7 +2,7 @@ import { game } from "..";
 import { Country } from "./country";
 import { ArmyNormal } from "./data/armies/army_normal";
 import { ArmyData, ARMY_ID } from "./data/armies/_army_data";
-import { Province, PROVINCE_STATE } from "./province";
+import { Province } from "./province";
 
 export enum ARMY_STATE {
   READY,
@@ -48,7 +48,7 @@ export class Army {
 
   public static canRecruit(country: Country, province: Province, army: ArmyData) {
     // If province is not free
-    if (province.state !== PROVINCE_STATE.FREE) return false;
+    if (!province.isFree()) return false;
 
     // If not enough money
     if (country.gold < army.cost) return false;

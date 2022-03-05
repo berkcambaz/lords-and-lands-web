@@ -7,7 +7,7 @@ import { LandmarkHouse } from "./data/landmarks/landmark_house";
 import { LandmarkMountains } from "./data/landmarks/landmark_mountains";
 import { LandmarkTower } from "./data/landmarks/landmark_tower";
 import { LandmarkData, LANDMARK_ID } from "./data/landmarks/_landmark_data";
-import { Province, PROVINCE_STATE } from "./province";
+import { Province } from "./province";
 
 export class Landmark {
   public data: LandmarkData;
@@ -55,7 +55,7 @@ export class Landmark {
 
   public static canBuild(country: Country, province: Province, landmark: LandmarkData) {
     // If province is not free
-    if (province.state !== PROVINCE_STATE.FREE) return false;
+    if (!province.isFree()) return false;
 
     // If has not enough gold
     if (country.gold < landmark.cost) return false;
@@ -75,7 +75,7 @@ export class Landmark {
 
   public static canDemolish(country: Country, province: Province, landmark: LandmarkData) {
     // If province is not free
-    if (province.state !== PROVINCE_STATE.FREE) return false;
+    if (!province.isFree()) return false;
 
     return true;
   }

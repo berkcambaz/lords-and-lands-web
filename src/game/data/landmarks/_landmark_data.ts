@@ -2,7 +2,7 @@ import { game } from "../../..";
 import { Signal } from "../../../core/signal";
 import { Country } from "../../country";
 import { Landmark } from "../../landmark";
-import { Province, PROVINCE_STATE } from "../../province";
+import { Province } from "../../province";
 
 export enum LANDMARK_ID {
   CAPITAL,

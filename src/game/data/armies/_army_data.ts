@@ -2,9 +2,8 @@ import { game } from "../../..";
 import { ARMY_STATE } from "../../army";
 import { Country } from "../../country";
 import { Landmark } from "../../landmark";
-import { Province, PROVINCE_STATE } from "../../province";
+import { Province } from "../../province";
 import { LANDMARK_ID } from "../landmarks/_landmark_data";
-import { ArmyNormal } from "./army_normal";
 
 export enum ARMY_ID {
   NORMAL
@@ -83,7 +82,7 @@ export class ArmyData {
 
   public onHitProvince(province: Province) {
     // If owner & province is free
-    if (province.owner.id === province.army?.country.id && province.state === PROVINCE_STATE.FREE) return;
+    if (province.owner.id === province.army?.country.id && province.isFree()) return;
 
     // If army is not ready
     if (province.army?.state !== ARMY_STATE.READY) return;
@@ -131,14 +130,6 @@ export class ArmyData {
 
   public onMove(from: Province, to: Province) {
     if (!to.army) {
-      // If the old province was invaded & not ours, set it to free
-      if (from.state === PROVINCE_STATE.INVADED && from.owner.id !== from.army?.country.id)
-        from.state = PROVINCE_STATE.FREE;
-
-      // If the new province is free & not ours, set it to invaded
-      if (to.state === PROVINCE_STATE.FREE && to.owner.id !== from.army?.country.id)
-        to.state = PROVINCE_STATE.INVADED;
-
       to.army = from.army;
       from.army = undefined;
     }
@@ -149,7 +140,6 @@ export class ArmyData {
 
   public onFree(country: Country, province: Province) {
     province.occupier = undefined;
-    province.state = PROVINCE_STATE.FREE;
     Landmark.addEffects(province);
   }
 
@@ -171,10 +161,10 @@ export class ArmyData {
         if (target.occupier && target.occupier.id !== country.id) continue;
 
         // If invaded by someone else
-        if (target.state === PROVINCE_STATE.INVADED && target.army?.country.id !== country.id) continue;
+        if (target.isInvaded() && target.army?.country.id !== country.id) continue;
 
         if (game.random.dice() > 5) {
-          if (target.state === PROVINCE_STATE.OCCUPIED) this.onConquer(country, target);
+          if (target.isOccupied()) this.onConquer(country, target);
           else this.onOccupy(country, target);
 
           // Update tilemap
@@ -187,7 +177,6 @@ export class ArmyData {
     }
 
     province.occupier = country;
-    province.state = PROVINCE_STATE.OCCUPIED;
     Landmark.removeEffects(province);
   }
 
@@ -210,7 +199,6 @@ export class ArmyData {
 
     province.owner = country;
     province.occupier = undefined;
-    province.state = PROVINCE_STATE.FREE;
     Landmark.addEffects(province);
   }
 
@@ -219,8 +207,6 @@ export class ArmyData {
   }
 
   public onDisband(province: Province) {
-    // If the province was invaded & not ours, set it to free
-    if (province.state === PROVINCE_STATE.INVADED && province.owner.id !== province.army?.country.id)
-      province.state = PROVINCE_STATE.FREE;
+
   }
 }
