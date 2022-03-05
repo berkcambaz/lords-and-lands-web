@@ -5,6 +5,7 @@ import { INGAME_STATE, MENU_STATE } from "../../ui";
 export function New() {
   const [countries, setCountries] = Soda.state([true, true, true, true]);
   const [size, setSize] = Soda.state({ w: 10, h: 10 });
+  const inputSeed = Soda.ref();
 
   const toggleCountry = (id: number) => {
     let countryCount = 0;
@@ -30,7 +31,8 @@ export function New() {
       if (countries[i])
         chosenCountries.push(i);
 
-    game.gameplay.create(size.w, size.h, 0, chosenCountries);
+    const seed = parseInt(inputSeed.dom.value) || Date.now();
+    game.gameplay.create(size.w, size.h, seed, chosenCountries);
   }
 
   const start = () => {
@@ -47,7 +49,7 @@ export function New() {
       </div>
 
       <div>
-        Seed: <input type="text" placeholder="Seed..." />
+        Seed: <input ref={inputSeed} type="text" placeholder="Seed..." />
       </div>
 
       <div>

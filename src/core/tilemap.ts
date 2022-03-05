@@ -4,6 +4,7 @@ import { Country } from "../game/country";
 import { LandmarkData, LANDMARK_ID } from "../game/data/landmarks/_landmark_data";
 import { Landmark } from "../game/landmark";
 import { Province } from "../game/province";
+import { SeedRandom } from "./seedrandom";
 import { Vec2 } from "./vec2";
 
 export class Tilemap {
@@ -13,6 +14,7 @@ export class Tilemap {
   private highlightedProvince: Province | undefined;
   private selectedProvince: Province | undefined;
   private shownProvinces!: Province[];
+  private srandom!: SeedRandom;
 
   constructor() {
     const buffer = document.createElement("canvas").getContext("2d");
@@ -28,6 +30,9 @@ export class Tilemap {
     this.highlightedProvince = undefined;
     this.selectedProvince = undefined;
     this.shownProvinces = [];
+
+    // Set seeded random number generator
+    this.srandom = new SeedRandom(seed);
 
     const origins = this.chooseOrigins(width, height, countries, provinces);
     this.chooseProvinces(width, height, countries, provinces, origins);
@@ -216,7 +221,7 @@ export class Tilemap {
     const origins: { x: number, y: number }[][] = [];
 
     for (let i = 0; i < countries.length; ++i) {
-      origins[i] = [{ x: game.random.number(0, width), y: game.random.number(0, height) }];
+      origins[i] = [{ x: this.srandom.number(0, width), y: this.srandom.number(0, height) }];
 
       for (let j = i - 1; j >= 0; --j) {
         if (origins[j][0].x === origins[i][0].x && origins[j][0].y === origins[i][0].y) {
@@ -282,7 +287,7 @@ export class Tilemap {
   private sprinkleNature(width: number, height: number, provinces: Province[]) {
     for (let y = 0; y < height; ++y) {
       for (let x = 0; x < width; ++x) {
-        const data: LandmarkData | undefined = game.random.percent([
+        const data: LandmarkData | undefined = this.srandom.percent([
           { percent: 10, result: Landmark.create(LANDMARK_ID.MOUNTAINS) },
           { percent: 15, result: Landmark.create(LANDMARK_ID.FOREST) },
           { percent: 75, result: undefined }
