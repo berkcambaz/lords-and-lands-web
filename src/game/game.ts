@@ -87,13 +87,29 @@ export class Game {
 
   private addEventListeners() {
     window.addEventListener("resize", () => {
-      const w = Math.min(window.screen.availWidth, window.innerWidth);
-      const h = Math.min(window.screen.availHeight, window.innerHeight);
+      let w = window.screen.availWidth;
+      let h = window.screen.availHeight;
+
+      if (window.orientation === 90 || window.orientation === -90
+        || screen?.orientation?.angle === 90 || screen?.orientation?.angle === -90) {
+        w = window.screen.availHeight;
+        h = window.screen.availWidth;
+      }
+
       this.signals.onResize.dispatch(w, h);
     });
 
     //window.addEventListener("orientationchange", () => {
-    //  this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
+    //  let w = window.screen.availWidth;
+    //  let h = window.screen.availHeight;
+    //
+    //  if (window.orientation === 90 || window.orientation === -90
+    //    || screen?.orientation?.angle === 90 || screen?.orientation?.angle === -90) {
+    //    w = window.screen.availHeight;
+    //    h = window.screen.availWidth;
+    //  }
+    //
+    //  this.signals.onResize.dispatch(w, h);
     //});
   }
 }

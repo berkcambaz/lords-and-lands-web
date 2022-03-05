@@ -44,14 +44,6 @@ export class Camera {
   }
 
   private onResize(w: number, h: number) {
-    if (window.orientation === 90 || window.orientation === -90
-      || screen?.orientation?.angle === 90 || screen?.orientation?.angle === -90) {
-      const W = w;
-      const H = h;
-      w = H;
-      h = W;
-    }
-
     const ratio = window.devicePixelRatio;
 
     game.canvas.width = w * ratio;
