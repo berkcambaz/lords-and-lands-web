@@ -141,10 +141,16 @@ export class ArmyData {
   public onFree(country: Country, province: Province) {
     province.occupier = undefined;
     Landmark.addEffects(province);
+
+    // Update tilemap
+    game.tilemap.drawTile(province);
   }
 
   public onOccupy(country: Country, province: Province) {
     if (province.landmark?.data.id === LANDMARK_ID.CAPITAL) {
+      // Get province count before occupation since it may affect province count
+      const provinceCount = game.util.getProvinceCount(province.owner);
+
       for (let i = 0; i < game.gameplay.provinces.length; ++i) {
         const target = game.gameplay.provinces[i];
 
@@ -172,12 +178,15 @@ export class ArmyData {
         }
       }
 
-      // If there is only one province left, allow it to be occupieed
-      if (game.util.getProvinceCount(province.owner) !== 1) return;
+      // If there is only one province left, allow it to be occupied
+      if (provinceCount !== 1) return;
     }
 
     province.occupier = country;
     Landmark.removeEffects(province);
+
+    // Update tilemap
+    game.tilemap.drawTile(province);
   }
 
   public onConquer(country: Country, province: Province) {
@@ -200,6 +209,9 @@ export class ArmyData {
     province.owner = country;
     province.occupier = undefined;
     Landmark.addEffects(province);
+
+    // Update tilemap
+    game.tilemap.drawTile(province);
   }
 
   public onRecruit(province: Province) {
