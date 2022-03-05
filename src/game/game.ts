@@ -87,11 +87,13 @@ export class Game {
 
   private addEventListeners() {
     window.addEventListener("resize", () => {
-      this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
+      const w = Math.min(window.screen.availWidth, window.innerWidth);
+      const h = Math.min(window.screen.availHeight, window.innerHeight);
+      this.signals.onResize.dispatch(w, h);
     });
 
-    window.addEventListener("orientationchange", () => {
-      this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
-    });
+    //window.addEventListener("orientationchange", () => {
+    //  this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
+    //});
   }
 }
