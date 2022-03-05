@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/index.ts",
   output: {
     filename: "index.js",
@@ -64,10 +64,10 @@ module.exports = {
     ]
   },
   plugins: [
-    //new WorkboxPlugin.GenerateSW({
-    //  clientsClaim: true,
-    //  skipWaiting: true
-    //}),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",

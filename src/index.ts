@@ -4,8 +4,8 @@ import "./index.scss";
 
 export const game = new Game();
 
-const cache = {};
-
+//const cache = {};
+//
 ///// @ts-ignore
 //function importAll(r) {
 //  /// @ts-ignore
@@ -18,9 +18,11 @@ const cache = {};
 //console.log(cache);
 
 window.onload = () => {
-  //if ("serviceWorker" in navigator) {
-  //  navigator.serviceWorker.register("./sw.js");
-  //}
+  if (process.env.NODE_ENV === "production") {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/service-worker.js");
+    }
+  }
 
   game.run();
 }
