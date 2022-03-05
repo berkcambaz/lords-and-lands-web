@@ -38,6 +38,9 @@ export class Tilemap {
     this.chooseProvinces(width, height, countries, provinces, origins);
     this.sprinkleNature(width, height, provinces);
 
+    // Center the camera before drawing the tilemap
+    this.center();
+
     for (let i = 0; i < provinces.length; ++i) {
       this.drawTile(provinces[i]);
     }
@@ -142,6 +145,10 @@ export class Tilemap {
       w,
       h
     )
+  }
+
+  public center() {
+    game.camera.center(this.buffer.canvas.width / 2, this.buffer.canvas.height / 2);
   }
 
   public highlightProvince(province: Province | undefined) {

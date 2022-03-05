@@ -19,6 +19,11 @@ export class Camera {
     game.signals.onResize.add((w, h) => { this.onResize(w, h) });
   }
 
+  public center(x: number, y: number) {
+    this.x = x - this.w / 2;
+    this.y = y - this.h / 2;
+  }
+
   public setZoom(delta: number) {
     const dt = Math.sign(-delta) * 0.05;
     this.zoom = game.maths.clamp(this.zoom + dt, 0.50, 1);
@@ -61,5 +66,8 @@ export class Camera {
 
     this.zoomPoint.x = w / (this.zoom * 2);
     this.zoomPoint.y = h / (this.zoom * 2);
+
+    // Center the tilemap after resize is completed
+    game.tilemap.center();
   }
 }
