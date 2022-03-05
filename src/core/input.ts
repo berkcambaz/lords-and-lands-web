@@ -1,10 +1,11 @@
 import { game } from "..";
 
 export class Input {
-  public mouse: { x: number, y: number, pressed: boolean, moved: boolean };
+  public readonly MOVED_TRESHOLD = 32;
+  public mouse: { x: number, y: number, pressed: boolean, moved: number };
 
   constructor() {
-    this.mouse = { x: 0, y: 0, pressed: false, moved: false };
+    this.mouse = { x: 0, y: 0, pressed: false, moved: 0 };
 
     game.canvas.addEventListener("mousemove", (ev) => { this.onMouseMove(ev) })
     game.canvas.addEventListener("mousedown", (ev) => { this.onMouseDown(ev) })
@@ -21,10 +22,12 @@ export class Input {
 
   private onMouseMove(ev: MouseEvent) {
     if (this.mouse.pressed) {
-      game.camera.x += (this.mouse.x - ev.x) / game.camera.zoom;
-      game.camera.y += (this.mouse.y - ev.y) / game.camera.zoom;
+      const moveX = (this.mouse.x - ev.x) / game.camera.zoom;
+      const moveY = (this.mouse.y - ev.y) / game.camera.zoom;
+      game.camera.x += moveX;
+      game.camera.y += moveY;
 
-      this.mouse.moved = true;
+      this.mouse.moved += Math.abs(moveX) + Math.abs(moveY);
     }
 
     this.mouse.x = ev.x;
@@ -38,12 +41,12 @@ export class Input {
   }
 
   private onMouseUp(ev: MouseEvent) {
-    if (!this.mouse.moved) {
+    if (this.mouse.moved < this.MOVED_TRESHOLD) {
       game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y));
     }
 
     this.mouse.pressed = false;
-    this.mouse.moved = false;
+    this.mouse.moved = 0;
   }
 
   private onMouseLeave(ev: MouseEvent) {
@@ -63,16 +66,16 @@ export class Input {
     const y = ev.touches[0].clientY;
 
     if (this.mouse.pressed) {
-      game.camera.x += (this.mouse.x - x) / game.camera.zoom;
-      game.camera.y += (this.mouse.y - y) / game.camera.zoom;
+      const moveX = (this.mouse.x - x) / game.camera.zoom;
+      const moveY = (this.mouse.y - y) / game.camera.zoom;
+      game.camera.x += moveX;
+      game.camera.y += moveY;
 
-      this.mouse.moved = true;
+      this.mouse.moved += Math.abs(moveX) + Math.abs(moveY);
     }
 
     this.mouse.x = x;
     this.mouse.y = y;
-
-    //tilemap.highlightTile(util.worldToTilePos(this.mouse.x, this.mouse.y));
   }
 
   private onTouchStart(ev: TouchEvent) {
@@ -88,12 +91,12 @@ export class Input {
   private onTouchEnd(ev: TouchEvent) {
     ev.preventDefault();
 
-    if (!this.mouse.moved) {
+    if (this.mouse.moved < this.MOVED_TRESHOLD) {
       game.tilemap.selectProvince(game.util.worldPosToProvince(this.mouse.x, this.mouse.y))
     }
 
     this.mouse.pressed = false;
-    this.mouse.moved = false;
+    this.mouse.moved = 0;
   }
 
   private onTouchCancel(ev: TouchEvent) {
