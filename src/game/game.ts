@@ -87,7 +87,11 @@ export class Game {
 
   private addEventListeners() {
     window.addEventListener("resize", () => {
-      this.signals.onResize.dispatch(window.innerWidth, window.innerHeight)
-    })
+      this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
+    });
+
+    window.addEventListener("orientationchange", () => {
+      this.signals.onResize.dispatch(window.screen.availWidth, window.screen.availHeight);
+    });
   }
 }
