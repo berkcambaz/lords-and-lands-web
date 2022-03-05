@@ -123,8 +123,6 @@ export class ArmyData {
 
       // Update tilemap
       game.tilemap.drawTile(province);
-    } else if (province.landmark?.data.id === LANDMARK_ID.CAPITAL) {
-      this.onOccupy(province.army.country, province);
     }
   }
 
