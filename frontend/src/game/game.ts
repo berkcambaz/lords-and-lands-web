@@ -43,6 +43,9 @@ export class Game {
     document.body.appendChild(this.canvas);
 
     this.addEventListeners();
+
+    console.log(window.location);
+
   }
 
   public run() {
