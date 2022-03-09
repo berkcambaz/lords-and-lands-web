@@ -67,6 +67,10 @@ export function New() {
       </div>
 
       <div>
+        <input type="checkbox" /> Online <input type="text" placeholder="73b3Z" />
+      </div>
+
+      <div>
         <button class="btn" onclick={generate}>Generate</button>
         <button class="btn" onclick={start}>Start</button>
       </div>
