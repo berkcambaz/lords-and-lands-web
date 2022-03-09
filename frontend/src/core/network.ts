@@ -2,7 +2,7 @@ export class Network {
   public ws: WebSocket;
 
   constructor() {
-    this.ws = new WebSocket("ws://" + window.location.host);
+    this.ws = new WebSocket("ws://" + window.location.hostname + ":8888");
 
     this.ws.onopen = (ev) => {
       console.log("open");
