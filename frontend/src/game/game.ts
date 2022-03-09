@@ -1,6 +1,7 @@
 import { Camera } from "../core/camera";
 import { Input } from "../core/input";
 import { Maths } from "../core/maths";
+import { Network } from "../core/network";
 import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
@@ -24,6 +25,7 @@ export class Game {
   public tilemap!: Tilemap;
   public gameplay!: Gameplay;
   public ui!: UI;
+  public network!: Network;
 
   public signals: GameSignals;
 
@@ -43,9 +45,6 @@ export class Game {
     document.body.appendChild(this.canvas);
 
     this.addEventListeners();
-
-    console.log(window.location);
-
   }
 
   public run() {
@@ -59,6 +58,7 @@ export class Game {
     this.tilemap = new Tilemap();
     this.gameplay = new Gameplay();
     this.ui = new UI();
+    this.network = new Network();
 
     // Call resize event before starting the game
     this.signals.onResize.dispatch(window.innerWidth, window.innerHeight);

@@ -5,7 +5,6 @@
     "moduleResolution": "Node",
     "strict": true,
     "noImplicitAny": true,
-    "declaration": false,
     "rootDir": "src",
     "esModuleInterop": true
   },
