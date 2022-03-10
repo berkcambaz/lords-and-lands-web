@@ -1,4 +1,5 @@
 import { game } from "../../..";
+import { NETWORK_TYPE } from "../network";
 import { Packet } from "../packet";
 import { PACKET_ID } from "../packet_types";
 
@@ -19,6 +20,6 @@ export class PacketConnect extends Packet {
   }
 
   public handleBackend(): void {
-    console.log("Connected");
+    game.network.type = NETWORK_TYPE.CLIENT;
   }
 }
