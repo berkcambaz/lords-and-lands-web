@@ -1,5 +1,6 @@
 import { JSONHandler } from "./json_handler";
 import { Packet } from "./packet";
+import { PacketInit } from "./packets/packet_init";
 import { PacketHandler } from "./packet_handler";
 
 export enum NETWORK_TYPE {
@@ -22,6 +23,7 @@ export class Network {
 
     this.ws.onopen = (ev) => {
       console.log("open");
+      new PacketInit().sendBackend();
     }
 
     this.ws.onmessage = (ev) => {
@@ -45,17 +47,27 @@ export class Network {
   }
 
   public sendTo(packet: Packet, id: number) {
-    const data = { packet, id };
+    const data = { packet, id, type: "to" };
     this.ws.send(JSON.stringify(data));
   }
 
   public sendExcept(packet: Packet, id: number) {
-    const data = { packet, id };
+    const data = { packet, id, type: "except" };
     this.ws.send(JSON.stringify(data));
   }
 
   public sendAll(packet: Packet) {
-    const data = { packet };
+    const data = { packet, type: "all" };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  public sendToServer(packet: Packet) {
+    const data = { packet, type: "server" };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  public sendToBackend(packet: Packet) {
+    const data = { packet, id: 0 }
     this.ws.send(JSON.stringify(data));
   }
 

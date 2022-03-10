@@ -3,36 +3,67 @@ import websocket = require("ws");
 import { generateId } from "./id";
 
 export class Network {
-  private clients: { [key: string]: websocket.WebSocket };
+  private clients: { [key: string]: websocket.WebSocket[] };
   private ws: websocket.Server<websocket.WebSocket>;
 
   constructor() {
     this.clients = {};
 
-    this.ws = new websocket.Server({ host: "localhost", port: 8888 }, () => {
+    this.ws = new websocket.Server({ host: "0.0.0.0", port: 8888 }, () => {
       console.log("Websocket has started...")
     });
 
     this.ws.on("connection", (socket, req) => {
       console.log("open");
-      const id = generateId(5);
-      this.clients[id] = socket;
 
-      socket.send(JSON.stringify({ packet: { id: 0, uid: id } }) + "\n")
+      let id = "";
+      for (let i = 0; i < 5; ++i) {
+        id = generateId(5);
+        if (!this.clients[id]) break;
+      }
 
-      socket.on("message", () => {
-        console.log("message");
+      if (this.clients[id]) { socket.close(); return; }
+
+      socket.on("message", (data) => {
+        const json = (JSON.parse(data.toString()) as any);
+
+        switch (json.type) {
+          case "all":
+            break;
+          case "except":
+            break;
+          case "to":
+            break;
+          case "server":
+            break;
+          default:
+            if (json.id === 0) {
+              this.clients[id] = [socket];
+              socket.send(JSON.stringify({ packet: { id: 0, uid: id } }) + "\n")
+            }
+            break;
+        }
       })
 
       socket.on("close", () => {
         console.log("close");
-        delete this.clients[id];
+        this.disconnect(id);
       })
 
       socket.on("error", () => {
         console.log("error");
-        delete this.clients[id];
+        this.disconnect(id);
       })
     })
+  }
+
+  private disconnect(id: string) {
+    if (this.clients[id]) {
+      for (let i = 0; i < this.clients[id].length; ++i) {
+        this.clients[id][i].close(1000);
+      }
+    }
+
+    delete this.clients[id];
   }
 }

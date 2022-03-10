@@ -12,4 +12,7 @@ export class Packet {
 
   public sendClient() { }
   public handleClient() { }
+
+  public sendBackend() { }
+  public handleBackend() { }
 }

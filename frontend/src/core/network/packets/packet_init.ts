@@ -6,12 +6,16 @@ import { PACKET_ID } from "../packet_handler";
 export class PacketInit extends Packet {
   public uid!: string;
 
-  constructor(packet: {}) {
+  constructor(packet?: {}) {
     super(PACKET_ID.INIT);
     Object.assign(this, packet);
   }
 
-  public handleServer(): void {
+  public sendBackend(): void {
+    game.network.sendToBackend(this);
+  }
+
+  public handleBackend(): void {
     game.network.uid = this.uid;
     game.ui.menuHandler();
   }

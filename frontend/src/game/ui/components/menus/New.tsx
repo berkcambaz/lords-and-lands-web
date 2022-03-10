@@ -78,7 +78,7 @@ export function New() {
       <div>
         <input type="checkbox" checked={game.network.isStarted()} onchange={toggleOnline} />
         Online
-        <input type="text" ref={inputOnline} placeholder={game.network.uid === "" ? "Online code..." : game.network.uid} />
+        <input type="text" ref={inputOnline} placeholder={!game.network.uid ? "Online code..." : game.network.uid} />
       </div>
 
       <div>
