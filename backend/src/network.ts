@@ -36,7 +36,7 @@ export class Network {
             break;
           case "server":
             break;
-          default:
+          case "backend":
             if (json.id === 0) {
               this.clients[id] = [socket];
               socket.send(JSON.stringify({ packet: { id: 0, uid: id } }) + "\n")

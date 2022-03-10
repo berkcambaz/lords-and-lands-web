@@ -66,8 +66,8 @@ export class Network {
     this.ws.send(JSON.stringify(data));
   }
 
-  public sendToBackend(packet: Packet) {
-    const data = { packet, id: 0 }
+  public sendToBackend(packet: Packet, id: number) {
+    const data = { packet, id, type: "backend" }
     this.ws.send(JSON.stringify(data));
   }
 
