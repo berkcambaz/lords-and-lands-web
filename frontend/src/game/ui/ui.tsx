@@ -30,7 +30,7 @@ export class UI {
   private previous: (() => any)[];
 
   constructor() {
-    this.menuState = MENU_STATE.NEW;
+    this.menuState = MENU_STATE.MAIN;
     this.ingameState = INGAME_STATE.NONE;
     this.previous = [];
   }

@@ -11,6 +11,8 @@ export class Gameplay {
   public height!: number;
   public seed!: number;
 
+  public started!: boolean;
+
   public currentCountry!: Country;
   public currentProvince!: Province | undefined;
   public turn!: number;
@@ -22,6 +24,8 @@ export class Gameplay {
     this.height = height;
     this.seed = seed;
 
+    this.started = false;
+
     for (let i = 0; i < countries.length; ++i) {
       this.countries[i] = new Country(countries[i], 0, 0, 0, 0);
     }
@@ -30,6 +34,8 @@ export class Gameplay {
   }
 
   public start() {
+    this.started = true;
+
     // First country's turn
     this.currentCountry = this.countries[0];
     this.currentProvince = undefined;
@@ -45,8 +51,11 @@ export class Gameplay {
   }
 
   public selectProvince(province: Province | undefined) {
-    this.currentProvince = province;
-    game.ui.ingameHandler();
+    // If game is not started, ingamehandler is not a function
+    if (this.started) {
+      this.currentProvince = province;
+      game.ui.ingameHandler();
+    }
   }
 
   public nextTurn() {
