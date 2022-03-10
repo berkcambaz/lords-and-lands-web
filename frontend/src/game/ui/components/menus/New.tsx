@@ -1,11 +1,11 @@
 import { Soda } from "@dorkodu/soda";
 import { game } from "../../../..";
-import { INGAME_STATE, MENU_STATE } from "../../ui";
 
 export function New() {
   const [countries, setCountries] = Soda.state([true, true, true, true]);
   const [size, setSize] = Soda.state({ w: 10, h: 10 });
   const inputSeed = Soda.ref();
+  const inputOnline = Soda.ref();
 
   const toggleCountry = (id: number) => {
     let countryCount = 0;
@@ -76,7 +76,9 @@ export function New() {
       </div>
 
       <div>
-        <input type="checkbox" onchange={toggleOnline} /> Online <input type="text" placeholder="73b3Z" />
+        <input type="checkbox" checked={game.network.isStarted()} onchange={toggleOnline} />
+        Online
+        <input type="text" ref={inputOnline} placeholder={game.network.uid === "" ? "Online code..." : game.network.uid} />
       </div>
 
       <div>

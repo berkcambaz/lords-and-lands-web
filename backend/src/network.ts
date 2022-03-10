@@ -18,6 +18,8 @@ export class Network {
       const id = generateId(5);
       this.clients[id] = socket;
 
+      socket.send(JSON.stringify({ packet: { id: 0, uid: id } }) + "\n")
+
       socket.on("message", () => {
         console.log("message");
       })
