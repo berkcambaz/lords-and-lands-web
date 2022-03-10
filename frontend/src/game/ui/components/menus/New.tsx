@@ -1,5 +1,6 @@
 import { Soda } from "@dorkodu/soda";
 import { game } from "../../../..";
+import { PacketConnect } from "../../../../core/network/packets/packet_connect";
 
 export function New() {
   const [countries, setCountries] = Soda.state([true, true, true, true]);
@@ -31,6 +32,13 @@ export function New() {
     }
     else {
       game.network.start();
+    }
+  }
+
+  const oninputOnline = () => {
+    const uid = inputOnline.dom.value;
+    if (uid.length === 5 && game.network.isStarted()) {
+      new PacketConnect({ uid }).sendBackend();
     }
   }
 
@@ -78,7 +86,7 @@ export function New() {
       <div>
         <input type="checkbox" checked={game.network.isStarted()} onchange={toggleOnline} />
         Online
-        <input type="text" ref={inputOnline} placeholder={!game.network.uid ? "Online code..." : game.network.uid} />
+        <input type="text" oninput={oninputOnline} ref={inputOnline} placeholder={!game.network.uid ? "Online code..." : game.network.uid} />
       </div>
 
       <div>

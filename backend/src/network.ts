@@ -53,10 +53,12 @@ export class Network {
                 socket.send(JSON.stringify({ packet: { id: PACKET_ID.INIT, uid: client.id } }) + "\n")
                 break;
               case PACKET_ID.CONNECT:
-                this.connectTo(json.packet.uid, client.id);
+                this.connectTo(json.packet.data.uid, client.id);
+                socket.send(JSON.stringify({ packet: { id: PACKET_ID.CONNECT, uid: json.packet.data.uid } }) + "\n")
                 break;
               case PACKET_ID.DISCONNECT:
-                this.disconnectFrom(json.packet.uid, client.id);
+                this.disconnectFrom(json.packet.data.uid, client.id);
+                socket.send(JSON.stringify({ packet: { id: PACKET_ID.DISCONNECT, uid: "" } }) + "\n")
                 break;
             }
             break;
