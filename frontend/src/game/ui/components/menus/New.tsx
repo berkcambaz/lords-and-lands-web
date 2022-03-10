@@ -25,6 +25,15 @@ export function New() {
     setSize(size);
   }
 
+  const toggleOnline = () => {
+    if (game.network.isStarted()) {
+      game.network.stop();
+    }
+    else {
+      game.network.start();
+    }
+  }
+
   const generate = () => {
     const chosenCountries = [];
     for (let i = 0; i < countries.length; ++i)
@@ -67,7 +76,7 @@ export function New() {
       </div>
 
       <div>
-        <input type="checkbox" /> Online <input type="text" placeholder="73b3Z" />
+        <input type="checkbox" onchange={toggleOnline} /> Online <input type="text" placeholder="73b3Z" />
       </div>
 
       <div>

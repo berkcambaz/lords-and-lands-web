@@ -1,7 +1,7 @@
 import { Camera } from "../core/camera";
 import { Input } from "../core/input";
 import { Maths } from "../core/maths";
-import { Network } from "../core/network";
+import { Network } from "../core/network/network";
 import { Random } from "../core/random";
 import { Resources } from "../core/resources";
 import { Signal } from "../core/signal";
