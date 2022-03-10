@@ -1,5 +1,5 @@
 export function generateId(length: number) {
-  const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let id = "";
 
   for (let i = 0; i < length; ++i) {

@@ -43,13 +43,8 @@ export function New() {
   }
 
   const generate = () => {
-    const chosenCountries = [];
-    for (let i = 0; i < countries.length; ++i)
-      if (countries[i])
-        chosenCountries.push(i);
-
     const seed = parseInt(inputSeed.dom.value) || Date.now();
-    game.gameplay.create(size.w, size.h, seed, chosenCountries);
+    game.gameplay.create(size.w, size.h, seed, countries);
   }
 
   const start = () => {

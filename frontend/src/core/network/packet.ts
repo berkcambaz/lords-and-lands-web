@@ -7,12 +7,12 @@ export class Packet {
     this.id = id;
   }
 
-  public sendServer() { }
+  public sendToServer() { }
   public handleServer() { }
 
-  public sendClient() { }
+  public sendToClient() { }
   public handleClient() { }
 
-  public sendBackend() { }
+  public sendToBackend() { }
   public handleBackend() { }
 }

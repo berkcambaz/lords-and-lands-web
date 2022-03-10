@@ -46,29 +46,34 @@ export class Network {
     this.ws.close(1000);
   }
 
-  public sendTo(packet: Packet, id: number) {
-    const data = { packet, id, type: "to" };
-    this.ws.send(JSON.stringify(data));
+  public sendTo(packet: Packet, uid: string) {
+    if (!this.ws || !this.isOnline()) return;
+    const data = { packet, uid, type: "to" };
+    this.ws.send(JSON.stringify(data) + "\n");
   }
 
-  public sendExcept(packet: Packet, id: number) {
-    const data = { packet, id, type: "except" };
-    this.ws.send(JSON.stringify(data));
+  public sendExcept(packet: Packet, uid: string) {
+    if (!this.ws || !this.isOnline()) return;
+    const data = { packet, uid, type: "except" };
+    this.ws.send(JSON.stringify(data) + "\n");
   }
 
   public sendAll(packet: Packet) {
+    if (!this.ws || !this.isOnline()) return;
     const data = { packet, type: "all" };
-    this.ws.send(JSON.stringify(data));
+    this.ws.send(JSON.stringify(data) + "\n");
   }
 
   public sendToServer(packet: Packet) {
+    if (!this.ws || !this.isOnline()) return;
     const data = { packet, type: "server" };
-    this.ws.send(JSON.stringify(data));
+    this.ws.send(JSON.stringify(data) + "\n");
   }
 
-  public sendToBackend(packet: Packet, id: number) {
-    const data = { packet, id, type: "backend" }
-    this.ws.send(JSON.stringify(data));
+  public sendToBackend(packet: Packet) {
+    if (!this.ws || !this.isOnline()) return;
+    const data = { packet, type: "backend" }
+    this.ws.send(JSON.stringify(data) + "\n");
   }
 
   public isOnline() {

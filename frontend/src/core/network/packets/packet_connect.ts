@@ -16,7 +16,7 @@ export class PacketConnect extends Packet {
   }
 
   public sendBackend(): void {
-    game.network.sendToBackend(this, PACKET_ID.CONNECT);
+    game.network.sendToBackend(this);
   }
 
   public handleBackend(): void {

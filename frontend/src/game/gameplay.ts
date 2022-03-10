@@ -1,4 +1,5 @@
 import { game } from "..";
+import { PacketMapGeneration } from "../core/network/packets/packet_map_generate";
 import { Country, COUNTRY_ID } from "./country";
 import { LANDMARK_ID } from "./data/landmarks/_landmark_data";
 import { Province } from "./province";
@@ -17,7 +18,12 @@ export class Gameplay {
   public currentProvince!: Province | undefined;
   public turn!: number;
 
-  public create(width: number, height: number, seed: number, countries: COUNTRY_ID[]) {
+  public create(width: number, height: number, seed: number, countries: boolean[]) {
+    const chosenCountries = [];
+    for (let i = 0; i < countries.length; ++i)
+      if (countries[i])
+        chosenCountries.push(i);
+
     this.countries = [];
     this.provinces = [];
     this.width = width;
@@ -26,11 +32,13 @@ export class Gameplay {
 
     this.started = false;
 
-    for (let i = 0; i < countries.length; ++i) {
-      this.countries[i] = new Country(countries[i], 0, 0, 0, 0);
+    for (let i = 0; i < chosenCountries.length; ++i) {
+      this.countries[i] = new Country(chosenCountries[i], 0, 0, 0, 0);
     }
 
     game.tilemap.generate(width, height, seed, this.countries, this.provinces);
+
+    new PacketMapGeneration({ width, height, seed, countries }).sendToClient();
   }
 
   public start() {

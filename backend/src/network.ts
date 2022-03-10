@@ -33,32 +33,56 @@ export class Network {
       }
 
       if (this.clients[client.id]) { socket.close(); return; }
+      this.clients[client.id] = client;
 
       socket.on("message", (data) => {
         const json = (JSON.parse(data.toString()) as any);
 
         switch (json.type) {
           case "all":
+            if (this.rooms[client.id]) {
+              for (let i = 0; i < this.rooms[client.id].length; ++i) {
+                if (this.rooms[client.id][i].id !== client.id)
+                  this.rooms[client.id][i].socket.send(JSON.stringify({ packet: json.packet }) + "\n");
+              }
+            }
             break;
           case "except":
+            if (this.rooms[client.id]) {
+              for (let i = 0; i < this.rooms[client.id].length; ++i) {
+                if (this.rooms[client.id][i].id !== client.id && this.rooms[client.id][i].id !== json.id)
+                  this.rooms[client.id][i].socket.send(JSON.stringify({ packet: json.packet }) + "\n");
+              }
+            }
             break;
           case "to":
+            if (this.rooms[client.id]) {
+              for (let i = 0; i < this.rooms[client.id].length; ++i) {
+                if (this.rooms[client.id][i].id !== client.id && this.rooms[client.id][i].id === json.id) {
+                  this.rooms[client.id][i].socket.send(JSON.stringify({ packet: json.packet }) + "\n");
+                  break;
+                }
+              }
+            }
             break;
           case "server":
+            if (this.rooms[client.id]) {
+              this.rooms[client.id][0].socket.send(JSON.stringify({ packet: json.packet }) + "\n");
+            }
             break;
           case "backend":
-            switch (json.id) {
+            switch (json.packet.id) {
               case PACKET_ID.INIT:
                 this.rooms[client.id] = [client];
                 socket.send(JSON.stringify({ packet: { id: PACKET_ID.INIT, uid: client.id } }) + "\n")
                 break;
               case PACKET_ID.CONNECT:
-                this.connectTo(json.packet.data.uid, client.id);
-                socket.send(JSON.stringify({ packet: { id: PACKET_ID.CONNECT, uid: json.packet.data.uid } }) + "\n")
+                if (this.connectTo(json.packet.data.uid, client.id))
+                  socket.send(JSON.stringify({ packet: { id: PACKET_ID.CONNECT, uid: json.packet.data.uid } }) + "\n")
                 break;
               case PACKET_ID.DISCONNECT:
-                this.disconnectFrom(json.packet.data.uid, client.id);
-                socket.send(JSON.stringify({ packet: { id: PACKET_ID.DISCONNECT, uid: "" } }) + "\n")
+                if (this.disconnectFrom(json.packet.data.uid, client.id))
+                  socket.send(JSON.stringify({ packet: { id: PACKET_ID.DISCONNECT, uid: "" } }) + "\n")
                 break;
             }
             break;
@@ -80,7 +104,11 @@ export class Network {
   private connectTo(roomId: string, clientId: string) {
     if (this.rooms[roomId]) {
       this.rooms[roomId].push(this.clients[clientId]);
+
+      return true;
     }
+
+    return false;
   }
 
   private disconnectFrom(roomId: string, clientId: string) {
@@ -88,9 +116,12 @@ export class Network {
       for (let i = 0; i < this.rooms[roomId].length; ++i) {
         if (this.rooms[roomId][i].id === clientId) {
           this.rooms[roomId].splice(i, 1);
+          return true;
         }
       }
     }
+
+    return false;
   }
 
   private disconnect(id: string) {

@@ -16,7 +16,7 @@ export class PacketInit extends Packet {
   }
 
   public sendBackend(): void {
-    game.network.sendToBackend(this, PACKET_ID.INIT);
+    game.network.sendToBackend(this);
   }
 
   public handleBackend(): void {

@@ -16,7 +16,7 @@ export class PacketDisconnect extends Packet {
   }
 
   public sendBackend(): void {
-    game.network.sendToBackend(this, PACKET_ID.DISCONNECT);
+    game.network.sendToBackend(this);
   }
 
   public handleBackend(): void {
