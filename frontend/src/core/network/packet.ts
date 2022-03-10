@@ -1,4 +1,4 @@
-import { PACKET_ID } from "./packet_handler";
+import { PACKET_ID } from "./packet_types";
 
 export class Packet {
   public id: PACKET_ID;

@@ -1,10 +1,9 @@
 import { game } from "../..";
 import { NETWORK_TYPE } from "./network";
 import { PacketInit } from "./packets/packet_init";
+import { PACKET_ID } from "./packet_types";
 
-export enum PACKET_ID {
-  INIT
-}
+
 
 export class PacketHandler {
   public static handle(packet: any) {

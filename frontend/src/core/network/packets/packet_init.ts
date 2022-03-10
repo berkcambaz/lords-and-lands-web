@@ -1,6 +1,6 @@
 import { game } from "../../..";
 import { Packet } from "../packet";
-import { PACKET_ID } from "../packet_handler";
+import { PACKET_ID } from "../packet_types";
 
 // The backend server uses this packet to send id to the server
 export class PacketInit extends Packet {
@@ -12,7 +12,7 @@ export class PacketInit extends Packet {
   }
 
   public sendBackend(): void {
-    game.network.sendToBackend(this);
+    game.network.sendToBackend(this, PACKET_ID.INIT);
   }
 
   public handleBackend(): void {
